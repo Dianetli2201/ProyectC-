@@ -1,4 +1,4 @@
- using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,15 +6,19 @@ using System.Threading.Tasks;
 
 namespace maintenance_calibration_system.Domain.Datos_de_Configuración
 {
- public class PhysicalMagnitude
+    /// <summary>
+    /// Representa una magnitud física en el sistema.
+    /// </summary>
+    public abstract class PhysicalMagnitude
     {
-        public string name{get;set;}
-        public string Magnitude{get;set;}
+      
+        public string Name { get; set; }      // Nombre de la magnitud física
+        public string Magnitude { get; set; }    // Valor de la magnitud física
 
         public PhysicalMagnitude(string name, string magnitude)
         {
-            this.name = name;
-            this.Magnitude = magnitude;
+            Name = name;       
+            Magnitude = magnitude; 
         }
     }
 }

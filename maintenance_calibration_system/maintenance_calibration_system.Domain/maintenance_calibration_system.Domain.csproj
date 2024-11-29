@@ -6,4 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Types\PlanningType.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Types\PlanningType.cs" />
+  </ItemGroup>
+
 </Project>

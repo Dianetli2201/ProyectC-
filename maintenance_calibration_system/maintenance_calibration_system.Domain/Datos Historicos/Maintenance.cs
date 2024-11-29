@@ -1,41 +1,31 @@
- using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using maintenance_calibration_system.Domain.Types;
-using maintenance_calibration_system.Domain.Datos_de_Configuracion;
+using maintenance_calibration_system.Domain.Datos_de_Configuración;
+
+
 namespace maintenance_calibration_system.Domain.Datos_Historicos
 {
- public class Maintenance
+    public abstract class Maintenance : MaintenanceActivity
     {
-        public string codeControl {get;set;} 
-        public CommunicationProtocol protocol{get;set;}
-        public SignalControl signalControl{get;set;}
 
-        public TypeMaintenance typeMaintenance{get; set;}
-        public string dateMaintenance{get; set;}
-        public string nameTechnician{get; set;}
-        public List<Actuador> maintenanceActuador {get;set;}  
-       
-        public Maintenance (PhysicalMagnitude physicalMagnitude, string alphaNumericCode,string manufacturerName,CommunicationProtocol protocol,string codeControl, SignalControl signalControl, TypeMaintenance typeMaintenance, string dateMaintenance, string nameTechnician)
+        public TypeMaintenance TypeMaintenance { get; set; }   // Tipo de mantenimiento
+        public List<Actuador> MaintenanceActuador { get; set; } // Lista de actuadores en mantenimiento
+        public Maintenance(DateTime dateActivity, Actuador maintainedActuator, TypeMaintenance typeMaintenance, string nameTechnician) 
+            : base( dateActivity, nameTechnician) // Llama al constructor base.ntenance typeMaintenance, string dateMaintenance, string nameTechnician)
         {
-            this.physicalMagnitude = physicalMagnitude;
-            this.alphaNumericCode = alphaNumericCode;
-            this.manufacturerName = manufacturerName;
-            this.protocol = protocol;
-            this.codeControl = codeControl;
-            this.signalControl = signalControl;
-            this.typeMaintenance = typeMaintenance;
-            this.dateMaintenance = dateMaintenance;
-            this.nameTechnician = nameTechnician;
-            maintenance = false;
-        }
-         /*Ver el llenado de la lista*/
-         public Maintenance()
-        {
-            maintenanceActuador = Main.actuadores.Where((x) => x.maintenance).ToList();
+            TypeMaintenance = typeMaintenance;
+            MaintenanceActuador = new List<Actuador>();
         }
 
-    } 
+        /* Ver el llenado de la lista 
+        public Maintenance()
+        {
+            MaintenanceActuador = Main.Actuadores.Where(x => x.Maintenance).ToList(); // Obtener actuadores en mantenimiento
+        }
+        */
+    }
 }
