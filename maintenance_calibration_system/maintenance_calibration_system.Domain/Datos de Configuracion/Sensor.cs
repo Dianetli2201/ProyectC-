@@ -26,7 +26,7 @@ namespace maintenance_calibration_system.Domain.Datos_de_Configuración
         {
             Protocol = protocol;
             PrincipleOperation = principleOperation;
-            Calibrated = false;
+            
         }
     }
 }
