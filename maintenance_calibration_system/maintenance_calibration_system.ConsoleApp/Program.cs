@@ -1,4 +1,4 @@
-﻿namespace maintenance_calibration_system
+﻿namespace maintenance_calibration_system.ConsoleApp
 {
     internal class Program
     {
