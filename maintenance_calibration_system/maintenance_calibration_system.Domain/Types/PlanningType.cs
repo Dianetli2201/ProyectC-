@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace maintenance_calibration_system.Domain.Types
 {
-public enum PlanningType
+        public enum PlanningType
         {
             Calibration,
             Maintenance

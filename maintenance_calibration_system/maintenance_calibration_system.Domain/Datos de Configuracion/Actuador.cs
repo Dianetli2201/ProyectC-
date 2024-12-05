@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using maintenance_calibration_system.Domain.Common;
 using maintenance_calibration_system.Domain.Datos_de_Configuracion;
 using maintenance_calibration_system.Domain.Types;
-
+using maintenance_calibration_system.Domain.ValueObjects;
 
 namespace maintenance_calibration_system.Domain.Datos_de_Configuración
 {
@@ -23,8 +23,8 @@ namespace maintenance_calibration_system.Domain.Datos_de_Configuración
         /// <summary>
         /// Constructor para crear una instancia de Actuador.
         /// </summary>
-        public Actuador(string alphanumericCode, PhysicalMagnitude magnitude, string manufacturer, CommunicationProtocol protocol, string codeControl, SignalControl signalControl)
-         : base(alphanumericCode, magnitude, manufacturer) // Llama al constructor base.
+        public Actuador(Guid id, string alphanumericCode, PhysicalMagnitude magnitude, string manufacturer, CommunicationProtocol protocol, string codeControl, SignalControl signalControl)
+         : base(id, alphanumericCode, magnitude, manufacturer) // Llama al constructor base.
         {
             Protocol = protocol;
             CodeControl = codeControl;

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using maintenance_calibration_system.Domain.Types;
 using maintenance_calibration_system.Domain.Datos_de_Configuración;
-
+using maintenance_calibration_system.Domain.Common;
 
 namespace maintenance_calibration_system.Domain.Datos_Historicos
 {
@@ -14,8 +14,9 @@ namespace maintenance_calibration_system.Domain.Datos_Historicos
 
         public TypeMaintenance TypeMaintenance { get; set; }   // Tipo de mantenimiento
         public List<Actuador> MaintenanceActuador { get; set; } // Lista de actuadores en mantenimiento
-        public Maintenance(DateTime dateActivity, Actuador maintainedActuator, TypeMaintenance typeMaintenance, string nameTechnician) 
-            : base( dateActivity, nameTechnician) // Llama al constructor base.ntenance typeMaintenance, string dateMaintenance, string nameTechnician)
+
+        public Maintenance(Guid id, DateTime dateActivity, Actuador maintainedActuator, TypeMaintenance typeMaintenance, string nameTechnician) 
+            : base(id, dateActivity, nameTechnician) // Llama al constructor base.ntenance typeMaintenance, string dateMaintenance, string nameTechnician)
         {
             TypeMaintenance = typeMaintenance;
             MaintenanceActuador = new List<Actuador>();

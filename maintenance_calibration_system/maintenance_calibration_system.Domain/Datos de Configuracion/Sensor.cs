@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using maintenance_calibration_system.Domain.Common;
 using maintenance_calibration_system.Domain.Datos_de_Configuracion;
 using maintenance_calibration_system.Domain.Types;
+using maintenance_calibration_system.Domain.ValueObjects;
 
 namespace maintenance_calibration_system.Domain.Datos_de_Configuración
 {
@@ -21,8 +22,8 @@ namespace maintenance_calibration_system.Domain.Datos_de_Configuración
         /// <summary>
         /// Constructor para crear una instancia de Sensor.
         /// </summary>
-        public Sensor(string alphanumericCode, PhysicalMagnitude magnitude, string manufacturer, CommunicationProtocol protocol, string principleOperation)
-             : base(alphanumericCode, magnitude, manufacturer) // Llama al constructor base.    
+        public Sensor(Guid id, string alphanumericCode, PhysicalMagnitude magnitude, string manufacturer, CommunicationProtocol protocol, string principleOperation)
+             : base(id, alphanumericCode, magnitude, manufacturer) // Llama al constructor base.    
         {
             Protocol = protocol;
             PrincipleOperation = principleOperation;

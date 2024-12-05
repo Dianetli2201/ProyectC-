@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using maintenance_calibration_system.Domain.Common;
+using maintenance_calibration_system.Domain.ValueObjects;
 
 namespace maintenance_calibration_system.Domain.Datos_de_Configuracion
 {
@@ -14,7 +15,8 @@ namespace maintenance_calibration_system.Domain.Datos_de_Configuracion
             public PhysicalMagnitude Magnitude { get; set; } // Magnitud física asociada.
             public string Manufacturer { get; set; } // Nombre del fabricante.
 
-            protected Equipment(string alphanumericCode, PhysicalMagnitude magnitude, string manufacturer) // Constructor.
+        protected Equipment(Guid id, string alphanumericCode, PhysicalMagnitude magnitude, string manufacturer)
+            :base(id)// Constructor.
             {
                 AlphanumericCode = alphanumericCode;
                 Magnitude = magnitude;

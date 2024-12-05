@@ -12,9 +12,9 @@ namespace maintenance_calibration_system.Domain.Datos_de_Planificación
     /// </summary>
     public abstract class Planning
     {
-        public required string EquipmentElement { get; init; } // Equipo que planificó el evento
-        public required PlanningType Type { get; init; }       // Tipo de planificación
-        public required DateTime ExecutionDate { get; init; }  // Fecha de ejecución
+        public required string EquipmentElement { get; set; } // Equipo que planificó el evento
+        public  PlanningType Type { get; set; }       // Tipo de planificación
+        public required DateTime ExecutionDate { get; set; }  // Fecha de ejecución
 
         protected Planning(string equipmentElement, PlanningType type, DateTime executionDate)
         {
