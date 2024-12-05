@@ -5,7 +5,9 @@ VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "maintenance_calibration_system.Domain", "maintenance_calibration_system.Domain\maintenance_calibration_system.Domain.csproj", "{9F7E2355-EC7C-486F-B648-9D48375C0EBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "maintenance_calibration_system.ConsoleApp", "maintenance_calibration_system.ConsoleApp\maintenance_calibration_system.ConsoleApp.csproj", "{837B04EA-B355-429E-A8D4-3BB3DEF72B68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "maintenance_calibration_system.ConsoleApp", "maintenance_calibration_system.ConsoleApp\maintenance_calibration_system.ConsoleApp.csproj", "{837B04EA-B355-429E-A8D4-3BB3DEF72B68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "maintenance_calibration_system.DataAccess", "maintenance_calibration_system.DataAccess\maintenance_calibration_system.DataAccess.csproj", "{5A11358B-5895-4CE9-B23F-6B99C55F31E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{837B04EA-B355-429E-A8D4-3BB3DEF72B68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{837B04EA-B355-429E-A8D4-3BB3DEF72B68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{837B04EA-B355-429E-A8D4-3BB3DEF72B68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A11358B-5895-4CE9-B23F-6B99C55F31E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A11358B-5895-4CE9-B23F-6B99C55F31E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A11358B-5895-4CE9-B23F-6B99C55F31E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A11358B-5895-4CE9-B23F-6B99C55F31E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

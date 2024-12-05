@@ -15,11 +15,12 @@ namespace maintenance_calibration_system.Domain.Datos_de_Configuración
     /// </summary>
     public abstract class Actuador : Equipment
     {
-        public string CodeControl { get; set; }      // Código de control (obligatorio)
-        public CommunicationProtocol Protocol { get; set; } // Protocolo de comunicación (obligatorio)
-        public SignalControl SignalControl { get; set; }     // Control de señal (obligatorio)
-        public bool Maintenance { get; set; } = false; // Mantenimiento (predeterminado: false)
-
+        #region Properties
+            public string CodeControl { get; set; }      // Código de control (obligatorio)
+            public CommunicationProtocol Protocol { get; set; } // Protocolo de comunicación (obligatorio)
+            public SignalControl SignalControl { get; set; }     // Control de señal (obligatorio)
+            public bool Maintenance { get; set; } = false; // Mantenimiento (predeterminado: false)
+        #endregion
         /// <summary>
         /// Constructor para crear una instancia de Actuador.
         /// </summary>

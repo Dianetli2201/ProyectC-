@@ -11,10 +11,11 @@ namespace maintenance_calibration_system.Domain.Datos_Historicos
 {
     public abstract class Maintenance : MaintenanceActivity
     {
+        #region Properties
+            public TypeMaintenance TypeMaintenance { get; set; }   // Tipo de mantenimiento
+            public List<Actuador> MaintenanceActuador { get; set; } // Lista de actuadores en mantenimiento
 
-        public TypeMaintenance TypeMaintenance { get; set; }   // Tipo de mantenimiento
-        public List<Actuador> MaintenanceActuador { get; set; } // Lista de actuadores en mantenimiento
-
+        #endregion
         public Maintenance(Guid id, DateTime dateActivity, Actuador maintainedActuator, TypeMaintenance typeMaintenance, string nameTechnician) 
             : base(id, dateActivity, nameTechnician) // Llama al constructor base.ntenance typeMaintenance, string dateMaintenance, string nameTechnician)
         {

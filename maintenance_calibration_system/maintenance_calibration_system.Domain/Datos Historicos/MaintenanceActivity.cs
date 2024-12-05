@@ -9,10 +9,12 @@ namespace maintenance_calibration_system.Domain.Datos_Historicos
 {
     public abstract class MaintenanceActivity : Entity
     {
-            public DateTime DateActivity { get; set; } // Fecha en que se realizó la actividad.
-            public string NameTechnician { get; set; } // Nombre del técnico que realizó la actividad.
-
-            protected MaintenanceActivity(Guid id, DateTime dateActivity, string nameTechnician)
+        #region Properties
+                public DateTime DateActivity { get; set; } // Fecha en que se realizó la actividad.
+                public string NameTechnician { get; set; } // Nombre del técnico que realizó la actividad.
+        
+        #endregion
+        protected MaintenanceActivity(Guid id, DateTime dateActivity, string nameTechnician)
                 :base(id) // Constructor.
             {
                 DateActivity = dateActivity;

@@ -11,9 +11,11 @@ namespace maintenance_calibration_system.Domain.Datos_Historicos
 {
     public abstract class Calibration : MaintenanceActivity
     {
-
-        public string NameCertificateAuthority { get; set; }      // Nombre de la autoridad certificadora
-        public List<Sensor> CalibratedSensors { get; set; }       // Lista de sensores calibrados
+        #region Properties
+            public string NameCertificateAuthority { get; set; }      // Nombre de la autoridad certificadora
+            public List<Sensor> CalibratedSensors { get; set; }       // Lista de sensores calibrados
+        
+        #endregion
 
         public Calibration(Guid id, string nameCertificateAuthority, DateTime dateActivity, Sensor calibratedSensor, string nameTechnician, string certifyingEntity)
             : base(id, dateActivity, nameTechnician) // Llama al constructor base.

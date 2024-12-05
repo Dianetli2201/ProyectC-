@@ -15,10 +15,12 @@ namespace maintenance_calibration_system.Domain.Datos_de_Configuración
     /// </summary>
     public abstract class Sensor : Equipment
     {
-        public string PrincipleOperation { get; set; }            // Principio de operación del sensor
-        public bool Calibrated { get; set; } = false;            // Indica si el sensor está calibrado (predeterminado: false)
-        public CommunicationProtocol Protocol { get; set; }       // Protocolo de comunicación utilizado por el sensor
+        #region Properties
+            public string PrincipleOperation { get; set; }            // Principio de operación del sensor
+            public bool Calibrated { get; set; } = false;            // Indica si el sensor está calibrado (predeterminado: false)
+            public CommunicationProtocol Protocol { get; set; }       // Protocolo de comunicación utilizado por el sensor
 
+        #endregion
         /// <summary>
         /// Constructor para crear una instancia de Sensor.
         /// </summary>

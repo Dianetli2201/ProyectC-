@@ -11,9 +11,11 @@ namespace maintenance_calibration_system.Domain.Datos_de_Configuracion
 {
     public abstract class Equipment : Entity
     {
+        #region Properties
             public string AlphanumericCode { get; set; } // Código alfanumérico del equipo.
             public PhysicalMagnitude Magnitude { get; set; } // Magnitud física asociada.
             public string Manufacturer { get; set; } // Nombre del fabricante.
+        #endregion
 
         protected Equipment(Guid id, string alphanumericCode, PhysicalMagnitude magnitude, string manufacturer)
             :base(id)// Constructor.
