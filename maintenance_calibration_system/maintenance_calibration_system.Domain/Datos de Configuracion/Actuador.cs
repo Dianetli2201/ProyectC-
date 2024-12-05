@@ -7,6 +7,7 @@ using maintenance_calibration_system.Domain.Common;
 using maintenance_calibration_system.Domain.Datos_de_Configuracion;
 using maintenance_calibration_system.Domain.Types;
 
+
 namespace maintenance_calibration_system.Domain.Datos_de_Configuración
 {
     /// <summary>

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace maintenance_calibration_system.Domain.Common // Espacio de nombres para clases comunes del dominio.
+namespace maintenance_calibration_system.Domain.Common 
 {
     public abstract class ValueObject // Clase base abstracta para objetos de valor.
     {
