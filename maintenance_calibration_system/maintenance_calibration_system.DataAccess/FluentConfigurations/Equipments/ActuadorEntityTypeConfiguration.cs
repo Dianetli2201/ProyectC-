@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using maintenance_calibration_system.Domain.Datos_de_Configuracion;
 
 namespace maintenance_calibration_system.DataAccess.FluentConfigurations.Equipments
 {
@@ -14,8 +15,8 @@ namespace maintenance_calibration_system.DataAccess.FluentConfigurations.Equipme
     {
         public void Configure(EntityTypeBuilder<Actuador> builder)
         {
-            builder.ToTable("Actuadores");
-            builder.HasBaseType(typeof(Actuador));
+            builder.ToTable("Equipments");
+            builder.HasBaseType(typeof(Equipment));
 
             //Configurando propiedades
             builder.Property(a => a.SignalControl).IsRequired();

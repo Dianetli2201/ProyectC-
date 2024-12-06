@@ -17,7 +17,8 @@ namespace maintenance_calibration_system.DataAccess.FluentConfigurations.Mainten
         public override void Configure(EntityTypeBuilder<MaintenanceActivity> builder)
         {
             builder.ToTable("MaintenanceActivities");
-           
+            base.Configure(builder);
+
             //Configurando propiedades
             builder.Property(x => x.NameTechnician).IsRequired();   
             builder.Property(x => x.DateActivity).IsRequired();

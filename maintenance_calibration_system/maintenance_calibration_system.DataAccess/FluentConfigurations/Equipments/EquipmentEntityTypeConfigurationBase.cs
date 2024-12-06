@@ -22,14 +22,13 @@ namespace maintenance_calibration_system.DataAccess.FluentConfigurations.Equipme
 
 
             //Configurando propiedades
-            builder.OwnsOne(e => e.Magnitude, m =>
+            builder.OwnsOne(e => e.Magnitude, mg =>
             {
-                m.Property(p => p.Name).IsRequired();
-                m.Property(p => p.UnitofMagnitude).IsRequired();
+                mg.Property(p => p.Name).IsRequired();
+                mg.Property(p => p.UnitofMagnitude).IsRequired();
             });
 
             builder.Property(e=> e.Manufacturer).IsRequired();
-
             builder.Property(e => e.AlphanumericCode).IsRequired();
 
             // Configuración de la discriminación de herencia

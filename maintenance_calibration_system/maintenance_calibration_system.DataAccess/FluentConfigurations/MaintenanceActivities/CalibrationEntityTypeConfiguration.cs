@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using maintenance_calibration_system.Domain.Datos_de_Configuracion;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +16,7 @@ namespace maintenance_calibration_system.DataAccess.FluentConfigurations.Mainten
     {
         public void Configure(EntityTypeBuilder<Calibration> builder)
         {
-            builder.ToTable("Calibraciones");
+            builder.ToTable("MaintenanceActivities");
             builder.HasBaseType(typeof(MaintenanceActivity));
             
             //Configurando propiedades

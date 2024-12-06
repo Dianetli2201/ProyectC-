@@ -17,7 +17,7 @@ namespace maintenance_calibration_system.DataAccess.FluentConfigurations.Equipme
         public void Configure(EntityTypeBuilder<Sensor> builder)
         {
 
-            builder.ToTable("Sensors");
+            builder.ToTable("Equipments");
             builder.HasBaseType(typeof(Equipment));
 
             //Configurando propiedades

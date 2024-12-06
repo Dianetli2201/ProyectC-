@@ -15,7 +15,7 @@ namespace maintenance_calibration_system.DataAccess.FluentConfigurations.Mainten
     {
         public void Configure(EntityTypeBuilder<Maintenance> builder)
         {
-            builder.ToTable("Mantenimientos");
+            builder.ToTable("MaintenanceActivities");
             builder.HasBaseType(typeof(MaintenanceActivity));
 
             //Configurando propiedades

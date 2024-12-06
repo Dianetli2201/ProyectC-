@@ -1,6 +1,8 @@
 ﻿
 using maintenance_calibration_system.Domain.Datos_de_Configuracion;
+using maintenance_calibration_system.Domain.Datos_de_Planificación;
 using maintenance_calibration_system.Domain.Datos_Historicos;
+using maintenance_calibration_system.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -15,8 +17,10 @@ namespace maintenance_calibration_system.DataAccess.Contexts
         #region Tables
 
         public DbSet<Equipment> Equipments { get; set; }
+
         public DbSet<MaintenanceActivity> MaintenanceActivities { get; set; }
 
+        public DbSet<Planning> Plannings { get; set; }
         #endregion
 
         public ApplicationContext() 
@@ -50,6 +54,9 @@ namespace maintenance_calibration_system.DataAccess.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationContext).Assembly);
         }
+
     }
 }

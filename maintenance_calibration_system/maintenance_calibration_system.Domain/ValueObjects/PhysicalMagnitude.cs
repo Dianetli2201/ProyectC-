@@ -10,7 +10,7 @@ namespace maintenance_calibration_system.Domain.ValueObjects
     /// <summary>
     /// Representa una magnitud física en el sistema.
     /// </summary>
-    public abstract class PhysicalMagnitude : ValueObject
+    public class PhysicalMagnitude : ValueObject
     {
 
         public string? Name { get; set; } 
@@ -27,6 +27,11 @@ namespace maintenance_calibration_system.Domain.ValueObjects
         {
             yield return Name;
             yield return UnitofMagnitude;
+        }
+
+        public override int GetHashCode()
+        {
+            return (Name, UnitofMagnitude).GetHashCode();
         }
     }
 }

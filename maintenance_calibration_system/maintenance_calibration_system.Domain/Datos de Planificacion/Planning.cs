@@ -11,7 +11,7 @@ namespace maintenance_calibration_system.Domain.Datos_de_Planificación
     /// <summary>
     /// Representa un evento de planificación para futuras calibraciones o mantenimiento.
     /// </summary>
-    public abstract class Planning : Entity
+    public class Planning : Entity
     {
         #region Properties
             public required string EquipmentElement { get; set; } // Equipo que planificó el evento
