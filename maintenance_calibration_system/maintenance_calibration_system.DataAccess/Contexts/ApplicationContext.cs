@@ -28,6 +28,11 @@ namespace maintenance_calibration_system.DataAccess.Contexts
         {
         }
 
+        private static DbContextOptions GetOptions(string connectionString)
+        {
+            throw new NotImplementedException();
+        }
+
         public ApplicationContext(DbContextOptions<ApplicationContext> options )
             : base(options) 
         {

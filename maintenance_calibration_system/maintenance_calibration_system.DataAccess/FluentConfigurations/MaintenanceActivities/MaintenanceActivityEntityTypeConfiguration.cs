@@ -1,5 +1,8 @@
-﻿using maintenance_calibration_system.Domain.Datos_Historicos;
+﻿using maintenance_calibration_system.DataAccess.FluentConfigurations.Common;
+using maintenance_calibration_system.Domain.Datos_Historicos;
+using maintenance_calibration_system.Domain.Datos_de_Configuracion;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,13 +11,15 @@ using System.Threading.Tasks;
 
 namespace maintenance_calibration_system.DataAccess.FluentConfigurations.MaintenanceActivities
 {
-    public class MaintenanceActivityEntityTypeConfiguration
-        :IEntityTypeConfiguration<MaintenanceActivity>
+    public class MaintenanceActivityEntityTypeConfigurationBase
+        :EntityTypeConfigurationBase<MaintenanceActivity>
     {
-        public void Configure(EntityTypeBuilder<MaintenanceActivity> builder)
+        public override void Configure(EntityTypeBuilder<MaintenanceActivity> builder)
         {
             builder.ToTable("MaintenanceActivities");
-            builder.HasMany(x=> x.Actuador).HasForeignKey(x=> x.ActuadorId)
+            builder.HasKey(ma => ma.Id);
+            builder.Property(x => x.NameTechnician).IsRequired(); 
+            builder.Property(x => x.DateActivity).IsRequired();
         }    
     }
 }

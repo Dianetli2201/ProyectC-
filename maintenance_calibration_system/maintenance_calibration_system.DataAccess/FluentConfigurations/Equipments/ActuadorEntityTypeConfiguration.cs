@@ -16,6 +16,9 @@ namespace maintenance_calibration_system.DataAccess.FluentConfigurations.Equipme
         {
             builder.ToTable("Actuadores");
             builder.HasBaseType(typeof(Actuador));
+            builder.Property(x => x.SignalControl).IsRequired();
+            builder.Property(x => x.CodeControl).IsRequired();
         }
     }
 }
+

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using maintenance_calibration_system.Domain.Common;
 
-namespace maintenance_calibration_system.Domain.Datos_de_Configuración
+namespace maintenance_calibration_system.Domain.ValueObjects
 {
     /// <summary>
     /// Representa una magnitud física en el sistema.
@@ -14,19 +14,19 @@ namespace maintenance_calibration_system.Domain.Datos_de_Configuración
     {
 
         public string? Name { get; set; } 
-        public string? Magnitude { get; set; }
+        public string? UnitofMagnitude { get; set; }
 
         protected PhysicalMagnitude() { }
         
         public PhysicalMagnitude(string name, string magnitude)
         { 
             Name = name;
-            Magnitude = magnitude;  
+            UnitofMagnitude = magnitude;  
         }
         protected override IEnumerable<object> GetEqualityComponents()
         {
             yield return Name;
-            yield return Magnitude;
+            yield return UnitofMagnitude;
         }
     }
 }

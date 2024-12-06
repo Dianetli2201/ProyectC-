@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using maintenance_calibration_system.Domain.Datos_de_Configuración;
 
 namespace maintenance_calibration_system.DataAccess.FluentConfigurations.MaintenanceActivities
 {
@@ -16,7 +17,16 @@ namespace maintenance_calibration_system.DataAccess.FluentConfigurations.Mainten
         {
             builder.ToTable("Mantenimientos");
             builder.HasBaseType(typeof(MaintenanceActivity));
-            builder.HasMany(x => x.Actuador).HasForeignKey(x => x.SensorId)
+            builder.Property(x => x.TypeMaintenance).IsRequired();
+
+            // Configurar relación muchos a muchos entre Maintenance y Actuator
+            builder.HasMany(x => x.MaintenanceActuador)
+                 .WithMany()
+                 .UsingEntity<Dictionary<string, object>>(
+                "MaintenanceActuators",
+                j => j.HasOne<Actuador>().WithMany().HasForeignKey("ActuadorId"),
+                j => j.HasOne<Maintenance>().WithMany().HasForeignKey("MaintenanceId"),
+                j => { j.HasKey("MaintenanceId", "ActuatorId"); });
         }
     }
 }
