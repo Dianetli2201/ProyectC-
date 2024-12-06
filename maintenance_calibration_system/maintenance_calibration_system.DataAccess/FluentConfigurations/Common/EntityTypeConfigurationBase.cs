@@ -15,7 +15,7 @@ namespace maintenance_calibration_system.DataAccess.FluentConfigurations.Common
     {
         public virtual void Configure(EntityTypeBuilder<T> builder)
         {
-            builder.HasKey(x => x.Id);
+            builder.HasKey(x => x.Id); //Clave primaria
             builder.Property(x => x.Id).IsRequired();
         }
 

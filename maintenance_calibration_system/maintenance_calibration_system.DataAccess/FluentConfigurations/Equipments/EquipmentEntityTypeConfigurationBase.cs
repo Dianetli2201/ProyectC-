@@ -18,12 +18,15 @@ namespace maintenance_calibration_system.DataAccess.FluentConfigurations.Equipme
         {
             builder.ToTable("Equipments");
             base.Configure(builder);
-            builder.OwnsOne(x => x.Magnitude, m =>
+           
+            
+            builder.OwnsOne(e => e.Magnitude, m =>
             {
                 m.Property(p => p.Name).IsRequired();
                 m.Property(p => p.UnitofMagnitude).IsRequired();
             });
-            builder.Property(x=> x.Manufacturer).IsRequired();
+
+            builder.Property(e=> e.Manufacturer).IsRequired();
         }
     }
 }

@@ -15,7 +15,7 @@ namespace maintenance_calibration_system.DataAccess.FluentConfigurations.Plannin
     {
         public override void Configure(EntityTypeBuilder<Planning> builder)
         {
-            builder.ToTable("Planning");
+            builder.ToTable("Planes");
             builder.HasKey(ma => ma.Id);
             builder.Property(x => x.EquipmentElement).IsRequired();
             builder.Property(x => x.ExecutionDate).IsRequired();

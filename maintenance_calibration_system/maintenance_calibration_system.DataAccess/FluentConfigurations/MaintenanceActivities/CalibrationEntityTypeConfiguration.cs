@@ -19,16 +19,9 @@ namespace maintenance_calibration_system.DataAccess.FluentConfigurations.Mainten
         {
             builder.ToTable("Calibraciones");
             builder.HasBaseType(typeof(MaintenanceActivity));
-            builder.Property(x => x.NameCertificateAuthority).IsRequired();
-            
-            // Configurar relación muchos a muchos entre Calibration y Sensor
-            builder.HasMany(x => x.CalibratedSensors) 
-                .WithMany() 
-                .UsingEntity<Dictionary<string, object>>( 
-                "CalibrationSensors",
-             j => j.HasOne<Sensor>().WithMany().HasForeignKey("SensorId"),
-             j => j.HasOne<Calibration>().WithMany().HasForeignKey("CalibrationId"),
-             j => { j.HasKey("CalibrationId", "SensorId"); });
+            builder.Property(c => c.NameCertificateAuthority).IsRequired();
+
+           
         }
     }
 }

@@ -17,16 +17,8 @@ namespace maintenance_calibration_system.DataAccess.FluentConfigurations.Mainten
         {
             builder.ToTable("Mantenimientos");
             builder.HasBaseType(typeof(MaintenanceActivity));
-            builder.Property(x => x.TypeMaintenance).IsRequired();
+            builder.Property(m => m.TypeMaintenance).IsRequired();
 
-            // Configurar relación muchos a muchos entre Maintenance y Actuator
-            builder.HasMany(x => x.MaintenanceActuador)
-                 .WithMany()
-                 .UsingEntity<Dictionary<string, object>>(
-                "MaintenanceActuators",
-                j => j.HasOne<Actuador>().WithMany().HasForeignKey("ActuadorId"),
-                j => j.HasOne<Maintenance>().WithMany().HasForeignKey("MaintenanceId"),
-                j => { j.HasKey("MaintenanceId", "ActuatorId"); });
-        }
+           
     }
 }
