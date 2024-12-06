@@ -19,6 +19,8 @@ namespace maintenance_calibration_system.DataAccess.FluentConfigurations.Equipme
 
             builder.ToTable("Sensors");
             builder.HasBaseType(typeof(Equipment));
+
+            //Configurando propiedades
             builder.Property(s => s.Protocol).IsRequired(); 
             builder.Property(s => s.PrincipleOperation).IsRequired();
             builder.Property(s => s.Calibrated).IsRequired();

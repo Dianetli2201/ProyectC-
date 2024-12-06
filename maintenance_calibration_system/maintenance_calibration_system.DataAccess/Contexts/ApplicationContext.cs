@@ -28,11 +28,13 @@ namespace maintenance_calibration_system.DataAccess.Contexts
         {
         }
 
+        #region Helpers
         private static DbContextOptions GetOptions(string connectionString)
         {
-            throw new NotImplementedException();
+            return SqliteDbContextOptionsBuilderExtensions.UseSqlite(new DbContextOptionsBuilder(), connectionString).Options;
         }
 
+        #endregion
         public ApplicationContext(DbContextOptions<ApplicationContext> options )
             : base(options) 
         {

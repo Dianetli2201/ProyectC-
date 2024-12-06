@@ -24,13 +24,13 @@ namespace maintenance_calibration_system.DataAccess.FluentConfigurations.Plannin
             builder.HasMany<Calibration>() 
                 .WithOne() 
                 .HasForeignKey("PlanningId")
-                .OnDelete(DeleteBehavior.Cascade); 
-            
+                .OnDelete(DeleteBehavior.Cascade); //En caso de eliminar una planificación, se eliminan los mantenimientos asociados a esta
+
             // Relación uno a muchos con Maintenance                                                                                                                             
             builder.HasMany<Maintenance>()
                 .WithOne()
                 .HasForeignKey("PlanningId")
-                .OnDelete(DeleteBehavior.Cascade); 
+                .OnDelete(DeleteBehavior.Cascade); //En caso de eliminar una planificación, se eliminan los mantenimientos asociados a esta
         }
     }
 }

@@ -19,12 +19,6 @@ namespace maintenance_calibration_system.DataAccess.FluentConfigurations.Common
             builder.Property(x => x.Id).IsRequired();
         }
 
-        #region Helpers
-        private static DbContextOptions GetOptions(string connectionString)
-        {
-            return SqliteDbContextOptionsBuilderExtensions.UseSqlite * (new DbContextOptionsBuilder(), connectionString).Options;
-        }
-
-        #endregion
+        
     }
 }

@@ -19,6 +19,8 @@ namespace maintenance_calibration_system.DataAccess.FluentConfigurations.Mainten
         {
             builder.ToTable("Calibraciones");
             builder.HasBaseType(typeof(MaintenanceActivity));
+            
+            //Configurando propiedades
             builder.Property(c => c.NameCertificateAuthority).IsRequired();
 
             // Configuración de la relación muchos a muchos con Sensor

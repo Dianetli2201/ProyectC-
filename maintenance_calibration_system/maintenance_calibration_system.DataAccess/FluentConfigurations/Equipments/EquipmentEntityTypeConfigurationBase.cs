@@ -19,8 +19,9 @@ namespace maintenance_calibration_system.DataAccess.FluentConfigurations.Equipme
         {
             builder.ToTable("Equipments");
             base.Configure(builder);
-           
-            
+
+
+            //Configurando propiedades
             builder.OwnsOne(e => e.Magnitude, m =>
             {
                 m.Property(p => p.Name).IsRequired();
@@ -28,6 +29,8 @@ namespace maintenance_calibration_system.DataAccess.FluentConfigurations.Equipme
             });
 
             builder.Property(e=> e.Manufacturer).IsRequired();
+
+            builder.Property(e => e.AlphanumericCode).IsRequired();
 
             // Configuración de la discriminación de herencia
             builder.HasDiscriminator<string>("EquipmentType")

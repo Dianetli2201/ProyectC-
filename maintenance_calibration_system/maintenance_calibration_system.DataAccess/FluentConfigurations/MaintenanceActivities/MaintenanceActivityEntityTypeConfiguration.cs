@@ -18,7 +18,8 @@ namespace maintenance_calibration_system.DataAccess.FluentConfigurations.Mainten
         {
             builder.ToTable("MaintenanceActivities");
            
-            builder.Property(x => x.NameTechnician).IsRequired(); 
+            //Configurando propiedades
+            builder.Property(x => x.NameTechnician).IsRequired();   
             builder.Property(x => x.DateActivity).IsRequired();
 
             // Configuración de la discriminación de herencia
