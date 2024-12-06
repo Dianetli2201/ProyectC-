@@ -18,7 +18,9 @@ namespace maintenance_calibration_system.DataAccess.FluentConfigurations.Equipme
             builder.HasBaseType(typeof(Actuador));
             builder.Property(a => a.SignalControl).IsRequired();
             builder.Property(a => a.CodeControl).IsRequired();
-            builder.Property(a => a.Maintenance).IsRequired(); 
+            builder.Property(a => a.Maintenance).IsRequired();
+           
+
         }
     }
 }

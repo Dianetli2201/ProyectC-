@@ -17,9 +17,14 @@ namespace maintenance_calibration_system.DataAccess.FluentConfigurations.Mainten
         public override void Configure(EntityTypeBuilder<MaintenanceActivity> builder)
         {
             builder.ToTable("MaintenanceActivities");
-            builder.HasKey(ma => ma.Id);
+           
             builder.Property(x => x.NameTechnician).IsRequired(); 
             builder.Property(x => x.DateActivity).IsRequired();
-        }    
+
+            // Configuración de la discriminación de herencia
+             builder.HasDiscriminator<string>("ActivityType") 
+                .HasValue<Calibration>("Calibration") 
+                .HasValue<Maintenance>("Maintenance");
+        }
     }
 }

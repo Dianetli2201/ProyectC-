@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using maintenance_calibration_system.Domain.Datos_de_Configuración;
 
 namespace maintenance_calibration_system.DataAccess.FluentConfigurations.Equipments
 {
@@ -27,6 +28,11 @@ namespace maintenance_calibration_system.DataAccess.FluentConfigurations.Equipme
             });
 
             builder.Property(e=> e.Manufacturer).IsRequired();
+
+            // Configuración de la discriminación de herencia
+            builder.HasDiscriminator<string>("EquipmentType")
+                .HasValue<Sensor>("Sensor") 
+                .HasValue<Actuador>("Actuator");
         }
     }
 }

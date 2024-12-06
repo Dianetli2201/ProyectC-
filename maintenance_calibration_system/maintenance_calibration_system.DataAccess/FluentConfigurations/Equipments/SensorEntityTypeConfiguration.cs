@@ -21,7 +21,8 @@ namespace maintenance_calibration_system.DataAccess.FluentConfigurations.Equipme
             builder.HasBaseType(typeof(Equipment));
             builder.Property(s => s.Protocol).IsRequired(); 
             builder.Property(s => s.PrincipleOperation).IsRequired();
-            builder.Property(s => s.Calibrated).IsRequired(); 
-        }
+            builder.Property(s => s.Calibrated).IsRequired();
+
+       }
     }
 }
