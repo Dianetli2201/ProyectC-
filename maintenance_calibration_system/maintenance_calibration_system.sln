@@ -6,8 +6,12 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "maintenance_calibration_system.Domain", "maintenance_calibration_system.Domain\maintenance_calibration_system.Domain.csproj", "{9F7E2355-EC7C-486F-B648-9D48375C0EBA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "maintenance_calibration_system.ConsoleApp", "maintenance_calibration_system.ConsoleApp\maintenance_calibration_system.ConsoleApp.csproj", "{837B04EA-B355-429E-A8D4-3BB3DEF72B68}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5A11358B-5895-4CE9-B23F-6B99C55F31E8} = {5A11358B-5895-4CE9-B23F-6B99C55F31E8}
+		{9F7E2355-EC7C-486F-B648-9D48375C0EBA} = {9F7E2355-EC7C-486F-B648-9D48375C0EBA}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "maintenance_calibration_system.DataAccess", "maintenance_calibration_system.DataAccess\maintenance_calibration_system.DataAccess.csproj", "{5A11358B-5895-4CE9-B23F-6B99C55F31E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "maintenance_calibration_system.DataAccess", "maintenance_calibration_system.DataAccess\maintenance_calibration_system.DataAccess.csproj", "{5A11358B-5895-4CE9-B23F-6B99C55F31E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

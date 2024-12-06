@@ -21,6 +21,7 @@ namespace maintenance_calibration_system.DataAccess.Contexts
         public DbSet<MaintenanceActivity> MaintenanceActivities { get; set; }
 
         public DbSet<Planning> Plannings { get; set; }
+        public object DataBase { get; set; }
         #endregion
 
         public ApplicationContext() 

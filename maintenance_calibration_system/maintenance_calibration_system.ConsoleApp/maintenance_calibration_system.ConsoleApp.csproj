@@ -7,4 +7,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\maintenance_calibration_system.DataAccess\maintenance_calibration_system.DataAccess.csproj" />
+  </ItemGroup>
+
 </Project>
