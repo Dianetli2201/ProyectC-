@@ -26,8 +26,7 @@ namespace maintenance_calibration_system.Domain.Datos_de_Configuración
         /// <summary>
         /// Constructor para crear una instancia de Actuador.
         /// </summary>
-
-        public Actuador(Guid id, string alphanumericCode, PhysicalMagnitude magnitude, string manufacturer, string codeControl, SignalControl signalControl)
+        public Actuador(Guid id, string? alphanumericCode, PhysicalMagnitude magnitude, string? manufacturer, string? codeControl, SignalControl signalControl)
          : base(id, alphanumericCode, magnitude, manufacturer) // Llama al constructor base.
         {
        

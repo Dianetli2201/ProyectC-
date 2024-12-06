@@ -16,7 +16,7 @@ namespace maintenance_calibration_system.Domain.Datos_Historicos
             public List<Actuador> MaintenanceActuador { get; set; } // Lista de actuadores en mantenimiento
 
         #endregion
-        public Maintenance(Guid id, DateTime dateActivity, TypeMaintenance typeMaintenance, string nameTechnician) 
+        public Maintenance(Guid id, DateTime dateActivity, TypeMaintenance typeMaintenance, string? nameTechnician) 
             : base(id, dateActivity, nameTechnician) // Llama al constructor base.ntenance typeMaintenance, string dateMaintenance, string nameTechnician)
         {
             TypeMaintenance = typeMaintenance;

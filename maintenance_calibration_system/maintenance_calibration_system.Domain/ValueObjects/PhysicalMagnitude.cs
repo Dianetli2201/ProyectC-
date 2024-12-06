@@ -18,7 +18,7 @@ namespace maintenance_calibration_system.Domain.ValueObjects
 
         protected PhysicalMagnitude() { }
         
-        public PhysicalMagnitude(string name, string magnitude)
+        public PhysicalMagnitude(string? name, string? magnitude)
         { 
             Name = name;
             UnitofMagnitude = magnitude;  
@@ -28,10 +28,6 @@ namespace maintenance_calibration_system.Domain.ValueObjects
             yield return Name;
             yield return UnitofMagnitude;
         }
-
-        public override int GetHashCode()
-        {
-            return (Name, UnitofMagnitude).GetHashCode();
-        }
+            
     }
 }

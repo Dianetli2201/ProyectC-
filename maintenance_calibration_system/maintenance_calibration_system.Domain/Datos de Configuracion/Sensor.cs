@@ -27,7 +27,7 @@ namespace maintenance_calibration_system.Domain.Datos_de_Configuración
         /// <summary>
         /// Constructor para crear una instancia de Sensor.
         /// </summary>
-        public Sensor(Guid id, string alphanumericCode, PhysicalMagnitude magnitude, string manufacturer, CommunicationProtocol protocol, string principleOperation)
+        public Sensor(Guid id, string? alphanumericCode, PhysicalMagnitude magnitude, string? manufacturer, CommunicationProtocol protocol, string? principleOperation)
              : base(id, alphanumericCode, magnitude, manufacturer) // Llama al constructor base.    
         {
             Protocol = protocol;

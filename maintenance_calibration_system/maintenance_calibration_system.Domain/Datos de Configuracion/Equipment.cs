@@ -19,7 +19,7 @@ namespace maintenance_calibration_system.Domain.Datos_de_Configuracion
         // Constructor sin parámetros
             public Equipment() { }
         
-            protected Equipment(Guid id, string alphanumericCode, PhysicalMagnitude magnitude, string manufacturer)
+            protected Equipment(Guid id, string? alphanumericCode, PhysicalMagnitude magnitude, string? manufacturer)
             :base(id)// Constructor.
             {
                 AlphanumericCode = alphanumericCode;

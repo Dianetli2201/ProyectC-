@@ -21,7 +21,6 @@ namespace maintenance_calibration_system.DataAccess.Contexts
         public DbSet<MaintenanceActivity> MaintenanceActivities { get; set; }
 
         public DbSet<Planning> Plannings { get; set; }
-        public object DataBase { get; set; }
         #endregion
 
         public ApplicationContext() 
@@ -49,7 +48,7 @@ namespace maintenance_calibration_system.DataAccess.Contexts
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlite();   
+            optionsBuilder.UseSqlite("Data Source=maintenance_calibration_systemDb.sqlite");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
