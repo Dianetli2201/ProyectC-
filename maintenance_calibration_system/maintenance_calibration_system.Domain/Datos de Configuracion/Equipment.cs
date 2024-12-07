@@ -1,7 +1,4 @@
-﻿using maintenance_calibration_system.Domain.Common;
-using maintenance_calibration_system.Domain.ValueObjects;
-
-namespace maintenance_calibration_system.Domain.Datos_de_Configuracion
+﻿namespace maintenance_calibration_system.Domain.Datos_de_Configuracion
 {
     public abstract class Equipment : Entity
     {

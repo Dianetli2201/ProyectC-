@@ -1,15 +1,4 @@
-/*IterfazActuador
-namespace maintenance_calibration_system.Domain.Datos_de_Configuracion
-{
-    public interface IActuadorRepository
-    {
-        void Add(Actuador actuador);
-        Actuador GetById(Guid id);
-        IEnumerable<Actuador> GetAll();
-        void Update(Actuador actuador);
-        void Delete(Guid id);
-    }
-} */
+
 
 using System;
 using System.Collections.Generic;
@@ -19,6 +8,14 @@ using maintenance_calibration_system.Infrastructure; // Para ApplicationContext
 
 namespace maintenance_calibration_system.Domain.Datos_de_Configuracion
 {
+     public interface IActuadorRepository
+    {
+        void Add(Actuador actuador);
+        Actuador GetById(Guid id);
+        IEnumerable<Actuador> GetAll();
+        void Update(Actuador actuador);
+        void Delete(Guid id);
+    }
     public class ActuadorRepository : IActuadorRepository
     {
         private readonly ApplicationContext _context;
