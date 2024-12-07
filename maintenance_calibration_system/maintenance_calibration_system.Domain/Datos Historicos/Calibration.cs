@@ -13,7 +13,7 @@ namespace maintenance_calibration_system.Domain.Datos_Historicos
     {
         #region Properties
             public string? NameCertificateAuthority { get; set; }      // Nombre de la autoridad certificadora
-            public List<Sensor> CalibratedSensors { get; set; }       // Lista de sensores calibrados
+            public List<Sensor>? CalibratedSensors { get; set; }       // Lista de sensores calibrados
 
         #endregion
 

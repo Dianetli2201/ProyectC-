@@ -178,7 +178,7 @@ namespace maintenance_calibration_system.DataAccess.Migrations
 
                     b.ToTable("Equipments", (string)null);
 
-                    b.HasDiscriminator().HasValue("Actuator");
+                    b.HasDiscriminator().HasValue("Actuador");
                 });
 
             modelBuilder.Entity("maintenance_calibration_system.Domain.Datos_de_Configuración.Sensor", b =>

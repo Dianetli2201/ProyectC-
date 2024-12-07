@@ -12,29 +12,36 @@ using maintenance_calibration_system.Domain.Datos_de_Configuración;
 
 namespace maintenance_calibration_system.DataAccess.FluentConfigurations.Equipments
 {
-    public class EquipmentEntityTypeConfigurationBase
-       : EntityTypeConfigurationBase<Equipment>    
+    /// <summary>
+    /// Configuración base para la entidad Equipment.
+    /// </summary>
+    public class EquipmentEntityTypeConfigurationBase : EntityTypeConfigurationBase<Equipment>
     {
-        public override void Configure(EntityTypeBuilder<Equipment> builder) //Configurando tabla para los equipamientos
+        /// <summary>
+        /// Configura la entidad Equipment.
+        /// </summary>
+        /// <param name="builder">Constructor de la entidad.</param>
+        public override void Configure(EntityTypeBuilder<Equipment> builder)
         {
+            // Configurando tabla para los equipamientos
             builder.ToTable("Equipments");
             base.Configure(builder);
 
-
-            //Configurando propiedades
+            // Configurando propiedades
             builder.OwnsOne(e => e.Magnitude, mg =>
             {
                 mg.Property(p => p.Name).IsRequired();
                 mg.Property(p => p.UnitofMagnitude).IsRequired();
             });
 
-            builder.Property(e=> e.Manufacturer).IsRequired();
+            builder.Property(e => e.Manufacturer).IsRequired();
             builder.Property(e => e.AlphanumericCode).IsRequired();
 
             // Configuración de la discriminación de herencia
             builder.HasDiscriminator<string>("EquipmentType")
-                .HasValue<Sensor>("Sensor") 
+                .HasValue<Sensor>("Sensor")
                 .HasValue<Actuador>("Actuador");
         }
     }
+
 }

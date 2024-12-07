@@ -11,7 +11,7 @@ using maintenance_calibration_system.DataAccess.Contexts;
 namespace maintenance_calibration_system.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20241206045050_Initial")]
+    [Migration("20241207023932_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -181,7 +181,7 @@ namespace maintenance_calibration_system.DataAccess.Migrations
 
                     b.ToTable("Equipments", (string)null);
 
-                    b.HasDiscriminator().HasValue("Actuator");
+                    b.HasDiscriminator().HasValue("Actuador");
                 });
 
             modelBuilder.Entity("maintenance_calibration_system.Domain.Datos_de_Configuración.Sensor", b =>

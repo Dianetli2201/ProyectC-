@@ -13,7 +13,7 @@ namespace maintenance_calibration_system.Domain.Datos_Historicos
     {
         #region Properties
             public TypeMaintenance TypeMaintenance { get; set; }   // Tipo de mantenimiento
-            public List<Actuador> MaintenanceActuador { get; set; } // Lista de actuadores en mantenimiento
+            public List<Actuador>? MaintenanceActuador { get; set; } // Lista de actuadores en mantenimiento
 
         #endregion
 

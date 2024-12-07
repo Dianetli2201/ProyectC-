@@ -17,7 +17,10 @@ namespace maintenance_calibration_system.Domain.Datos_de_Configuracion
         #endregion
 
         // Constructor sin parámetros
-        protected Equipment() { }
+        protected Equipment() 
+        {
+            Magnitude = new PhysicalMagnitude("DefaultName", "DefaultUnit");
+        }
 
         protected Equipment(Guid id, string? alphanumericCode, PhysicalMagnitude magnitude, string? manufacturer)
         : base(id)// Constructor.
