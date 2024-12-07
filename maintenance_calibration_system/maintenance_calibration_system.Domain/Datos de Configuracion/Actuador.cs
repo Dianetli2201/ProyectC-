@@ -19,9 +19,9 @@ namespace maintenance_calibration_system.Domain.Datos_de_Configuración
             public string? CodeControl { get; set; }      // Código de control (obligatorio)
             public SignalControl SignalControl { get; set; }     // Control de señal (obligatorio)
             public bool Maintenance { get; set; } = false; // Mantenimiento (predeterminado: false)
-        #endregion
+        #endregion'
 
-        public Actuador () { } 
+        protected Actuador () { } 
 
         /// <summary>
         /// Constructor para crear una instancia de Actuador.

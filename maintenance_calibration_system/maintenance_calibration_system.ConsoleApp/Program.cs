@@ -24,7 +24,7 @@ namespace maintenance_calibration_system.ConsoleApp
                 appContext.Database.Migrate();
             }
 
-            var temperatureMagnitude = new PhysicalMagnitude("Temperature", "°C");
+            PhysicalMagnitude temperatureMagnitude = new PhysicalMagnitude("Temperature", "°C");
             var pressureMagnitude = new PhysicalMagnitude("Pressure", "bar"); 
 
             var sensor = new Sensor(
@@ -84,7 +84,7 @@ namespace maintenance_calibration_system.ConsoleApp
             //Operacion de lectura de la base de datos
             Sensor? sensor1 = appContext
                 .Set<Sensor>()
-                .FirstOrDefault(v => v.Id == calibrationPlanning.EquipmentId);
+                .FirstOrDefault(v => v.Id == calibrationPlanning.Id);
 
             //Operacion de actualizacion de la base de datos
             actuador.Magnitude = ("Presion", "Pascal");

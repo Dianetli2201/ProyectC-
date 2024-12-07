@@ -28,6 +28,10 @@ namespace maintenance_calibration_system.Domain.ValueObjects
             yield return Name;
             yield return UnitofMagnitude;
         }
-            
+
+        public static implicit operator PhysicalMagnitude((string, string) v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -17,6 +17,8 @@ namespace maintenance_calibration_system.Domain.Datos_Historicos
 
         #endregion
 
+        protected Calibration() { }
+
         public Calibration(Guid id, string? nameCertificateAuthority, DateTime dateActivity, string? nameTechnician)
             : base(id, dateActivity, nameTechnician) // Llama al constructor base.
         {

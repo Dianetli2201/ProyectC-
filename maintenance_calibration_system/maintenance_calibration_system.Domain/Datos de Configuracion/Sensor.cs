@@ -22,7 +22,7 @@ namespace maintenance_calibration_system.Domain.Datos_de_Configuración
 
         #endregion
 
-        public Sensor() { }
+        protected Sensor() { }
 
         /// <summary>
         /// Constructor para crear una instancia de Sensor.

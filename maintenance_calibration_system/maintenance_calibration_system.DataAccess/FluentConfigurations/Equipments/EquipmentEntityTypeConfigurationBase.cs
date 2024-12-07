@@ -34,7 +34,7 @@ namespace maintenance_calibration_system.DataAccess.FluentConfigurations.Equipme
             // Configuración de la discriminación de herencia
             builder.HasDiscriminator<string>("EquipmentType")
                 .HasValue<Sensor>("Sensor") 
-                .HasValue<Actuador>("Actuator");
+                .HasValue<Actuador>("Actuador");
         }
     }
 }

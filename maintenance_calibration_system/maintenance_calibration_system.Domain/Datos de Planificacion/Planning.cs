@@ -14,10 +14,12 @@ namespace maintenance_calibration_system.Domain.Datos_de_Planificación
     public class Planning : Entity
     {
         #region Properties
-            public required string? EquipmentElement { get; set; } // Equipo que planificó el evento
+            public string? EquipmentElement { get; set; } // Equipo que planificó el evento
             public  PlanningTypes Type { get; set; }       // Tipo de planificación
-            public required DateTime ExecutionDate { get; set; }  // Fecha de ejecución
+            public DateTime ExecutionDate { get; set; }  // Fecha de ejecución
         #endregion
+
+        protected Planning() { }
 
         public Planning(Guid id, string? equipmentElement, PlanningTypes type, DateTime executionDate)
             :base(id)
