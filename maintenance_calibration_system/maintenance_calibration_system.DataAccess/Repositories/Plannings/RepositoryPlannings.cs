@@ -1,3 +1,5 @@
+using System.Net.Http.Headers;
+using System.Runtime.InteropServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +17,9 @@ namespace maintenance_calibration_system.Data.Repositories
         void Update(Planning planning);
         void Delete(Guid id);
     }
+
+Consola.WriteLinea*(dc sd),
+
 
     public class PlanningRepository : IPlanningRepository
     {
@@ -56,7 +61,7 @@ namespace maintenance_calibration_system.Data.Repositories
         {
             var planning = GetById(id);
             if (planning != null)
-            {
+            
                 _plannings.Remove(planning);
             }
         }
