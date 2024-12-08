@@ -4,7 +4,7 @@ using System.Linq;
 using maintenance_calibration_system.Domain.Common; // Para la clase Entity
 using maintenance_calibration_system.Domain.ValueObjects; // Para PhysicalMagnitude
 using maintenance_calibration_system.Domain.Datos_de_Configuracion; // Para Equipment
-using maintenance_calibration_system.Infrastructure; // Para ApplicationContext
+using maintenance_calibration_system.DataAccess.Contexts; // Para ApplicationContext
 
 namespace maintenance_calibration_system.Infrastructure.Repositories
 {

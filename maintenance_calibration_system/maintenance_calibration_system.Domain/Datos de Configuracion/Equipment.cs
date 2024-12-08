@@ -1,23 +1,19 @@
-﻿namespace maintenance_calibration_system.Domain.Datos_de_Configuracion
-{
-    public abstract class Equipment : Entity
-    {
-        #region Properties
-        
-        /// <summary>
-        /// Código alfanumérico del equipo.
-        /// </summary>
-        public string? AlphanumericCode { get; set; }
-        public PhysicalMagnitude Magnitude { get; set; } // Magnitud física asociada.
-        public string? Manufacturer { get; set; } // Nombre del fabricante.
-        
-        #endregion
+﻿using maintenance_calibration_system.Domain.Common;
+using maintenance_calibration_system.Domain.ValueObjects;
+using System.Security.Cryptography.X509Certificates;
 
-        // Constructor sin parámetros
-        protected Equipment() 
-        {
-            Magnitude = new PhysicalMagnitude("DefaultName", "DefaultUnit");
-        }
+namespace maintenance_calibration_system.Domain.ValueObjects;
+
+    public abstract class Equipment : Entity
+
+    {
+    
+        public PhysicalMagnitude Magnitude { get; }
+        public string AlphanumericCode { get; set; }
+         
+        public string Manufacturer { get; set; }
+     
+    
 
         protected Equipment(Guid id, string? alphanumericCode, PhysicalMagnitude magnitude, string? manufacturer)
         : base(id)// Constructor.
@@ -28,4 +24,5 @@
         }
 
     }
-}
+
+

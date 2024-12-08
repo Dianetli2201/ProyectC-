@@ -3,8 +3,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using maintenance_calibration_system.Domain.Datos_de_Configuracion; // Para Actuador y IActuadorRepository
-using maintenance_calibration_system.Infrastructure; // Para ApplicationContext
+using maintenance_calibration_system.Domain.Datos_de_Configuración; // Para Actuador y IActuadorRepository
+using maintenance_calibration_system.DataAccess.Contexts; // Para ApplicationContext
+using maintenance_calibration_system.Domain.Types;
+using maintenance_calibration_system.Domain.Common;
+using maintenance_calibration_system.Domain.ValueObjects;
 
 namespace maintenance_calibration_system.Domain.Datos_de_Configuracion
 {

@@ -18,8 +18,6 @@ namespace maintenance_calibration_system.Data.Repositories
         void Delete(Guid id);
     }
 
-Consola.WriteLinea*(dc sd),
-
 
     public class PlanningRepository : IPlanningRepository
     {

@@ -2,8 +2,14 @@
 using System; //Para tipos básicos como Guid.
 using System.Collections.Generic; //Para usar colecciones genéricas como IEnumerable.
 using System.Linq; //Para utilizar métodos LINQ como ToList().
-using maintenance_calibration_system.Domain.Datos_de_Configuracion; // Para Sensor e IRepositorioSensor
-using maintenance_calibration_system.Infrastructure; // Para ApplicationContext
+using maintenance_calibration_system.Domain.Datos_de_Configuración; // Para Sensor e IRepositorioSensor
+using maintenance_calibration_system.DataAccess.Contexts;// Para ApplicationContext
+using maintenance_calibration_system.Domain.Types;
+using maintenance_calibration_system.Domain.ValueObjects;
+using System.Text;
+using System.Threading.Tasks;
+using maintenance_calibration_system.Domain.Common;
+
 
 namespace maintenance_calibration_system.Infrastructure.Repositories
 {

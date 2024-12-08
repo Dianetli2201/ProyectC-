@@ -3,7 +3,7 @@ using System.Collections.Generic; // Para usar colecciones genéricas como IEnum
 using System.Linq; // Para utilizar métodos LINQ como ToList().
 using maintenance_calibration_system.Domain.Common; // Para la clase Entity.
 using maintenance_calibration_system.Domain.Datos_Historicos; // Para MaintenanceActivity.
-using maintenance_calibration_system.Infrastructure; // Para ApplicationContext.
+using maintenance_calibration_system.DataAccess.Contexts; // Para ApplicationContext.
 
 namespace maintenance_calibration_system.Infrastructure.Repositories
 {

@@ -2,7 +2,8 @@ using System;
 using System.Collections.Generic;
 using maintenance_calibration_system.Domain.Datos_Historicos;
 using maintenance_calibration_system.Domain.Datos_de_Configuración;
-using maintenance_calibration_system.Data.Repositories;
+using maintenance_calibration_system.DataAccess.Repositories;
+using maintenance_calibration_system.Infrastructure.Repositories;
 
 namespace MantenimientoCalibracionApp
 {
@@ -12,10 +13,10 @@ namespace MantenimientoCalibracionApp
         {
             // Crear instancias de los repositorios
             var sensorRepository = new SensorRepository();
-            var actuatorRepository = new ActuatorRepository();
+            var actuatorRepository = new ActuadorRepository();
             var calibrationRepository = new CalibrationRepository();
             var maintenanceRepository = new MaintenanceRepository();
-            var planningRepository = new PlanningRepository();
+            var planningRepository = new PlanningsRepository();
 
             // Ejemplo de cómo agregar un sensor
             var sensor = new Sensor(Guid.NewGuid(), "Sensor1", "Temperatura", "°C", "Modbus", "Sensor de temperatura");

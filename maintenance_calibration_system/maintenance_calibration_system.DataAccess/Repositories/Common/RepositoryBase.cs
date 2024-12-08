@@ -1,4 +1,7 @@
 using System.Net.Mime;
+using maintenance_calibration_system.Domain.Datos_de_Configuracion;
+using maintenance_calibration_system.DataAccess.Contexts;
+
 public abstract class RepositoryBase<T> where T : class // utiliza genéricos para permitir que cualquier tipo de entidad (que sea una clase) pueda ser manejada por el repositorio.
 {
     protected readonly ApplicationContext _context;
