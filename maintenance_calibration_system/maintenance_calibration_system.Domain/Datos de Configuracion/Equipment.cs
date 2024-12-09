@@ -7,15 +7,17 @@ namespace maintenance_calibration_system.Domain.ValueObjects;
     public abstract class Equipment : Entity
 
     {
-    
-        public PhysicalMagnitude Magnitude { get; }
-        public string AlphanumericCode { get; set; }
-         
-        public string Manufacturer { get; set; }
-     
-    
+    #region Properties
+    /// <summary>
+    /// Codigo alfanumerico del equipo
+    /// </summary>
+    public string AlphanumericCode { get; set; }
+    public PhysicalMagnitude Magnitude { get; }//Magnitud fisica asociada
+    public string Manufacturer { get; set; } //Nombre de fabricante
 
-        protected Equipment(Guid id, string? alphanumericCode, PhysicalMagnitude magnitude, string? manufacturer)
+    #endregion
+    
+    protected Equipment (Guid id, string alphanumericCode, PhysicalMagnitude magnitude, string manufacturer)
         : base(id)// Constructor.
         {
             AlphanumericCode = alphanumericCode;
