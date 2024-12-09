@@ -4,9 +4,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using maintenance_calibration_system.DataAccess.Contexts; // Para ApplicationContext
 using maintenance_calibration_system.Domain.Datos_de_Configuración; // Para Sensor
-using maintenance_calibration_system.Infrastructure.Repositories;
+using maintenance_calibration_system.DataAccess.Repositories;
 
-namespace maintenance_calibration_system.Tests.Infrastructure.Repositories
+namespace maintenance_calibration_system.Tests.DataAccess.Repositories
 {
     /// <summary>
     /// Clase de pruebas unitarias para el repositorio de Sensores.
