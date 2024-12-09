@@ -1,9 +1,10 @@
-/*using System; // Para tipos básicos como Guid y DateTime.
+/*
+using System; // Para tipos básicos como Guid y DateTime.
 using System.Collections.Generic; // Para usar colecciones genéricas como IEnumerable y List.
 using System.Linq; // Para utilizar métodos LINQ como ToList().
 using Microsoft.EntityFrameworkCore; // Para usar métodos de Entity Framework como Include.
 using maintenance_calibration_system.Domain.Datos_Historicos; // Para Calibration y MaintenanceActivity.
-using maintenance_calibration_system.Infrastructure; // Para ApplicationContext.
+using maintenance_calibration_system.DataAccess.Contexts; // Para ApplicationContext.
 
 namespace maintenance_calibration_system.Infrastructure.Repositories
 {
