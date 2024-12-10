@@ -17,7 +17,8 @@ namespace maintenance_calibration_system.Tests
         private MaintenanceActivityRepository<Calibration>? _calibrationRepository;
 
         /// <summary>Inicializa el contexto y los repositorios</summary>
-        public MaintenanceActivityTests()
+        [TestInitialize]
+        public void SetUp()
         {
             _context = new ApplicationContext(ConnectionStringProvider.GetConnectingString());
             _unitOfWork = new UnitOfWork(_context);
@@ -100,7 +101,8 @@ namespace maintenance_calibration_system.Tests
             // Arrange: Configura los datos de prueba
             var maintenance1 = new Maintenance(Guid.NewGuid(), DateTime.Now, TypeMaintenance.Preventivo, "Technician A");
             var maintenance2 = new Maintenance(Guid.NewGuid(), DateTime.Now, TypeMaintenance.Correctivo, "Technician B");
-            _context.Set<Maintenance>().AddRange(maintenance1, maintenance2);
+            _context.Set<Maintenance>().Add(maintenance1);
+            _context.Set<Maintenance>().Add(maintenance2);
             _unitOfWork.SaveChanges();
 
             // Act: Obtiene todas las actividades de mantenimiento

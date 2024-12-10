@@ -15,7 +15,8 @@ namespace maintenance_calibration_system.DataAccess.Tests
         private ApplicationContext? _context;
 
         /// <summary>Constructor que inicializa el contexto y los repositorios.</summary>
-        public PlanningTests()
+        [TestInitialize]
+        public void SetUp()
         {
             _context = new ApplicationContext(ConnectionStringProvider.GetConnectingString()); // Asigna a _context
             unitOfWork = new UnitOfWork(_context); // Inicializa el UnitOfWork

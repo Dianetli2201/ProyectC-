@@ -18,7 +18,8 @@ namespace maintenance_calibration_system.Tests.DataAccess.Repositories.Equipment
         private EquipmentRepository<Actuador>? _actuatorRepository;
 
         /// <summary>Constructor que inicializa el contexto y los repositorios.</summary>
-        public EquipmentRepositoryTests()
+        [TestInitialize]
+        public void SetUp()
         {
             _context = new ApplicationContext(ConnectionStringProvider.GetConnectingString());
             _unitOfWork = new UnitOfWork(_context); // Inicializa la unidad de trabajo
@@ -74,9 +75,13 @@ namespace maintenance_calibration_system.Tests.DataAccess.Repositories.Equipment
             // Arrange
             var someMagnitude = new PhysicalMagnitude("Temperature", "Celsius");
             var sensor1 = new Sensor(Guid.NewGuid(), "SENSOR003", someMagnitude, "ManufacturerC", CommunicationProtocol.UA, "PrincipleC");
-            var sensor2 = new Sensor(Guid.NewGuid(), "SENSOR004", someMagnitude, "ManufacturerD", CommunicationProtocol.UA, "PrincipleD");
+            var SomeMagnitude = new PhysicalMagnitude("Temperature", "Celsius");
+            var sensor2 = new Sensor(Guid.NewGuid(), "SENSOR004", SomeMagnitude, "ManufacturerD", CommunicationProtocol.UA, "PrincipleD");
 
-            _context.Set<Sensor>().AddRange(sensor1, sensor2);
+            _context.Set<Sensor>().Add(sensor1);
+            _unitOfWork.SaveChanges();
+
+            _context.Set<Sensor>().Add(sensor2);
             _unitOfWork.SaveChanges(); 
 
             // Act
@@ -172,7 +177,8 @@ namespace maintenance_calibration_system.Tests.DataAccess.Repositories.Equipment
             // Arrange
             var someMagnitude = new PhysicalMagnitude("Temperature", "Celsius");
             var actuador1 = new Actuador(Guid.NewGuid(), "ACTUADOR003", someMagnitude, "ManufacturerC", "ControlCode", SignalControl.Analog);
-            var actuador2 = new Actuador(Guid.NewGuid(), "ACTUADOR004", someMagnitude, "ManufacturerD", "ControlCode", SignalControl.Analog);
+            var SomeMagnitude = new PhysicalMagnitude("Temperature", "Celsius");
+            var actuador2 = new Actuador(Guid.NewGuid(), "ACTUADOR004", SomeMagnitude, "ManufacturerD", "ControlCode", SignalControl.Analog);
 
             _context.Set<Actuador>().AddRange(actuador1, actuador2);
             _unitOfWork.SaveChanges(); 
