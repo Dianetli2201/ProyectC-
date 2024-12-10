@@ -1,13 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using maintenance_calibration_system.Domain.Types;
-using maintenance_calibration_system.Domain.Common;
-using maintenance_calibration_system.Domain.ValueObjects;
-
 using maintenance_calibration_system.Domain.Datos_de_Configuracion;
+
 
 namespace maintenance_calibration_system.Domain.Datos_Historicos
 {
@@ -19,7 +11,7 @@ namespace maintenance_calibration_system.Domain.Datos_Historicos
 
         #endregion
 
-        protected Calibration() { }
+        public Calibration() { }
 
         public Calibration(Guid id, string? nameCertificateAuthority, DateTime dateActivity, string? nameTechnician)
             : base(id, dateActivity, nameTechnician) // Llama al constructor base.
@@ -28,11 +20,5 @@ namespace maintenance_calibration_system.Domain.Datos_Historicos
             CalibratedSensors = new List<Sensor>();                // Inicializar lista de sensores calibrados
         }
 
-        /* Revisar el llenado de la lista 
-        public Calibraciones()
-        {
-            CalibratedSensors = Main.Sensors.Where(x => x.Calibrated).ToList(); // Obtener sensores calibrados
-        }
-        */
     }
 }

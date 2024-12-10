@@ -1,6 +1,6 @@
 ﻿using maintenance_calibration_system.Domain.Common;
 using maintenance_calibration_system.Domain.ValueObjects;
-using System.Security.Cryptography.X509Certificates;
+
 
 namespace maintenance_calibration_system.Domain.Datos_de_Configuracion
 {
@@ -18,9 +18,9 @@ namespace maintenance_calibration_system.Domain.Datos_de_Configuracion
     #endregion
     
     public Equipment() 
-     { }
+     { Magnitude = new PhysicalMagnitude("Defaut Name", "Default UnitOfMagnitud"); }
 
-    protected Equipment (Guid id, string alphanumericCode, PhysicalMagnitude magnitude, string manufacturer)
+    protected Equipment (Guid id, string? alphanumericCode, PhysicalMagnitude magnitude, string? manufacturer)
         : base(id)// Constructor.
         {
             AlphanumericCode = alphanumericCode;

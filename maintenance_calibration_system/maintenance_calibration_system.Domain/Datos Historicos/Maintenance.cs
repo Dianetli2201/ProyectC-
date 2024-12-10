@@ -1,10 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using maintenance_calibration_system.Domain.Types;
-using maintenance_calibration_system.Domain.Common;
 using maintenance_calibration_system.Domain.Datos_de_Configuracion;
 
 namespace maintenance_calibration_system.Domain.Datos_Historicos
@@ -17,7 +11,7 @@ namespace maintenance_calibration_system.Domain.Datos_Historicos
 
         #endregion
 
-        protected Maintenance() { }
+        public Maintenance() { }
 
         public Maintenance(Guid id, DateTime dateActivity, TypeMaintenance typeMaintenance, string? nameTechnician) 
             : base(id, dateActivity, nameTechnician)      // Llama al constructor base

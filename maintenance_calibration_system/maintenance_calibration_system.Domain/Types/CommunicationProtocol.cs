@@ -1,8 +1,4 @@
-using System; // Espacio de nombres fundamental.
-using System.Collections.Generic; // Colecciones genéricas.
-using System.Linq; // Consultas sobre colecciones.
-using System.Text; // Manipulación de cadenas.
-using System.Threading.Tasks; // Programación asincrónica.
+
 
 namespace maintenance_calibration_system.Domain.Types // Espacio de nombres para el sistema de mantenimiento y calibración.
 {

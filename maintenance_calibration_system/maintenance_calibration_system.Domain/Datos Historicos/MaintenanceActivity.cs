@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using maintenance_calibration_system.Domain.Common;
+﻿using maintenance_calibration_system.Domain.Common;
 
 namespace maintenance_calibration_system.Domain.Datos_Historicos
 {
@@ -15,7 +10,7 @@ namespace maintenance_calibration_system.Domain.Datos_Historicos
 
         #endregion
 
-        protected MaintenanceActivity() { }
+        public MaintenanceActivity() { }
         protected MaintenanceActivity(Guid id, DateTime dateActivity, string? nameTechnician)
                 :base(id) // Constructor.
             {
