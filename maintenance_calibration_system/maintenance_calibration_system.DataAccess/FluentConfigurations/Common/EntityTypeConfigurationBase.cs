@@ -1,24 +1,16 @@
 ﻿using maintenance_calibration_system.Domain.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace maintenance_calibration_system.DataAccess.FluentConfigurations.Common
 {
-    /// <summary>
-    /// Clase abstracta base para la configuración de tipos de entidad.
-    /// </summary>
+    /// <summary>Clase abstracta base para la configuración de tipos de entidad.</summary>
     /// <typeparam name="T">Tipo de entidad que se está configurando.</typeparam>
     public abstract class EntityTypeConfigurationBase<T> : IEntityTypeConfiguration<T>
         where T : Entity
     {
-        /// <summary>
-        /// Configura el tipo de entidad especificado.
-        /// </summary>
+        /// <summary>Configura el tipo de entidad especificado.</summary>
         /// <param name="builder">Constructor de la entidad.</param>
         public virtual void Configure(EntityTypeBuilder<T> builder)
         {
@@ -26,5 +18,5 @@ namespace maintenance_calibration_system.DataAccess.FluentConfigurations.Common
             builder.Property(x => x.Id).IsRequired(); // Propiedad Id es obligatoria
         }
     }
-
 }
+

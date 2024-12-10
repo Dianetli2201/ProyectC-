@@ -2,23 +2,15 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using maintenance_calibration_system.Domain.Datos_de_Configuracion;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 
 namespace maintenance_calibration_system.DataAccess.FluentConfigurations.MaintenanceActivities
 {
-    /// <summary>
-    /// Configuración específica para la entidad Calibration.
-    /// </summary>
+    /// <summary>Configuración específica para la entidad Calibration.</summary>
     public class CalibrationEntityTypeConfiguration : IEntityTypeConfiguration<Calibration>
     {
-        /// <summary>
-        /// Configura la entidad Calibration.
-        /// </summary>
+        /// <summary>Configura la entidad Calibration.</summary>
         /// <param name="builder">Constructor de la entidad.</param>
         public void Configure(EntityTypeBuilder<Calibration> builder)
         {
@@ -38,5 +30,5 @@ namespace maintenance_calibration_system.DataAccess.FluentConfigurations.Mainten
                     j => { j.HasKey("SensorId", "CalibrationId"); });
         }
     }
-
 }
+

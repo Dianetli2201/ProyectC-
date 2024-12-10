@@ -5,14 +5,10 @@ using maintenance_calibration_system.Domain.Datos_de_Configuracion;
 
 namespace maintenance_calibration_system.DataAccess.FluentConfigurations.MaintenanceActivities
 {
-    /// <summary>
-    /// Configuración específica para la entidad Maintenance.
-    /// </summary>
+    /// <summary>Configuración específica para la entidad Maintenance.</summary>
     public class MaintenanceEntityTypeConfiguration : IEntityTypeConfiguration<Maintenance>
     {
-        /// <summary>
-        /// Configura la entidad Maintenance.
-        /// </summary>
+        /// <summary>Configura la entidad Maintenance.</summary>
         /// <param name="builder">Constructor de la entidad.</param>
         public void Configure(EntityTypeBuilder<Maintenance> builder)
         {
@@ -32,5 +28,4 @@ namespace maintenance_calibration_system.DataAccess.FluentConfigurations.Mainten
                     j => { j.HasKey("MaintenanceId", "ActuatorId"); });
         }
     }
-
 }

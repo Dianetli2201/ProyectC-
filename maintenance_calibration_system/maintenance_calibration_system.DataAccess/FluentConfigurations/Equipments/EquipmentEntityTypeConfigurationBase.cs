@@ -1,20 +1,15 @@
 ﻿using maintenance_calibration_system.DataAccess.FluentConfigurations.Common;
-using maintenance_calibration_system.Domain.ValueObjects;
 using maintenance_calibration_system.Domain.Datos_de_Configuracion;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
+
 
 namespace maintenance_calibration_system.DataAccess.FluentConfigurations.Equipments
 {
-    /// <summary>
-    /// Configuración base para la entidad Equipment.
-    /// </summary>
+    /// <summary>Configuración base para la entidad Equipment.</summary>
     public class EquipmentEntityTypeConfigurationBase : EntityTypeConfigurationBase<Equipment>
     {
-        /// <summary>
-        /// Configura la entidad Equipment.
-        /// </summary>
+        /// <summary>Configura la entidad Equipment.</summary>
         /// <param name="builder">Constructor de la entidad.</param>
         public override void Configure(EntityTypeBuilder<Equipment> builder)
         {
@@ -38,5 +33,7 @@ namespace maintenance_calibration_system.DataAccess.FluentConfigurations.Equipme
                 .HasValue<Actuador>("Actuador");
         }
     }
-
 }
+
+
+
