@@ -8,7 +8,7 @@ using maintenance_calibration_system.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace maintenance_calibration_system.DataAccess.Tests
+namespace maintenance_calibration_system.Tests.DataAccess.Repositories.Equipments
 {
     [TestClass]
     public class EquipmentRepositoryTests
@@ -25,8 +25,8 @@ namespace maintenance_calibration_system.DataAccess.Tests
                 .Options;
 
             _context = new ApplicationContext(options);
-            _sensorRepository = new SensorRepository(_context);
-            _actuatorRepository = new ActuadorRepository(_context);
+            _sensorRepository = new EquipmentRepository<Sensor>(_context);
+            _actuatorRepository = new EquipmentRepository<Actuador>(_context);
         }
 
         // Pruebas para Sensor
@@ -34,10 +34,12 @@ namespace maintenance_calibration_system.DataAccess.Tests
         public void Add_ShouldAddSensor()
         {
             // Arrange
-            var sensor = new Sensor(Guid.NewGuid(), "SENSOR001", PhysicalMagnitude.SomeMagnitude, "ManufacturerA", CommunicationProtocol.SomeProtocol, "PrincipleA");
+            var someMagnitude = new PhysicalMagnitude("Temperature", "Celsius");
+            var sensor = new Sensor(Guid.NewGuid(), "SENSOR001", someMagnitude, "ManufacturerA", CommunicationProtocol.UA, "PrincipleA");
 
             // Act
             _sensorRepository.Add(sensor);
+            _context.SaveChanges(); // Asegúrate de guardar los cambios
 
             // Assert
             var result = _context.Set<Sensor>().FirstOrDefault(s => s.AlphanumericCode == "SENSOR001");
@@ -49,7 +51,8 @@ namespace maintenance_calibration_system.DataAccess.Tests
         public void GetById_ShouldReturnSensor()
         {
             // Arrange
-            var sensor = new Sensor(Guid.NewGuid(), "SENSOR002", PhysicalMagnitude.SomeMagnitude, "ManufacturerB", CommunicationProtocol.SomeProtocol, "PrincipleB");
+            var someMagnitude = new PhysicalMagnitude("Temperature", "Celsius");
+            var sensor = new Sensor(Guid.NewGuid(), "SENSOR002", someMagnitude, "ManufacturerB", CommunicationProtocol.UA, "PrincipleB");
             _context.Set<Sensor>().Add(sensor);
             _context.SaveChanges();
 
@@ -65,8 +68,9 @@ namespace maintenance_calibration_system.DataAccess.Tests
         public void GetAll_ShouldReturnAllSensors()
         {
             // Arrange
-            var sensor1 = new Sensor(Guid.NewGuid(), "SENSOR003", PhysicalMagnitude.SomeMagnitude, "ManufacturerC", CommunicationProtocol.SomeProtocol, "PrincipleC");
-            var sensor2 = new Sensor(Guid.NewGuid(), "SENSOR004", PhysicalMagnitude.SomeMagnitude, "ManufacturerD", CommunicationProtocol.SomeProtocol, "PrincipleD");
+            var someMagnitude = new PhysicalMagnitude("Temperature", "Celsius");
+            var sensor1 = new Sensor(Guid.NewGuid(), "SENSOR003", someMagnitude, "ManufacturerC", CommunicationProtocol.UA, "PrincipleC");
+            var sensor2 = new Sensor(Guid.NewGuid(), "SENSOR004", someMagnitude, "ManufacturerD", CommunicationProtocol.UA, "PrincipleD");
             _context.Set<Sensor>().AddRange(sensor1, sensor2);
             _context.SaveChanges();
 
@@ -81,13 +85,15 @@ namespace maintenance_calibration_system.DataAccess.Tests
         public void Update_ShouldModifySensor()
         {
             // Arrange
-            var sensor = new Sensor(Guid.NewGuid(), "SENSOR005", PhysicalMagnitude.SomeMagnitude, "ManufacturerE", CommunicationProtocol.SomeProtocol, "PrincipleE");
+            var someMagnitude = new PhysicalMagnitude("Temperature", "Celsius");
+            var sensor = new Sensor(Guid.NewGuid(), "SENSOR005", someMagnitude, "ManufacturerE", CommunicationProtocol.UA, "PrincipleE");
             _context.Set<Sensor>().Add(sensor);
             _context.SaveChanges();
 
             // Act
             sensor.Manufacturer = "UpdatedManufacturer";
             _sensorRepository.Update(sensor);
+            _context.SaveChanges(); // Asegúrate de guardar los cambios
 
             // Assert
             var result = _context.Set<Sensor>().Find(sensor.Id);
@@ -98,12 +104,14 @@ namespace maintenance_calibration_system.DataAccess.Tests
         public void Delete_ShouldRemoveSensor()
         {
             // Arrange
-            var sensor = new Sensor(Guid.NewGuid(), "SENSOR006", PhysicalMagnitude.SomeMagnitude, "ManufacturerF", CommunicationProtocol.SomeProtocol, "PrincipleF");
+            var someMagnitude = new PhysicalMagnitude("Temperature", "Celsius");
+            var sensor = new Sensor(Guid.NewGuid(), "SENSOR006", someMagnitude, "ManufacturerF", CommunicationProtocol.UA, "PrincipleF");
             _context.Set<Sensor>().Add(sensor);
             _context.SaveChanges();
 
             // Act
             _sensorRepository.Delete(sensor.Id);
+            _context.SaveChanges(); // Asegúrate de guardar los cambios
 
             // Assert
             var result = _context.Set<Sensor>().Find(sensor.Id);
@@ -115,10 +123,12 @@ namespace maintenance_calibration_system.DataAccess.Tests
         public void Add_ShouldAddActuador()
         {
             // Arrange
-            var actuador = new Actuador(Guid.NewGuid(), "ACTUADOR001", PhysicalMagnitude.SomeMagnitud, "ManufacturerA", "ControlCode", SignalControl.SomeSignal);
+            var someMagnitude = new PhysicalMagnitude("Temperature", "Celsius");
+            var actuador = new Actuador(Guid.NewGuid(), "ACTUADOR001", someMagnitude, "ManufacturerA", "ControlCode", SignalControl.Analog);
 
             // Act
             _actuatorRepository.Add(actuador);
+            _context.SaveChanges(); // Asegúrate de guardar los cambios
 
             // Assert
             var result = _context.Set<Actuador>().FirstOrDefault(a => a.AlphanumericCode == "ACTUADOR001");
@@ -130,4 +140,71 @@ namespace maintenance_calibration_system.DataAccess.Tests
         public void GetById_ShouldReturnActuador()
         {
             // Arrange
-            var actuador = new Actuador(Guid.NewGuid(), "ACTUADOR002", PhysicalMagnitude.SomeMagnitude, "ManufacturerB", "ControlCode", SignalControl.Some
+            var someMagnitude = new PhysicalMagnitude("Temperature", "Celsius");
+            var actuador = new Actuador(Guid.NewGuid(), "ACTUADOR002", someMagnitude, "ManufacturerB", "ControlCode", SignalControl.Analog);
+            _context.Set<Actuador>().Add(actuador);
+            _context.SaveChanges();
+
+            // Act
+            var result = _actuatorRepository.GetById(actuador.Id);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual("ACTUADOR002", result.AlphanumericCode);
+        }
+
+        [TestMethod]
+        public void GetAll_ShouldReturnAllActuadores()
+        {
+            // Arrange
+            var someMagnitude = new PhysicalMagnitude("Temperature", "Celsius");
+            var actuador1 = new Actuador(Guid.NewGuid(), "ACTUADOR003", someMagnitude, "ManufacturerC", "ControlCode", SignalControl.Analog);
+            var actuador2 = new Actuador(Guid.NewGuid(), "ACTUADOR004", someMagnitude, "ManufacturerD", "ControlCode", SignalControl.Analog);
+            _context.Set<Actuador>().AddRange(actuador1, actuador2);
+            _context.SaveChanges();
+
+            // Act
+            var result = _actuatorRepository.GetAll();
+
+            // Assert
+            Assert.AreEqual(2, result.Count());
+        }
+
+        [TestMethod]
+        public void Update_ShouldModifyActuador()
+        {
+            // Arrange
+            var someMagnitude = new PhysicalMagnitude("Temperature", "Celsius");
+            var actuador = new Actuador(Guid.NewGuid(), "ACTUADOR005", someMagnitude, "ManufacturerE", "ControlCode", SignalControl.Analog);
+            _context.Set<Actuador>().Add(actuador);
+            _context.SaveChanges();
+
+            // Act
+            actuador.Manufacturer = "UpdatedManufacturer";
+            _actuatorRepository.Update(actuador);
+            _context.SaveChanges(); // Asegúrate de guardar los cambios
+
+            // Assert
+            var result = _context.Set<Actuador>().Find(actuador.Id);
+            Assert.AreEqual("UpdatedManufacturer", result.Manufacturer);
+        }
+
+        [TestMethod]
+        public void Delete_ShouldRemoveActuador()
+        {
+            // Arrange
+            var someMagnitude = new PhysicalMagnitude("Temperature", "Celsius");
+            var actuador = new Actuador(Guid.NewGuid(), "ACTUADOR006", someMagnitude, "ManufacturerF", "ControlCode", SignalControl.Analog);
+            _context.Set<Actuador>().Add(actuador);
+            _context.SaveChanges();
+
+            // Act
+            _actuatorRepository.Delete(actuador.Id);
+            _context.SaveChanges(); // Asegúrate de guardar los cambios
+
+            // Assert
+            var result = _context.Set<Actuador>().Find(actuador.Id);
+            Assert.IsNull(result);
+        }
+    }
+}

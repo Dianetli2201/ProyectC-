@@ -8,11 +8,11 @@ using maintenance_calibration_system.DataAccess.Respositories.Common; // Para Ap
 
 namespace maintenance_calibration_system.DataAccess.Respositories.MaintenanceActivitiy
 {
-    public abstract class MaintenanceActivityRepository<T> : RepositoryBase<T>  where T : MaintenanceActivity 
+    public class MaintenanceActivityRepository<T> : RepositoryBase<T>  where T : MaintenanceActivity 
     {
 
         /// <summary>Constructor</summary>
-        protected MaintenanceActivityRepository(ApplicationContext context) : base(context)
+        public MaintenanceActivityRepository(ApplicationContext context) : base(context)
         {
         }
 

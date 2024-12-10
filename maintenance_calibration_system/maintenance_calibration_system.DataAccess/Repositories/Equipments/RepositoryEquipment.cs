@@ -10,10 +10,10 @@ using maintenance_calibration_system.Domain.Datos_de_Configuracion; // Para Appl
 
 namespace maintenance_calibration_system.DataAccess.Respositories.Equipments
 {
-    public abstract class EquipmentRepository<T> : RepositoryBase<T> where T : Equipment
+    public class EquipmentRepository<T> : RepositoryBase<T> where T : Equipment
     {
 
-        protected EquipmentRepository(ApplicationContext context) : base(context)
+        public EquipmentRepository(ApplicationContext context) : base(context)
         {
 
         }   
