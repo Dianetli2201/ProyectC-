@@ -19,6 +19,7 @@ namespace maintenance_calibration_system.Tests.DataAccess.Repositories.Equipment
         private EquipmentRepository<Sensor>? _sensorRepository;
         private EquipmentRepository<Actuador>? _actuatorRepository;
 
+
         [TestInitialize]
         public void Setup()
         {
@@ -32,6 +33,8 @@ namespace maintenance_calibration_system.Tests.DataAccess.Repositories.Equipment
             _context.Database.EnsureDeleted();
             _context.Database.EnsureCreated();
         }
+
+
 
         // Pruebas para Sensor
         [TestMethod]
@@ -162,8 +165,11 @@ namespace maintenance_calibration_system.Tests.DataAccess.Repositories.Equipment
         {
             // Arrange
             var someMagnitude = new PhysicalMagnitude("Temperature", "Celsius");
+
             var actuador1 = new Actuador(Guid.NewGuid(), "ACTUADOR003", someMagnitude, "ManufacturerC", "ControlCode", SignalControl.Analog);
             var actuador2 = new Actuador(Guid.NewGuid(), "ACTUADOR004", someMagnitude, "ManufacturerD", "ControlCode", SignalControl.Analog);
+
+
             _context.Set<Actuador>().AddRange(actuador1, actuador2);
             _unitOfWork.SaveChanges(); // Asegúrate de guardar los cambios
 

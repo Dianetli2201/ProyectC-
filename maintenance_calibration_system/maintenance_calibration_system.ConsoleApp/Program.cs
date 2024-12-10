@@ -1,5 +1,4 @@
 ﻿using maintenance_calibration_system.DataAccess.Contexts;
-using maintenance_calibration_system.DataAccess.FluentConfigurations.Equipments;
 using maintenance_calibration_system.Domain.Datos_de_Configuracion;
 using maintenance_calibration_system.Domain.Datos_de_Planificación;
 using maintenance_calibration_system.Domain.Datos_Historicos;

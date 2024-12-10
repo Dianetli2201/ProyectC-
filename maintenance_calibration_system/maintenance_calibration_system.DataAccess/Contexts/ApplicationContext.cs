@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using maintenance_calibration_system.DataAccess.FluentConfigurations.Equipments;
+using maintenance_calibration_system.DataAccess.FluentConfigurations.MaintenanceActivities;
 
 namespace maintenance_calibration_system.DataAccess.Contexts
 {
