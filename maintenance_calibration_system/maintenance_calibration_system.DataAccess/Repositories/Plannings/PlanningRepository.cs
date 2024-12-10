@@ -1,56 +1,71 @@
-using System.Net.Http.Headers;
-using System.Runtime.InteropServices;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using maintenance_calibration_system.Domain.Datos_de_Planificación;
-using maintenance_calibration_system.Domain.Common; // Incluye la clase base Entity
-using maintenance_calibration_system.Domain.Types;
 using maintenance_calibration_system.DataAccess.Contexts;
-using Microsoft.EntityFrameworkCore; // Incluye PlanningTypes
+using Microsoft.EntityFrameworkCore;
 
 namespace maintenance_calibration_system.DataAccess.Respositories.Plannings
 {
+    /// <summary>Interfaz para el repositorio de planificaciones.</summary>
     public interface IPlanningRepository
     {
+        /// <summary>Añade una planificación.</summary>
         void Add(Planning planning);
+
+        /// <summary>Obtiene una planificación por su identificador.</summary>
         Planning GetById(Guid id);
+
+        /// <summary>Obtiene todas las planificaciones.</summary>
         IEnumerable<Planning> GetAll();
+
+        /// <summary>Actualiza una planificación existente.</summary>
         void Update(Planning planning);
+
+        /// <summary>Elimina una planificación por su identificador.</summary>
         void Delete(Guid id);
     }
 
+    /// <summary>Repositorio para manejar entidades de tipo Planning.</summary>
     public class PlanningRepository : IPlanningRepository
     {
         private readonly ApplicationContext _context; // Contexto de la base de datos
         private readonly DbSet<Planning> _plannings; // Conjunto de planificaciones
 
+        /// <summary>Constructor que inicializa el repositorio con el contexto de la aplicación.</summary>
+        /// <param name="context">El contexto de la aplicación.</param>
         public PlanningRepository(ApplicationContext context)
         {
             _context = context;
             _plannings = _context.Set<Planning>(); // Inicializa el conjunto de planificaciones
         }
 
+        /// <summary>Añade una planificación al conjunto y guarda los cambios.</summary>
+        /// <param name="planning">La planificación a añadir.</param>
         public void Add(Planning planning)
         {
             if (planning == null)
             {
                 throw new ArgumentNullException(nameof(planning), "La planificación no puede ser nula.");
             }
-            _plannings.Add(planning); // Agrega la planificación al conjunto
-            _context.SaveChanges(); // Guarda los cambios en el contexto
+            _plannings.Add(planning);
+            _context.SaveChanges();
         }
 
+        /// <summary>Obtiene una planificación por su identificador.</summary>
+        /// <param name="id">El identificador de la planificación.</param>
+        /// <returns>La planificación encontrada o null.</returns>
         public Planning GetById(Guid id)
         {
             return _plannings.FirstOrDefault(p => p.Id == id);
         }
 
+        /// <summary>Obtiene todas las planificaciones.</summary>
+        /// <returns>Una lista de todas las planificaciones.</returns>
         public IEnumerable<Planning> GetAll()
         {
-            return _plannings.ToList(); // Convierte a lista para evitar problemas de enumeración
+            return _plannings.ToList();
         }
 
+        /// <summary>Actualiza una planificación existente y guarda los cambios.</summary>
+        /// <param name="planning">La planificación a actualizar.</param>
         public void Update(Planning planning)
         {
             var existingPlanning = GetById(planning.Id);
@@ -59,18 +74,19 @@ namespace maintenance_calibration_system.DataAccess.Respositories.Plannings
                 existingPlanning.EquipmentElement = planning.EquipmentElement;
                 existingPlanning.Type = planning.Type;
                 existingPlanning.ExecutionDate = planning.ExecutionDate;
-                // Actualizar otras propiedades según sea necesario
-                _context.SaveChanges(); // Guarda los cambios en el contexto
+                _context.SaveChanges();
             }
         }
 
+        /// <summary>Elimina una planificación por su identificador y guarda los cambios.</summary>
+        /// <param name="id">El identificador de la planificación a eliminar.</param>
         public void Delete(Guid id)
         {
             var planning = GetById(id);
             if (planning != null)
             {
                 _plannings.Remove(planning);
-                _context.SaveChanges(); // Guarda los cambios en el contexto
+                _context.SaveChanges();
             }
         }
     }

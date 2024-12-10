@@ -1,26 +1,30 @@
 using maintenance_calibration_system.DataAccess.Contexts;
-using maintenance_calibration_system.DataAccess.Respositories.Equipments;
-using maintenance_calibration_system.DataAccess.Respositories.Plannings;
 using Microsoft.EntityFrameworkCore;
 
+/// <summary>Interfaz que define el contrato para el UnitOfWork.</summary>
 public interface IUnitOfWork
 {
+    /// <summary>Guarda los cambios realizados en el contexto.</summary>
     void SaveChanges();
 }
 
+/// <summary>Implementación del patrón UnitOfWork.</summary>
 public class UnitOfWork : IUnitOfWork
 {
-
     private readonly ApplicationContext _context;
 
+    /// <summary>Constructor que inicializa el contexto de la aplicación.</summary>
+    /// <param name="context">El contexto de la aplicación.</param>
     public UnitOfWork(ApplicationContext context)
     {
         _context = context;
+        // Verifica si la base de datos puede conectarse, si no, aplica migraciones pendientes
         if (!context.Database.CanConnect())
             context.Database.Migrate();
     }
 
-    public void SaveChanges() 
+    /// <summary>Guarda los cambios realizados en el contexto.</summary>
+    public void SaveChanges()
     {
         _context.SaveChanges();
     }
