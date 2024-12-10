@@ -6,8 +6,7 @@ using maintenance_calibration_system.DataAccess.Tests.Utilities;
 using maintenance_calibration_system.Domain.Datos_de_Configuracion;
 using maintenance_calibration_system.Domain.Types;
 using maintenance_calibration_system.Domain.ValueObjects;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 
 namespace maintenance_calibration_system.Tests.DataAccess.Repositories.Equipments
 {
@@ -19,9 +18,7 @@ namespace maintenance_calibration_system.Tests.DataAccess.Repositories.Equipment
         private EquipmentRepository<Sensor>? _sensorRepository;
         private EquipmentRepository<Actuador>? _actuatorRepository;
 
-
-        [TestInitialize]
-        public void Setup()
+        public EquipmentRepositoryTests()
         {
             _context = new ApplicationContext(ConnectionStringProvider.GetConnectingString());
                 
@@ -60,6 +57,7 @@ namespace maintenance_calibration_system.Tests.DataAccess.Repositories.Equipment
             // Arrange
             var someMagnitude = new PhysicalMagnitude("Temperature", "Celsius");
             var sensor = new Sensor(Guid.NewGuid(), "SENSOR002", someMagnitude, "ManufacturerB", CommunicationProtocol.UA, "PrincipleB");
+            
             _context.Set<Sensor>().Add(sensor);
             _unitOfWork.SaveChanges(); // Asegúrate de guardar los cambios
 
@@ -78,6 +76,7 @@ namespace maintenance_calibration_system.Tests.DataAccess.Repositories.Equipment
             var someMagnitude = new PhysicalMagnitude("Temperature", "Celsius");
             var sensor1 = new Sensor(Guid.NewGuid(), "SENSOR003", someMagnitude, "ManufacturerC", CommunicationProtocol.UA, "PrincipleC");
             var sensor2 = new Sensor(Guid.NewGuid(), "SENSOR004", someMagnitude, "ManufacturerD", CommunicationProtocol.UA, "PrincipleD");
+            
             _context.Set<Sensor>().AddRange(sensor1, sensor2);
             _unitOfWork.SaveChanges(); // Asegúrate de guardar los cambios
 
@@ -94,11 +93,13 @@ namespace maintenance_calibration_system.Tests.DataAccess.Repositories.Equipment
             // Arrange
             var someMagnitude = new PhysicalMagnitude("Temperature", "Celsius");
             var sensor = new Sensor(Guid.NewGuid(), "SENSOR005", someMagnitude, "ManufacturerE", CommunicationProtocol.UA, "PrincipleE");
+           
             _context.Set<Sensor>().Add(sensor);
             _unitOfWork.SaveChanges(); // Asegúrate de guardar los cambios
 
             // Act
             sensor.Manufacturer = "UpdatedManufacturer";
+           
             _sensorRepository.Update(sensor);
             _unitOfWork.SaveChanges(); // Asegúrate de guardar los cambios
 
@@ -113,6 +114,7 @@ namespace maintenance_calibration_system.Tests.DataAccess.Repositories.Equipment
             // Arrange
             var someMagnitude = new PhysicalMagnitude("Temperature", "Celsius");
             var sensor = new Sensor(Guid.NewGuid(), "SENSOR006", someMagnitude, "ManufacturerF", CommunicationProtocol.UA, "PrincipleF");
+           
             _context.Set<Sensor>().Add(sensor);
             _unitOfWork.SaveChanges(); // Asegúrate de guardar los cambios
 
@@ -149,6 +151,7 @@ namespace maintenance_calibration_system.Tests.DataAccess.Repositories.Equipment
             // Arrange
             var someMagnitude = new PhysicalMagnitude("Temperature", "Celsius");
             var actuador = new Actuador(Guid.NewGuid(), "ACTUADOR002", someMagnitude, "ManufacturerB", "ControlCode", SignalControl.Analog);
+           
             _context.Set<Actuador>().Add(actuador);
             _unitOfWork.SaveChanges(); // Asegúrate de guardar los cambios
 
@@ -186,11 +189,13 @@ namespace maintenance_calibration_system.Tests.DataAccess.Repositories.Equipment
             // Arrange
             var someMagnitude = new PhysicalMagnitude("Temperature", "Celsius");
             var actuador = new Actuador(Guid.NewGuid(), "ACTUADOR005", someMagnitude, "ManufacturerE", "ControlCode", SignalControl.Analog);
+            
             _context.Set<Actuador>().Add(actuador);
             _unitOfWork.SaveChanges(); // Asegúrate de guardar los cambios
 
             // Act
             actuador.Manufacturer = "UpdatedManufacturer";
+         
             _actuatorRepository.Update(actuador);
             _unitOfWork.SaveChanges(); // Asegúrate de guardar los cambios
 
@@ -205,6 +210,7 @@ namespace maintenance_calibration_system.Tests.DataAccess.Repositories.Equipment
             // Arrange
             var someMagnitude = new PhysicalMagnitude("Temperature", "Celsius");
             var actuador = new Actuador(Guid.NewGuid(), "ACTUADOR006", someMagnitude, "ManufacturerF", "ControlCode", SignalControl.Analog);
+           
             _context.Set<Actuador>().Add(actuador);
             _unitOfWork.SaveChanges();
 

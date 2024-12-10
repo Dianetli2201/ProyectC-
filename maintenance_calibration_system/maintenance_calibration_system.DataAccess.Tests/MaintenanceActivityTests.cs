@@ -21,6 +21,8 @@ namespace maintenance_calibration_system.Tests
         private MaintenanceActivityRepository<Maintenance>? _maintenanceRepository;
         private MaintenanceActivityRepository<Calibration>? _calibrationRepository;
 
+
+
         public MaintenanceActivityTests()
         {
             _context = new ApplicationContext(ConnectionStringProvider.GetConnectingString());
@@ -33,6 +35,8 @@ namespace maintenance_calibration_system.Tests
             _context.Database.EnsureDeleted();
             _context.Database.EnsureCreated();
         }
+
+
 
         [TestMethod]
         public void Calibration_Creation_ShouldInitializeProperties()
@@ -55,6 +59,8 @@ namespace maintenance_calibration_system.Tests
             Assert.AreEqual(0, calibration.CalibratedSensors.Count);
         }
 
+
+
         // Pruebas para Maintenance
         [TestMethod]
         public void AddMaintenance_ShouldAddMaintenance()
@@ -76,6 +82,8 @@ namespace maintenance_calibration_system.Tests
             Assert.AreEqual(nameTechnician, result.NameTechnician);
         }
 
+
+
         [TestMethod]
         public void GetMaintenanceById_ShouldReturnMaintenance()
         {
@@ -96,6 +104,8 @@ namespace maintenance_calibration_system.Tests
             Assert.AreEqual(nameTechnician, result.NameTechnician);
         }
 
+
+
         [TestMethod]
         public void GetAllMaintenance_ShouldReturnAllMaintenance()
         {
@@ -111,6 +121,8 @@ namespace maintenance_calibration_system.Tests
             // Assert
             Assert.AreEqual(2, result.Count());
         }
+
+
 
         [TestMethod]
         public void UpdateMaintenance_ShouldModifyMaintenance()
@@ -133,6 +145,8 @@ namespace maintenance_calibration_system.Tests
             var result = _context.Set<Maintenance>().Find(id);
             Assert.AreEqual("Updated Technician", result.NameTechnician);
         }
+
+
 
         [TestMethod]
         public void DeleteMaintenance_ShouldRemoveMaintenance()
@@ -157,6 +171,8 @@ namespace maintenance_calibration_system.Tests
             Assert.IsNull(result);
         }
 
+
+
         // Pruebas para Calibration
         [TestMethod]
         public void AddCalibration_ShouldAddCalibration()
@@ -178,6 +194,8 @@ namespace maintenance_calibration_system.Tests
             Assert.AreEqual(nameTechnician, result.NameTechnician);
         }
 
+
+
         [TestMethod]
         public void GetCalibrationById_ShouldReturnCalibration()
         {
@@ -198,6 +216,8 @@ namespace maintenance_calibration_system.Tests
             Assert.IsNotNull(result);
             Assert.AreEqual(nameTechnician, result.NameTechnician);
         }
+
+
 
         [TestMethod]
         public void GetAllCalibration_ShouldReturnAllCalibration()
@@ -238,6 +258,8 @@ namespace maintenance_calibration_system.Tests
             var result = _context.Set<Calibration>().Find(id);
             Assert.AreEqual("Updated Technician", result.NameTechnician);
         }
+
+
 
         [TestMethod]
         public void DeleteCalibration_ShouldRemoveCalibration()
