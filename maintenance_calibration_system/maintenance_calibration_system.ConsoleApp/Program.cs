@@ -1,4 +1,6 @@
 ﻿using maintenance_calibration_system.DataAccess.Contexts;
+using maintenance_calibration_system.DataAccess.Respositories.Equipments;
+using maintenance_calibration_system.DataAccess.Respositories.Plannings;
 using maintenance_calibration_system.Domain.Datos_de_Configuracion;
 using maintenance_calibration_system.Domain.Datos_de_Planificación;
 using maintenance_calibration_system.Domain.Datos_Historicos;
@@ -32,50 +34,60 @@ namespace maintenance_calibration_system.ConsoleApp
                 Console.WriteLine("La base de datos ya está actualizada.");
             }
 
-            // Creando instancias de PhysicalMagnitude, Sensor, Actuator, Calibration y Maintenance.
-            var temperatureMagnitude = new PhysicalMagnitude("Temperature", "°C");
-            var pressureMagnitude = new PhysicalMagnitude("Pressure", "bar");
+            // Inicializando el UnitOfWork y los repositorios
+            var unitOfWork = new UnitOfWork(appContext);
+            var sensorRepository = new EquipmentRepository<Sensor>(appContext);
+            var actuatorRepository = new EquipmentRepository<Actuador>(appContext);
+            var planningRepository = new PlanningRepository(appContext);
 
-            var sensor = new Sensor(
-                Guid.NewGuid(),
-                "SEN123",
-                temperatureMagnitude,
-                "SensorTech",
-                CommunicationProtocol.ModBus,
-                "Measures temperature");
+            // Ejemplo de uso del repositorio de sensores
+            var sensor = new Sensor(Guid.NewGuid(), "SENSOR001", new PhysicalMagnitude("Temperature", "Celsius"), "ManufacturerA", CommunicationProtocol.UA, "PrincipleA");
+            sensorRepository.Add(sensor);
+            unitOfWork.SaveChanges();
+            Console.WriteLine("Sensor añadido: " + sensor.AlphanumericCode);
 
-            var actuador = new Actuador(
-                Guid.NewGuid(),
-                "ACT456",
-                pressureMagnitude,
-                "ActuatorCorp",
-                "CTRL001",
-                SignalControl.Digital);
+            // Ejemplo de uso del repositorio de actuadores
+            var actuador = new Actuador(Guid.NewGuid(), "ACTUADOR001", new PhysicalMagnitude("Temperature", "Celsius"), "ManufacturerA", "ControlCode", SignalControl.Analog);
+            actuatorRepository.Add(actuador);
+            unitOfWork.SaveChanges();
+            Console.WriteLine("Actuador añadido: " + actuador.AlphanumericCode);
 
-            var calibration = new Calibration(
-                Guid.NewGuid(),
-                "CertAuthority1",
-                DateTime.Now,
-                "Tech1");
+            // Ejemplo de uso del repositorio de planificaciones
+            var planning = new Planning { Id = Guid.NewGuid(), EquipmentElement = "Sensor1", Type = PlanningTypes.Maintenance, ExecutionDate = DateTime.Now };
+            planningRepository.Add(planning);
+            unitOfWork.SaveChanges();
+            Console.WriteLine("Planificación añadida: " + planning.EquipmentElement);
 
-            var maintenance = new Maintenance(
-                Guid.NewGuid(),
-                DateTime.Now,
-                TypeMaintenance.Preventivo,
-                "Tech2");
+            // Obtener y mostrar todos los sensores
+            var allSensors = sensorRepository.GetAll();
+            Console.WriteLine("Todos los sensores:");
+            foreach (var s in allSensors)
+            {
+                Console.WriteLine($"- {s.AlphanumericCode} ({s.Manufacturer})");
+            }
 
-            var calibrationPlanning = new Planning(
-                Guid.NewGuid(),
-                "sensor",
-                PlanningTypes.Calibration,
-                DateTime.Now.AddDays(30));
+            // Obtener y mostrar todas las planificaciones
+            var allPlannings = planningRepository.GetAll();
+            Console.WriteLine("Todas las planificaciones:");
+            foreach (var p in allPlannings)
+            {
+                Console.WriteLine($"- {p.EquipmentElement} ({p.Type})");
+            }
 
-            var maintenancePlanning = new Planning(
-                Guid.NewGuid(),
-                "actuador",
-                PlanningTypes.Maintenance,
-                DateTime.Now.AddDays(60));
+            // Actualizar un sensor
+            sensor.Manufacturer = "UpdatedManufacturer";
+            sensorRepository.Update(sensor);
+            unitOfWork.SaveChanges();
+            Console.WriteLine("Sensor actualizado: " + sensor.AlphanumericCode);
+
+            // Eliminar una planificación
+            planningRepository.Delete(planning.Id);
+            unitOfWork.SaveChanges();
+            Console.WriteLine("Planificación eliminada: " + planning.EquipmentElement);
         }
     }
 }
+
+
+
 
