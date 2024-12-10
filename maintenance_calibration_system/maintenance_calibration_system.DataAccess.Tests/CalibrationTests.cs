@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using maintenance_calibration_system.Domain.Datos_Historicos; // Para Calibration
 using maintenance_calibration_system.Data.Repositories; // Para CalibrationRepository
 
-namespace maintenance_calibration_system.Tests.Data.Repositories
+namespace maintenance_calibration_system.DataAccess.Tests
 {
     /// <summary>
     /// Clase de pruebas unitarias para el repositorio de Calibraciones.

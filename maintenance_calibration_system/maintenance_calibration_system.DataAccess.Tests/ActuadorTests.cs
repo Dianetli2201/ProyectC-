@@ -7,13 +7,13 @@ using maintenance_calibration_system.DataAccess.Contexts; // Para ApplicationCon
 using maintenance_calibration_system.Domain.Datos_de_Configuración; // Para Actuador
 using maintenance_calibration_system.Infrastructure.Repositories;
 
-namespace maintenance_calibration_system.Tests.Repositories
+namespace maintenance_calibration_system.DataAccess.Tests
 {
     /// <summary>
     /// Clase que contiene las pruebas unitarias para el repositorio de Actuadores.
     /// </summary>
     [TestClass]
-    public class ActuadorRepositoryTests
+    public class ActuadorTests
     {
         private Mock<ApplicationContext> _mockContext;
         private ActuadorRepository _repository;

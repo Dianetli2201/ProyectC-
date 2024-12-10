@@ -6,7 +6,7 @@ using maintenance_calibration_system.DataAccess.Contexts; // Para ApplicationCon
 using maintenance_calibration_system.Domain.Datos_de_Configuración; // Para Sensor
 using maintenance_calibration_system.DataAccess.Repositories;
 
-namespace maintenance_calibration_system.Tests.DataAccess.Repositories
+namespace maintenance_calibration_system.DataAccess.Tests
 {
     /// <summary>
     /// Clase de pruebas unitarias para el repositorio de Sensores.

@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using maintenance_calibration_system.Domain.Datos_Historicos; // Para Maintenance
-using maintenance_calibration_system.Data.Repositories; // Para MaintenanceRepository
+using maintenance_calibration_system.Data.Repositories;
+using maintenance_calibration_system.Domain.Types; // Para MaintenanceRepository
 
-namespace maintenance_calibration_system.Tests.Data.Repositories
+namespace maintenance_calibration_system.DataAccess.Tests
 {
     /// <summary>
     /// Clase de pruebas unitarias para el repositorio de Mantenimientos.
@@ -12,7 +13,7 @@ namespace maintenance_calibration_system.Tests.Data.Repositories
     [TestClass]
     public class MaintenanceRepositoryTests
     {
-        private MaintenanceRepository _repository; // Instancia del repositorio a probar
+        private MaintenanceRepository? maintenanceRepository; // Instancia del repositorio a probar
 
         /// <summary>
         /// Configura el entorno para cada prueba unitaria.
@@ -21,7 +22,7 @@ namespace maintenance_calibration_system.Tests.Data.Repositories
         [TestInitialize]
         public void Setup()
         {
-            _repository = new MaintenanceRepository(); // Crea una nueva instancia del repositorio
+            maintenanceRepository = new MaintenanceRepository(); // Crea una nueva instancia del repositorio
         }
 
         /// <summary>
@@ -34,10 +35,10 @@ namespace maintenance_calibration_system.Tests.Data.Repositories
             var maintenance = new Maintenance { Id = Guid.NewGuid(), TypeMaintenance = "Regular" };
 
             // Act
-            _repository.Add(maintenance);
+            maintenanceRepository.Add(maintenance);
 
             // Assert
-            var result = _repository.GetById(maintenance.Id);
+            var result = maintenanceRepository.GetById(maintenance.Id);
             Assert.IsNotNull(result); // Verifica que el mantenimiento no sea nulo
             Assert.AreEqual(maintenance.TypeMaintenance, result.TypeMaintenance); // Verifica que los datos sean correctos
         }
@@ -51,10 +52,10 @@ namespace maintenance_calibration_system.Tests.Data.Repositories
             // Arrange
             var maintenanceId = Guid.NewGuid();
             var maintenance = new Maintenance { Id = maintenanceId, TypeMaintenance = "Regular" };
-            _repository.Add(maintenance);
+            maintenanceRepository.Add(maintenance);
 
             // Act
-            var result = _repository.GetById(maintenanceId);
+            var result = maintenanceRepository.GetById(maintenanceId);
 
             // Assert
             Assert.IsNotNull(result); // Verifica que no sea nulo
@@ -70,11 +71,11 @@ namespace maintenance_calibration_system.Tests.Data.Repositories
             // Arrange
             var maintenance1 = new Maintenance { Id = Guid.NewGuid(), TypeMaintenance = "Regular" };
             var maintenance2 = new Maintenance { Id = Guid.NewGuid(), TypeMaintenance = "Emergency" };
-            _repository.Add(maintenance1);
-            _repository.Add(maintenance2);
+            maintenanceRepository.Add(maintenance1);
+            maintenanceRepository.Add(maintenance2);
 
             // Act
-            var result = _repository.GetAll();
+            var result = maintenanceRepository.GetAll();
 
             // Assert
             Assert.AreEqual(2, result.Count()); // Verifica que se devuelvan dos mantenimientos
@@ -87,16 +88,16 @@ namespace maintenance_calibration_system.Tests.Data.Repositories
         public void Update_ShouldUpdateExistingMaintenance()
         {
             // Arrange
-            var maintenance = new Maintenance { Id = Guid.NewGuid(), TypeMaintenance = "OldType" };
-            _repository.Add(maintenance);
+            var maintenance = new Maintenance { Id = Guid.NewGuid(), TypeMaintenance.Preventivo };
+            maintenanceRepository.Add(maintenance);
 
             var updatedMaintenance = new Maintenance { Id = maintenance.Id, TypeMaintenance = "NewType" };
 
             // Act
-            _repository.Update(updatedMaintenance);
+            maintenanceRepository.Update(updatedMaintenance);
 
             // Assert
-            var result = _repository.GetById(maintenance.Id);
+            var result = maintenanceRepository.GetById(maintenance.Id);
             Assert.AreEqual("NewType", result.TypeMaintenance); // Verifica que se haya actualizado correctamente
         }
 
@@ -108,14 +109,14 @@ namespace maintenance_calibration_system.Tests.Data.Repositories
         {
             // Arrange
             var maintenanceId = Guid.NewGuid();
-            var maintenance = new Maintenance { Id = maintenanceId, TypeMaintenance = "Regular" };
-            _repository.Add(maintenance);
+            var maintenance = new Maintenance { Id = maintenanceId,TypeMaintenance.Preventivo};
+            maintenanceRepository.Add(maintenance);
 
             // Act
-            _repository.Delete(maintenanceId);
+            maintenanceRepository.Delete(maintenanceId);
 
             // Assert
-            var result = _repository.GetById(maintenanceId);
+            var result = maintenanceRepository.GetById(maintenanceId);
             Assert.IsNull(result); // Verifica que el mantenimiento haya sido eliminado
         }
     }

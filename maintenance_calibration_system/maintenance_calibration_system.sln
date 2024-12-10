@@ -14,6 +14,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "maintenance_calibration_system.DataAccess", "maintenance_calibration_system.DataAccess\maintenance_calibration_system.DataAccess.csproj", "{5A11358B-5895-4CE9-B23F-6B99C55F31E8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "maintenance_calibration_system.DataAccess.Tests", "maintenance_calibration_system.DataAccess.Tests\maintenance_calibration_system.DataAccess.Tests.csproj", "{4E420922-4A1B-4523-B887-4FB26E8E4C17}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9F7E2355-EC7C-486F-B648-9D48375C0EBA} = {9F7E2355-EC7C-486F-B648-9D48375C0EBA}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

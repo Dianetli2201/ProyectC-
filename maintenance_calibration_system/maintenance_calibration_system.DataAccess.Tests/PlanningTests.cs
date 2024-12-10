@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using maintenance_calibration_system.Domain.Datos_de_Planificación; // Para Planning
-using maintenance_calibration_system.Data.Repositories; // Para PlanningRepository
+using maintenance_calibration_system.Data.Repositories;
+using maintenance_calibration_system.Domain.Types; // Para PlanningRepository
 
-namespace maintenance_calibration_system.Tests.Data.Repositories
+namespace maintenance_calibration_system.DataAccess.Tests
 {
     /// <summary>
     /// Clase de pruebas unitarias para el repositorio de Planificaciones.
     /// </summary>
     [TestClass]
-    public class PlanningRepositoryTests
+    public class PlanningTests
     {
-        private PlanningRepository _repository; // Instancia del repositorio a probar
+        private IPlanningRepository? planningRepository; // Instancia del repositorio a probar
 
         /// <summary>
         /// Configura el entorno para cada prueba unitaria.
@@ -21,7 +22,7 @@ namespace maintenance_calibration_system.Tests.Data.Repositories
         [TestInitialize]
         public void Setup()
         {
-            _repository = new PlanningRepository(); // Crea una nueva instancia del repositorio
+            planningRepository = new PlanningRepository(); // Crea una nueva instancia del repositorio
         }
 
         /// <summary>
@@ -31,13 +32,13 @@ namespace maintenance_calibration_system.Tests.Data.Repositories
         public void Add_ShouldAddPlanning()
         {
             // Arrange
-            var planning = new Planning { Id = Guid.NewGuid(), EquipmentElement = "Sensor1", Type = PlanningType.Regular, ExecutionDate = DateTime.Now };
+            var planning = new Planning { Id = Guid.NewGuid(), EquipmentElement = "Sensor1", Type = PlanningTypes.Maintenance, ExecutionDate = DateTime.Now };
 
             // Act
-            _repository.Add(planning);
+            planningRepository.Add(planning);
 
             // Assert
-            var result = _repository.GetById(planning.Id);
+            var result = planningRepository.GetById(planning.Id);
             Assert.IsNotNull(result); // Verifica que la planificación no sea nula
             Assert.AreEqual(planning.EquipmentElement, result.EquipmentElement); // Verifica que los datos sean correctos
             Assert.AreEqual(planning.Type, result.Type);
@@ -52,11 +53,11 @@ namespace maintenance_calibration_system.Tests.Data.Repositories
         {
             // Arrange
             var planningId = Guid.NewGuid();
-            var planning = new Planning { Id = planningId, EquipmentElement = "Sensor1", Type = PlanningType.Regular, ExecutionDate = DateTime.Now };
-            _repository.Add(planning);
+            var planning = new Planning { Id = planningId, EquipmentElement = "Sensor1", Type = PlanningTypes.Maintenance, ExecutionDate = DateTime.Now };
+            planningRepository.Add(planning);
 
             // Act
-            var result = _repository.GetById(planningId);
+            var result = planningRepository.GetById(planningId);
 
             // Assert
             Assert.IsNotNull(result); // Verifica que no sea nulo
@@ -70,13 +71,13 @@ namespace maintenance_calibration_system.Tests.Data.Repositories
         public void GetAll_ShouldReturnAllPlannings()
         {
             // Arrange
-            var planning1 = new Planning { Id = Guid.NewGuid(), EquipmentElement = "Sensor1", Type = PlanningType.Regular, ExecutionDate = DateTime.Now };
-            var planning2 = new Planning { Id = Guid.NewGuid(), EquipmentElement = "Sensor2", Type = PlanningType.Emergency, ExecutionDate = DateTime.Now.AddDays(1) };
-            _repository.Add(planning1);
-            _repository.Add(planning2);
+            var planning1 = new Planning { Id = Guid.NewGuid(), EquipmentElement = "Sensor1", Type = PlanningTypes.Calibration, ExecutionDate = DateTime.Now };
+            var planning2 = new Planning { Id = Guid.NewGuid(), EquipmentElement = "Sensor2", Type = PlanningTypes.Maintenance, ExecutionDate = DateTime.Now.AddDays(1) };
+            planningRepository.Add(planning1);
+            planningRepository.Add(planning2);
 
             // Act
-            var result = _repository.GetAll();
+            var result = planningRepository.GetAll();
 
             // Assert
             Assert.AreEqual(2, result.Count()); // Verifica que se devuelvan dos planificaciones
@@ -89,23 +90,23 @@ namespace maintenance_calibration_system.Tests.Data.Repositories
         public void Update_ShouldUpdateExistingPlanning()
         {
             // Arrange
-            var planning = new Planning { Id = Guid.NewGuid(), EquipmentElement = "OldSensor", Type = PlanningType.Regular, ExecutionDate = DateTime.Now };
-            _repository.Add(planning);
+            var planning = new Planning { Id = Guid.NewGuid(), EquipmentElement = "OldSensor", Type = PlanningTypes.Calibration, ExecutionDate = DateTime.Now };
+            planningRepository.Add(planning);
 
-            var updatedPlanning = new Planning { Id = planning.Id, EquipmentElement = "NewSensor", Type = PlanningType.Emergency, ExecutionDate = DateTime.Now.AddDays(2) };
+            var updatedPlanning = new Planning { Id = planning.Id, EquipmentElement = "NewSensor", Type = PlanningTypes.Maintenance, ExecutionDate = DateTime.Now.AddDays(2) };
 
             // Act
-            _repository.Update(updatedPlanning);
+            planningRepository.Update(updatedPlanning);
 
             // Assert
-            var result = _repository.GetById(planning.Id);
+            var result = planningRepository.GetById(planning.Id);
             Assert.AreEqual("NewSensor", result.EquipmentElement); // Verifica que se haya actualizado correctamente
-            Assert.AreEqual(PlanningType.Emergency, result.Type);
+            Assert.AreEqual(PlanningTypes.Maintenance, result.Type);
             Assert.AreEqual(DateTime.Now.AddDays(2).Date, result.ExecutionDate.Date); // Compara solo la fecha sin la hora
         }
 
         /// <summary>
-        /// Prueba que verifica que una planificación se elimina correctamente del repositorio.
+        /// Prueba qu   e verifica que una planificación se elimina correctamente del repositorio.
         /// </summary>
         [TestMethod]
         public void Delete_ShouldRemovePlanning_WhenExists()
@@ -113,13 +114,13 @@ namespace maintenance_calibration_system.Tests.Data.Repositories
             // Arrange
             var planningId = Guid.NewGuid();
             var planning = new Planning { Id = planningId, EquipmentElement = "Sensor1", Type = PlanningType.Regular, ExecutionDate = DateTime.Now };
-            _repository.Add(planning);
+            planningRepository.Add(planning);
 
             // Act
-            _repository.Delete(planningId);
+            planningRepository.Delete(planningId);
 
             // Assert
-            var result = _repository.GetById(planningId);
+            var result = planningRepository.GetById(planningId);
             Assert.IsNull(result); // Verifica que la planificación haya sido eliminada
         }
     }

@@ -7,7 +7,7 @@ using maintenance_calibration_system.Domain.Datos_de_Planificación;
 using maintenance_calibration_system.Domain.Common; // Incluye la clase base Entity
 using maintenance_calibration_system.Domain.Types; // Incluye PlanningTypes
 
-namespace maintenance_calibration_system.Data.Repositories
+namespace maintenance_calibration_system.DataAccess.Respositories.Plannings
 {
     public interface IPlanningRepository
     {
@@ -23,10 +23,16 @@ namespace maintenance_calibration_system.Data.Repositories
     {
         private readonly List<Planning> _plannings; // Simulando una base de datos en memoria
 
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public PlanningRepository()
         {
             _plannings = new List<Planning>();
         }
+
+
 
         public void Add(Planning planning)
         {

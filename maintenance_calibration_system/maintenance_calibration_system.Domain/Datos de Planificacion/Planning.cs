@@ -19,7 +19,7 @@ namespace maintenance_calibration_system.Domain.Datos_de_Planificación
             public DateTime ExecutionDate { get; set; }  // Fecha de ejecución
         #endregion
 
-        protected Planning() { }
+        public Planning() { }
 
         public Planning(Guid id, string? equipmentElement, PlanningTypes type, DateTime executionDate)
             :base(id)
