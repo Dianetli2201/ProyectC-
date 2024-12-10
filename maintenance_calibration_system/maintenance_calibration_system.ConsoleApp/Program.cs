@@ -5,34 +5,23 @@ using maintenance_calibration_system.Domain.Datos_Historicos;
 using maintenance_calibration_system.Domain.Types;
 using maintenance_calibration_system.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace maintenance_calibration_system.ConsoleApp
 {
-    /// <summary>
-    /// Clase principal del programa que ejecuta las operaciones CRUD en la base de datos SQLite.
-    /// </summary>
+    /// <summary>Clase principal del programa que ejecuta las operaciones CRUD en la base de datos SQLite.</summary>
     internal class Program
     {
-        /// <summary>
-        /// Método principal del programa.
-        /// </summary>
+        /// <summary>Método principal del programa.</summary>
         static void Main(string[] args)
         {
-            /// <summary>
-            /// Configurando opciones para el contexto de la base de datos.
-            /// </summary>
+            // Configurando opciones para el contexto de la base de datos.
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationContext>();
             optionsBuilder.UseSqlite("Data Source=maintenance_calibration_systemDb.sqlite");
 
-            /// <summary>
-            /// Creando una instancia del contexto de la base de datos.
-            /// </summary>
+            // Creando una instancia del contexto de la base de datos.
             using var appContext = new ApplicationContext(optionsBuilder.Options);
 
-            /// <summary>
-            ///Verificando si hay migraciones pendientes y aplicándolas si es necesario.
-            /// </summary>
+            // Verificando si hay migraciones pendientes y aplicándolas si es necesario.
             if (appContext.Database.GetPendingMigrations().Any())
             {
                 Console.WriteLine("Aplicando migraciones...");
@@ -43,9 +32,7 @@ namespace maintenance_calibration_system.ConsoleApp
                 Console.WriteLine("La base de datos ya está actualizada.");
             }
 
-            /// <summary>
-            /// Creando instancias de PhysicalMagnitude, Sensor, Actuator, Calibration y Maintenance.
-            /// </summary>
+            // Creando instancias de PhysicalMagnitude, Sensor, Actuator, Calibration y Maintenance.
             var temperatureMagnitude = new PhysicalMagnitude("Temperature", "°C");
             var pressureMagnitude = new PhysicalMagnitude("Pressure", "bar");
 
@@ -88,9 +75,7 @@ namespace maintenance_calibration_system.ConsoleApp
                 "actuador",
                 PlanningTypes.Maintenance,
                 DateTime.Now.AddDays(60));
-
-        
         }
     }
-
 }
+
