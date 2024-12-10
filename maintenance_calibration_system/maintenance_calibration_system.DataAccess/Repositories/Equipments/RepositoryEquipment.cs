@@ -5,7 +5,8 @@ using maintenance_calibration_system.Domain.Common; // Para la clase Entity
 using maintenance_calibration_system.Domain.ValueObjects; // Para PhysicalMagnitude
 using maintenance_calibration_system.Domain.Datos_de_Configuración; // Para Equipment
 using maintenance_calibration_system.DataAccess.Contexts;
-using maintenance_calibration_system.DataAccess.Respositories.Common; // Para ApplicationContext
+using maintenance_calibration_system.DataAccess.Respositories.Common;
+using maintenance_calibration_system.Domain.Datos_de_Configuracion; // Para ApplicationContext
 
 namespace maintenance_calibration_system.DataAccess.Respositories.Equipments
 {

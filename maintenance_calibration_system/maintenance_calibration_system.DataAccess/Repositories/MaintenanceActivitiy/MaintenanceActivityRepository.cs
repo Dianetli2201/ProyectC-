@@ -6,7 +6,7 @@ using maintenance_calibration_system.Domain.Datos_Historicos; // Para Maintenanc
 using maintenance_calibration_system.DataAccess.Contexts;
 using maintenance_calibration_system.DataAccess.Respositories.Common; // Para ApplicationContext.
 
-namespace maintenance_calibration_system.DataAccess.Respositories.MaintenanceActivities
+namespace maintenance_calibration_system.DataAccess.Respositories.MaintenanceActivitiy
 {
     public abstract class MaintenanceActivityRepository<T> : RepositoryBase<T>  where T : MaintenanceActivity 
     {

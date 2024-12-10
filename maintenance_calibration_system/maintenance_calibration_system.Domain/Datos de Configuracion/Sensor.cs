@@ -7,7 +7,7 @@ using maintenance_calibration_system.Domain.Common;
 using maintenance_calibration_system.Domain.Types;
 using maintenance_calibration_system.Domain.ValueObjects;
 
-namespace maintenance_calibration_system.Domain.Datos_de_Configuración
+namespace maintenance_calibration_system.Domain.Datos_de_Configuracion
 {
     /// <summary>
     /// Representa un sensor en el sistema de mantenimiento y calibración.
