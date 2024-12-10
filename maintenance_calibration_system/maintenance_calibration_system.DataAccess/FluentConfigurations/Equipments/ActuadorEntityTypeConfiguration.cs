@@ -1,5 +1,4 @@
-﻿using maintenance_calibration_system.Domain.Datos_de_Configuración;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

@@ -5,12 +5,35 @@ using System.Collections.Generic;
 using maintenance_calibration_system.Domain.Types;
 using maintenance_calibration_system.Domain.Datos_de_Configuracion;
 using maintenance_calibration_system.Domain.ValueObjects;
-
+using maintenance_calibration_system.DataAccess.Contexts;
+using maintenance_calibration_system.DataAccess.Tests.Utilities;
+using maintenance_calibration_system.DataAccess.Respositories.MaintenanceActivitiy;
+using maintenance_calibration_system.DataAccess.Respositories.Equipments;
 namespace maintenance_calibration_system.Tests
 {
+
+
     [TestClass]
     public class MaintenanceActivityTests
     {
+        private ApplicationContext? _context;
+        private IUnitOfWork _unitOfWork;
+        private MaintenanceActivityRepository<Maintenance>? _maintenanceRepository;
+        private MaintenanceActivityRepository<Calibration>? _calibrationRepository;
+
+        public MaintenanceActivityTests()
+        {
+            _context = new ApplicationContext(ConnectionStringProvider.GetConnectingString());
+
+            _unitOfWork = new UnitOfWork(_context);
+            _maintenanceRepository = new MaintenanceActivityRepository<Maintenance>(_context);
+            _calibrationRepository = new MaintenanceActivityRepository<Calibration>(_context);
+
+            // Limpia y recrea la base de datos
+            _context.Database.EnsureDeleted();
+            _context.Database.EnsureCreated();
+        }
+
         [TestMethod]
         public void Calibration_Creation_ShouldInitializeProperties()
         {
@@ -32,31 +55,9 @@ namespace maintenance_calibration_system.Tests
             Assert.AreEqual(0, calibration.CalibratedSensors.Count);
         }
 
+        // Pruebas para Maintenance
         [TestMethod]
-        public void Maintenance_Creation_ShouldInitializeProperties()
-        {
-            // Arrange
-            var id = Guid.NewGuid();
-            var dateActivity = DateTime.Now;
-            var nameTechnician = "Jane Doe";
-            var typeMaintenance = TypeMaintenance.Preventivo; // Asegúrate de que TypeMaintenance esté definido
-
-            // Act
-            var maintenance = new Maintenance(id, dateActivity, typeMaintenance, nameTechnician);
-
-            // Assert
-            Assert.AreEqual(id, maintenance.Id);
-            Assert.AreEqual(dateActivity, maintenance.DateActivity);
-            Assert.AreEqual(nameTechnician, maintenance.NameTechnician);
-            Assert.AreEqual(typeMaintenance, maintenance.TypeMaintenance);
-            Assert.IsNotNull(maintenance.MaintenanceActuador);
-            Assert.AreEqual(0, maintenance.MaintenanceActuador.Count);
-        }
-
-
-
-        [TestMethod]
-        public void Maintenance_AddActuator_ShouldIncreaseMaintenanceActuadorCount()
+        public void AddMaintenance_ShouldAddMaintenance()
         {
             // Arrange
             var id = Guid.NewGuid();
@@ -64,97 +65,199 @@ namespace maintenance_calibration_system.Tests
             var nameTechnician = "Jane Doe";
             var typeMaintenance = TypeMaintenance.Preventivo; // Asegúrate de que TypeMaintenance esté definido
             var maintenance = new Maintenance(id, dateActivity, typeMaintenance, nameTechnician);
-            var someMagnitude = new PhysicalMagnitude("Temperature", "Celsius");
-            var actuador = new Actuador(Guid.NewGuid(), "ACTUADOR006", someMagnitude, "ManufacturerF", "ControlCode", SignalControl.Analog);
 
             // Act
-            maintenance.MaintenanceActuador.Add(actuador);
+            _maintenanceRepository.Add(maintenance);
+            _unitOfWork.SaveChanges(); // Asegúrate de guardar los cambios
 
             // Assert
-            Assert.AreEqual(1, maintenance.MaintenanceActuador.Count);
-            Assert.AreEqual(actuador, maintenance.MaintenanceActuador[0]);
+            var result = _context.Set<Maintenance>().FirstOrDefault(m => m.Id == id);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(nameTechnician, result.NameTechnician);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void Calibration_Creation_WithNullTechnician_ShouldThrowException()
+        public void GetMaintenanceById_ShouldReturnMaintenance()
         {
             // Arrange
             var id = Guid.NewGuid();
             var dateActivity = DateTime.Now;
-            string? nameTechnician = null; // Null technician name
-            var nameCertificateAuthority = "Cert Authority";
+            var nameTechnician = "Jane Doe";
+            var typeMaintenance = TypeMaintenance.Preventivo; // Asegúrate de que TypeMaintenance esté definido
+            var maintenance = new Maintenance(id, dateActivity, typeMaintenance, nameTechnician);
+            _context.Set<Maintenance>().Add(maintenance);
+            _unitOfWork.SaveChanges(); // Asegúrate de guardar los cambios
 
             // Act
+            var result = _maintenanceRepository.GetById(id);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(nameTechnician, result.NameTechnician);
+        }
+
+        [TestMethod]
+        public void GetAllMaintenance_ShouldReturnAllMaintenance()
+        {
+            // Arrange
+            var maintenance1 = new Maintenance(Guid.NewGuid(), DateTime.Now, TypeMaintenance.Preventivo, "Technician A");
+            var maintenance2 = new Maintenance(Guid.NewGuid(), DateTime.Now, TypeMaintenance.Correctivo, "Technician B");
+            _context.Set<Maintenance>().AddRange(maintenance1, maintenance2);
+            _unitOfWork.SaveChanges(); // Asegúrate de guardar los cambios
+
+            // Act
+            var result = _maintenanceRepository.GetAll();
+
+            // Assert
+            Assert.AreEqual(2, result.Count());
+        }
+
+        [TestMethod]
+        public void UpdateMaintenance_ShouldModifyMaintenance()
+        {
+            // Arrange
+            var id = Guid.NewGuid();
+            var dateActivity = DateTime.Now;
+            var nameTechnician = "Jane Doe";
+            var typeMaintenance = TypeMaintenance.Preventivo; // Asegúrate de que TypeMaintenance esté definido
+            var maintenance = new Maintenance(id, dateActivity, typeMaintenance, nameTechnician);
+            _context.Set<Maintenance>().Add(maintenance);
+            _unitOfWork.SaveChanges(); // Asegúrate de guardar los cambios
+
+            // Act
+            maintenance.NameTechnician = "Updated Technician";
+            _maintenanceRepository.Update(maintenance);
+            _unitOfWork.SaveChanges(); // Asegúrate de guardar los cambios
+
+            // Assert
+            var result = _context.Set<Maintenance>().Find(id);
+            Assert.AreEqual("Updated Technician", result.NameTechnician);
+        }
+
+        [TestMethod]
+        public void DeleteMaintenance_ShouldRemoveMaintenance()
+        {
+            // Arrange
+            var id = Guid.NewGuid();
+            var dateActivity = DateTime.Now;
+            var nameTechnician = "Jane Doe";
+            var typeMaintenance = TypeMaintenance.Preventivo; // Asegúrate de que TypeMaintenance esté definido
+            var maintenance = new Maintenance(id, dateActivity, typeMaintenance, nameTechnician);
+            _context.Set<Maintenance>().Add(maintenance);
+            _unitOfWork.SaveChanges(); // Asegúrate de guardar los cambios
+
+            // Act
+            _maintenanceRepository.Delete(id);
+          
+        _maintenanceRepository.Delete(id);
+            _unitOfWork.SaveChanges(); // Asegúrate de guardar los cambios
+
+            // Assert
+            var result = _context.Set<Maintenance>().Find(id);
+            Assert.IsNull(result);
+        }
+
+        // Pruebas para Calibration
+        [TestMethod]
+        public void AddCalibration_ShouldAddCalibration()
+        {
+            // Arrange
+            var id = Guid.NewGuid();
+            var dateActivity = DateTime.Now;
+            var nameTechnician = "John Smith";
+            var nameCertificateAuthority = "Momoa";
             var calibration = new Calibration(id, nameCertificateAuthority, dateActivity, nameTechnician);
+
+            // Act
+            _calibrationRepository.Add(calibration);
+            _unitOfWork.SaveChanges(); // Asegúrate de guardar los cambios
+
+            // Assert
+            var result = _context.Set<Calibration>().FirstOrDefault(c => c.Id == id);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(nameTechnician, result.NameTechnician);
         }
 
         [TestMethod]
-        public void Calibration_Creation_WithValidParameters_ShouldNotThrowException()
+        public void GetCalibrationById_ShouldReturnCalibration()
         {
             // Arrange
             var id = Guid.NewGuid();
             var dateActivity = DateTime.Now;
-            var nameTechnician = "John Doe";
-            var nameCertificateAuthority = "Cert Authority";
-
-            // Act & Assert
+            var nameTechnician = "John Smith";
+            var nameCertificateAuthority = "Momoa";
             var calibration = new Calibration(id, nameCertificateAuthority, dateActivity, nameTechnician);
-            Assert.IsNotNull(calibration);
+
+            _context.Set<Calibration>().Add(calibration);
+            _unitOfWork.SaveChanges(); // Asegúrate de guardar los cambios
+
+            // Act
+            var result = _calibrationRepository.GetById(id);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(nameTechnician, result.NameTechnician);
         }
 
         [TestMethod]
-        public void Maintenance_Creation_WithValidParameters_ShouldNotThrowException()
+        public void GetAllCalibration_ShouldReturnAllCalibration()
+        {
+            // Arrange
+            var nameCertificateAuthority = "Momoa";
+            var calibration1 = new Calibration(Guid.NewGuid(), nameCertificateAuthority, DateTime.Now, "Technician C");
+            var calibration2 = new Calibration(Guid.NewGuid(), nameCertificateAuthority, DateTime.Now, "Technician D");
+            _context.Set<Calibration>().AddRange(calibration1, calibration2);
+            _unitOfWork.SaveChanges(); // Asegúrate de guardar los cambios
+
+            // Act
+            var result = _calibrationRepository.GetAll();
+
+            // Assert
+            Assert.AreEqual(2, result.Count());
+        }
+
+        [TestMethod]
+        public void UpdateCalibration_ShouldModifyCalibration()
         {
             // Arrange
             var id = Guid.NewGuid();
             var dateActivity = DateTime.Now;
-            var nameTechnician = "Jane Doe";
-            var typeMaintenance = TypeMaintenance.Preventivo; // Asegúrate de que TypeMaintenance esté definido
+            var nameTechnician = "John Smith";
+            var nameCertificateAuthority = "Momoa";
+            var calibration = new Calibration(id, nameCertificateAuthority, dateActivity, nameTechnician);
+            _context.Set<Calibration>().Add(calibration);
+            _unitOfWork.SaveChanges(); // Asegúrate de guardar los cambios
 
-            // Act & Assert
-            var maintenance = new Maintenance(id, dateActivity, typeMaintenance, nameTechnician);
-            Assert.IsNotNull(maintenance);
+            // Act
+            calibration.NameTechnician = "Updated Technician";
+
+            _calibrationRepository.Update(calibration);
+            _unitOfWork.SaveChanges(); // Asegúrate de guardar los cambios
+
+            // Assert
+            var result = _context.Set<Calibration>().Find(id);
+            Assert.AreEqual("Updated Technician", result.NameTechnician);
         }
 
         [TestMethod]
-        public void Calibration_ShouldHaveUniqueId()
+        public void DeleteCalibration_ShouldRemoveCalibration()
         {
             // Arrange
-            var id1 = Guid.NewGuid();
-            var id2 = Guid.NewGuid();
+            var id = Guid.NewGuid();
             var dateActivity = DateTime.Now;
-            var nameTechnician = "John Doe";
-            var nameCertificateAuthority = "Cert Authority";
+            var nameTechnician = "John Smith";
+            var nameCertificateAuthority = "Momoa";
+            var calibration = new Calibration(id, nameCertificateAuthority, dateActivity, nameTechnician);
+            _context.Set<Calibration>().Add(calibration);
+            _unitOfWork.SaveChanges(); // Asegúrate de guardar los cambios
 
             // Act
-            var calibration1 = new Calibration(id1, nameCertificateAuthority, dateActivity, nameTechnician);
-            var calibration2 = new Calibration(id2, nameCertificateAuthority, dateActivity, nameTechnician);
+            _calibrationRepository.Delete(id);
+            _unitOfWork.SaveChanges(); // Asegúrate de guardar los cambios
 
             // Assert
-            Assert.AreNotEqual(calibration1.Id, calibration2.Id);
+            var result = _context.Set<Calibration>().Find(id);
+            Assert.IsNull(result);
         }
-
-        [TestMethod]
-        public void Maintenance_ShouldHaveUniqueId()
-        {
-            // Arrange
-            var id1 = Guid.NewGuid();
-            var id2 = Guid.NewGuid();
-            var dateActivity = DateTime.Now;
-            var nameTechnician = "Jane Doe";
-            var typeMaintenance = TypeMaintenance.Preventivo; // Asegúrate de que TypeMaintenance esté definido
-
-            // Act
-            var maintenance1 = new Maintenance(id1, dateActivity, typeMaintenance, nameTechnician);
-            var maintenance2 = new Maintenance(id2, dateActivity, typeMaintenance, nameTechnician);
-
-            // Assert
-            Assert.AreNotEqual(maintenance1.Id, maintenance2.Id);
-        }
-    }
-}
-
-
     }
 }

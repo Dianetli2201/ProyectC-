@@ -1,4 +1,5 @@
 using maintenance_calibration_system.DataAccess.Contexts;
+using maintenance_calibration_system.Domain.Datos_de_Planificación;
 
 public abstract class RepositoryBase<T> where T : class // utiliza genéricos para permitir que cualquier tipo de entidad (que sea una clase) pueda ser manejada por el repositorio.
 {
@@ -9,8 +10,12 @@ public abstract class RepositoryBase<T> where T : class // utiliza genéricos pa
         _context = context;
     }
 
-    public virtual void Add(T entity) //Agrega una nueva entidad al contexto y guarda los cambios.
+    public void Add(T entity)
     {
+        if (entity == null)
+        {
+            throw new ArgumentNullException(nameof(entity), "La planificación no puede ser nula.");
+        }
         _context.Set<T>().Add(entity);
         _context.SaveChanges();
     }

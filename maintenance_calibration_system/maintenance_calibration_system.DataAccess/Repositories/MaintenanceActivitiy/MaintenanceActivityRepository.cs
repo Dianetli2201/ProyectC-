@@ -4,7 +4,6 @@ using System.Linq; // Para utilizar métodos LINQ como ToList().
 using maintenance_calibration_system.Domain.Common; // Para la clase Entity.
 using maintenance_calibration_system.Domain.Datos_Historicos; // Para MaintenanceActivity.
 using maintenance_calibration_system.DataAccess.Contexts;
-using maintenance_calibration_system.DataAccess.Respositories.Common; // Para ApplicationContext.
 
 namespace maintenance_calibration_system.DataAccess.Respositories.MaintenanceActivitiy
 {

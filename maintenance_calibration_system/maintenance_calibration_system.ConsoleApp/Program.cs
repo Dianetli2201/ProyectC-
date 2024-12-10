@@ -1,6 +1,6 @@
 ﻿using maintenance_calibration_system.DataAccess.Contexts;
 using maintenance_calibration_system.DataAccess.FluentConfigurations.Equipments;
-using maintenance_calibration_system.Domain.Datos_de_Configuración;
+using maintenance_calibration_system.Domain.Datos_de_Configuracion;
 using maintenance_calibration_system.Domain.Datos_de_Planificación;
 using maintenance_calibration_system.Domain.Datos_Historicos;
 using maintenance_calibration_system.Domain.Types;
@@ -78,18 +78,6 @@ namespace maintenance_calibration_system.ConsoleApp
                 TypeMaintenance.Preventivo,
                 "Tech2");
 
-            /// <summary>
-            /// Añadiendo Sensor y Actuator a las listas de Calibration y Maintenance respectivamente.
-            /// </summary>
-            if (calibration.CalibratedSensors != null && maintenance.MaintenanceActuador != null)
-            {
-                calibration.CalibratedSensors.Add(sensor);
-                maintenance.MaintenanceActuador.Add(actuador);
-            }
-
-            /// <summary>
-            /// Creando instancias de Planning.
-            /// </summary>
             var calibrationPlanning = new Planning(
                 Guid.NewGuid(),
                 "sensor",
@@ -102,43 +90,7 @@ namespace maintenance_calibration_system.ConsoleApp
                 PlanningTypes.Maintenance,
                 DateTime.Now.AddDays(60));
 
-            /// <summary>
-            /// Añadiendo instancias a sus respectivos DbSet y guardando los cambios en la base de datos.
-            /// </summary>
-            appContext.Equipments.Add(sensor);
-            appContext.Equipments.Add(actuador);
-
-            appContext.MaintenanceActivities.Add(calibration);
-            appContext.MaintenanceActivities.Add(maintenance);
-
-            appContext.Plannings.Add(calibrationPlanning);
-            appContext.Plannings.Add(maintenancePlanning);
-
-            appContext.SaveChanges();
-
-            /// <summary>
-            /// Operación de lectura de la base de datos.
-            /// </summary>
-            Sensor? sensor1 = appContext
-                .Set<Sensor>()
-                .FirstOrDefault(v => v.Id == sensor.Id);
-
-            /// <summary>
-            /// Operación de actualización de la base de datos.
-            /// </summary>
-            actuador.Magnitude = new PhysicalMagnitude("Presion", "Pascal");
-
-            appContext.Equipments.Update(actuador);
-            appContext.SaveChanges();
-
-            /// <summary>
-            /// Operación de eliminación en la base de datos.
-            /// </summary>
-            if (sensor1 != null)
-            {
-                appContext.Equipments.Remove(sensor1);
-                appContext.SaveChanges();
-            }
+        
         }
     }
 

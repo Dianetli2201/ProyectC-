@@ -11,9 +11,9 @@ namespace maintenance_calibration_system.Domain.Datos_de_Configuracion
     /// <summary>
     /// Codigo alfanumerico del equipo
     /// </summary>
-    public string AlphanumericCode { get; set; }
+    public string? AlphanumericCode { get; set; }
     public PhysicalMagnitude Magnitude { get; }//Magnitud fisica asociada
-    public string Manufacturer { get; set; } //Nombre de fabricante
+    public string? Manufacturer { get; set; } //Nombre de fabricante
 
     #endregion
     

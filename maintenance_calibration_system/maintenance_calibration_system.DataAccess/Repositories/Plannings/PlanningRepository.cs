@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using maintenance_calibration_system.Domain.Datos_de_Planificación;
 using maintenance_calibration_system.Domain.Common; // Incluye la clase base Entity
-using maintenance_calibration_system.Domain.Types; // Incluye PlanningTypes
+using maintenance_calibration_system.Domain.Types;
+using maintenance_calibration_system.DataAccess.Contexts;
+using Microsoft.EntityFrameworkCore; // Incluye PlanningTypes
 
 namespace maintenance_calibration_system.DataAccess.Respositories.Plannings
 {
@@ -18,25 +20,25 @@ namespace maintenance_calibration_system.DataAccess.Respositories.Plannings
         void Delete(Guid id);
     }
 
-
     public class PlanningRepository : IPlanningRepository
     {
-        private readonly List<Planning> _plannings; // Simulando una base de datos en memoria
+        private readonly ApplicationContext _context; // Contexto de la base de datos
+        private readonly DbSet<Planning> _plannings; // Conjunto de planificaciones
 
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        public PlanningRepository()
+        public PlanningRepository(ApplicationContext context)
         {
-            _plannings = new List<Planning>();
+            _context = context;
+            _plannings = _context.Set<Planning>(); // Inicializa el conjunto de planificaciones
         }
-
-
 
         public void Add(Planning planning)
         {
-            _plannings.Add(planning);
+            if (planning == null)
+            {
+                throw new ArgumentNullException(nameof(planning), "La planificación no puede ser nula.");
+            }
+            _plannings.Add(planning); // Agrega la planificación al conjunto
+            _context.SaveChanges(); // Guarda los cambios en el contexto
         }
 
         public Planning GetById(Guid id)
@@ -46,7 +48,7 @@ namespace maintenance_calibration_system.DataAccess.Respositories.Plannings
 
         public IEnumerable<Planning> GetAll()
         {
-            return _plannings;
+            return _plannings.ToList(); // Convierte a lista para evitar problemas de enumeración
         }
 
         public void Update(Planning planning)
@@ -58,6 +60,7 @@ namespace maintenance_calibration_system.DataAccess.Respositories.Plannings
                 existingPlanning.Type = planning.Type;
                 existingPlanning.ExecutionDate = planning.ExecutionDate;
                 // Actualizar otras propiedades según sea necesario
+                _context.SaveChanges(); // Guarda los cambios en el contexto
             }
         }
 
@@ -65,8 +68,9 @@ namespace maintenance_calibration_system.DataAccess.Respositories.Plannings
         {
             var planning = GetById(id);
             if (planning != null)
-            
+            {
                 _plannings.Remove(planning);
+                _context.SaveChanges(); // Guarda los cambios en el contexto
             }
         }
     }
