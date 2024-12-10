@@ -1,16 +1,8 @@
-﻿
-using maintenance_calibration_system.Domain.Datos_de_Configuracion;
+﻿using maintenance_calibration_system.Domain.Datos_de_Configuracion;
 using maintenance_calibration_system.Domain.Datos_de_Planificación;
 using maintenance_calibration_system.Domain.Datos_Historicos;
-using maintenance_calibration_system.Domain.ValueObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using maintenance_calibration_system.DataAccess.FluentConfigurations.Equipments;
-using maintenance_calibration_system.DataAccess.FluentConfigurations.MaintenanceActivities;
+
 
 namespace maintenance_calibration_system.DataAccess.Contexts
 {
@@ -23,7 +15,9 @@ namespace maintenance_calibration_system.DataAccess.Contexts
         public DbSet<MaintenanceActivity> MaintenanceActivities { get; set; }
 
         public DbSet<Planning> Plannings { get; set; }
+
         #endregion
+
 
         public ApplicationContext() 
         {

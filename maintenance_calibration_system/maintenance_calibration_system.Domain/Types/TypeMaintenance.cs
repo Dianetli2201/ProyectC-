@@ -1,10 +1,12 @@
-
-
 namespace maintenance_calibration_system.Domain.Types
 {
-public enum TypeMaintenance
+    /// <summary>Tipos de mantenimiento en el sistema de mantenimiento y calibración.</summary>
+    public enum TypeMaintenance
     {
-        Preventivo,// Mantenimiento realizado de manera programada para prevenir fallos.
-        Correctivo,// Mantenimiento realizado para corregir fallos detectados.
+        /// <summary>Mantenimiento realizado de manera programada para prevenir fallos.</summary>
+        Preventivo,
+
+        /// <summary>Mantenimiento realizado para corregir fallos detectados.</summary>
+        Correctivo,
     }
 }

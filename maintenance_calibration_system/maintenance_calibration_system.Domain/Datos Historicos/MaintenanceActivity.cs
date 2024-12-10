@@ -2,21 +2,32 @@
 
 namespace maintenance_calibration_system.Domain.Datos_Historicos
 {
+    /// <summary>Clase abstracta que representa una actividad de mantenimiento en el sistema de mantenimiento y calibración.</summary>
     public abstract class MaintenanceActivity : Entity
     {
         #region Properties
-                public DateTime DateActivity { get; set; } // Fecha en que se realizó la actividad.
-                public string? NameTechnician { get; set; } // Nombre del técnico que realizó la actividad.
 
+        /// <summary>Fecha en que se realizó la actividad.</summary>
+        public DateTime DateActivity { get; set; }
+
+        /// <summary>Nombre del técnico que realizó la actividad.</summary>
+        public string? NameTechnician { get; set; }
+        
         #endregion
 
+        /// <summary>Constructor por defecto.</summary>
         public MaintenanceActivity() { }
+
+        /// <summary>Constructor para crear una instancia de MaintenanceActivity.</summary>
+        /// <param name="id">Identificador único de la actividad de mantenimiento.</param>
+        /// <param name="dateActivity">Fecha de la actividad de mantenimiento.</param>
+        /// <param name="nameTechnician">Nombre del técnico que realizó la actividad.</param>
         protected MaintenanceActivity(Guid id, DateTime dateActivity, string? nameTechnician)
-                :base(id) // Constructor.
-            {
-                DateActivity = dateActivity;
-                NameTechnician = nameTechnician;
-            }
-        
+            : base(id)
+        {
+            DateActivity = dateActivity;
+            NameTechnician = nameTechnician;
+        }
     }
 }
+

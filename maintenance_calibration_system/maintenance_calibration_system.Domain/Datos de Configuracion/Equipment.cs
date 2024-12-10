@@ -4,30 +4,41 @@ using maintenance_calibration_system.Domain.ValueObjects;
 
 namespace maintenance_calibration_system.Domain.Datos_de_Configuracion
 {
+    /// <summary>Clase abstracta que representa un equipo en el sistema de mantenimiento y calibración.</summary>
     public abstract class Equipment : Entity
-
     {
-    #region Properties
-    /// <summary>
-    /// Codigo alfanumerico del equipo
-    /// </summary>
-    public string? AlphanumericCode { get; set; }
-    public PhysicalMagnitude Magnitude { get; }//Magnitud fisica asociada
-    public string? Manufacturer { get; set; } //Nombre de fabricante
+        #region Properties
 
-    #endregion
-    
-    public Equipment() 
-     { Magnitude = new PhysicalMagnitude("Defaut Name", "Default UnitOfMagnitud"); }
+        /// <summary>Código alfanumérico del equipo.</summary>
+        public string? AlphanumericCode { get; set; }
 
-    protected Equipment (Guid id, string? alphanumericCode, PhysicalMagnitude magnitude, string? manufacturer)
-        : base(id)// Constructor.
+        /// <summary>Magnitud física asociada.</summary>
+        public PhysicalMagnitude Magnitude { get; }
+
+        /// <summary>Nombre del fabricante.</summary>
+        public string? Manufacturer { get; set; }
+
+        #endregion
+
+
+        /// <summary>Constructor por defecto.</summary>
+        public Equipment()
+        {
+            Magnitude = new PhysicalMagnitude("Default Name", "Default UnitOfMagnitude");
+        }
+
+        /// <summary>Constructor para crear una instancia de Equipment.</summary>
+        /// <param name="id">Identificador único del equipo.</param>
+        /// <param name="alphanumericCode">Código alfanumérico del equipo.</param>
+        /// <param name="magnitude">Magnitud física asociada.</param>
+        /// <param name="manufacturer">Nombre del fabricante.</param>
+        protected Equipment(Guid id, string? alphanumericCode, PhysicalMagnitude magnitude, string? manufacturer)
+            : base(id)
         {
             AlphanumericCode = alphanumericCode;
             Magnitude = magnitude;
             Manufacturer = manufacturer;
         }
-
     }
-
 }
+

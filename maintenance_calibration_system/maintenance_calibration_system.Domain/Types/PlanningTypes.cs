@@ -1,11 +1,13 @@
-﻿
-namespace maintenance_calibration_system.Domain.Types
+﻿namespace maintenance_calibration_system.Domain.Types
 {
+    /// <summary>Tipos de planificación en el sistema de mantenimiento y calibración.</summary>
     public enum PlanningTypes
     {
-            Calibration,
-            Maintenance,
-    }
-    
+        /// <summary>Planificación para calibración.</summary>
+        Calibration,
 
+        /// <summary>Planificación para mantenimiento.</summary>
+        Maintenance,
+    }
 }
+
