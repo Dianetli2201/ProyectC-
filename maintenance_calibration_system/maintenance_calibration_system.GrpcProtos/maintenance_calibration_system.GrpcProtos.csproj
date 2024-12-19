@@ -6,19 +6,18 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-	<ItemGroup>
-		<Protobuf Include="*.proto" GrpcServices="Both" />
-	</ItemGroup>
+  <ItemGroup>
+    <None Remove="common.proto" />
+    <None Remove="sensors.proto" />
+  </ItemGroup>
 
-	
-	<ItemGroup>
-		<None Remove ="sensors.proto"/>
-	</ItemGroup>
-	
-	
   <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.29.2" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.67.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="*.proto" GrpcServices="Both" />
   </ItemGroup>
 
 </Project>

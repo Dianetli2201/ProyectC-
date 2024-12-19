@@ -8,7 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GrpcService1\GrpcService1.csproj" />
     <ProjectReference Include="..\maintenance_calibration_system.DataAccess.Tests\maintenance_calibration_system.DataAccess.Tests.csproj" />
     <ProjectReference Include="..\maintenance_calibration_system.DataAccess\maintenance_calibration_system.DataAccess.csproj" />
     <ProjectReference Include="..\maintenance_calibration_system.Domain\maintenance_calibration_system.Domain.csproj" />
