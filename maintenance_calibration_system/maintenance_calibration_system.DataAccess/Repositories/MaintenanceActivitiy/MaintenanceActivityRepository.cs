@@ -4,34 +4,24 @@ using maintenance_calibration_system.Domain.Datos_de_Configuracion;
 
 public interface IMaintenance<T> where T : class
 {
-    /// <summary>
-    /// Añade una nueva entidad al repositorio.
-    /// </summary>
+    /// <summary>Añade una nueva entidad al repositorio.</summary>
     /// <param name="maintenance">La entidad a añadir.</param>
     void Add(Maintenance maintenance);
 
-    /// <summary>
-    /// Busca una entidad por su identificador único.
-    /// </summary>
+    /// <summary>Busca una entidad por su identificador único.</summary>
     /// <param name="id">El identificador único de la entidad.</param>
     /// <returns>La entidad correspondiente al identificador, o null si no se encuentra.</returns>
     T GetById(Guid id);
 
-    /// <summary>
-    /// Devuelve todas las entidades del tipo especificado.
-    /// </summary>
+    /// <summary>Devuelve todas las entidades del tipo especificado.</summary>
     /// <returns>Una colección de todas las entidades.</returns>
     IEnumerable<Maintenance> GetAll();
 
-    /// <summary>
-    /// Actualiza una entidad existente en el repositorio.
-    /// </summary>
+    /// <summary>Actualiza una entidad existente en el repositorio.</summary>
     /// <param name="maintenance">La entidad a actualizar.</param>
     void Update(Maintenance maintenance);
 
-    /// <summary>
-    /// Elimina una entidad del repositorio por su identificador único.
-    /// </summary>
+    /// <summary>Elimina una entidad del repositorio por su identificador único.</summary>
     /// <param name="id">El identificador único de la entidad a eliminar.</param>
     void Delete(Guid id);
 }
