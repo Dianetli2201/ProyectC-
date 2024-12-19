@@ -10,9 +10,9 @@ namespace maintenance_calibration_system.DataAccess.Tests
     [TestClass]
     public class PlanningTests
     {
-        private IPlanningRepository? planningRepository; // Instancia del repositorio a probar
-        private IUnitOfWork? unitOfWork; // Instancia del UnitOfWork
-        private ApplicationContext? _context;
+        private IPlanningRepository planningRepository; // Instancia del repositorio a probar
+        private IUnitOfWork unitOfWork; // Instancia del UnitOfWork
+        private ApplicationContext _context;
 
         /// <summary>Constructor que inicializa el contexto y los repositorios.</summary>
         [TestInitialize]

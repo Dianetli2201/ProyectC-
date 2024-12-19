@@ -11,10 +11,10 @@ namespace maintenance_calibration_system.Tests
     [TestClass]
     public class MaintenanceActivityTests
     {
-        private ApplicationContext? _context;
+        private ApplicationContext _context;
         private IUnitOfWork _unitOfWork;
-        private MaintenanceActivityRepository<Maintenance>? _maintenanceRepository;
-        private MaintenanceActivityRepository<Calibration>? _calibrationRepository;
+        private MaintenanceActivityRepository<Maintenance> _maintenanceRepository;
+        private MaintenanceActivityRepository<Calibration> _calibrationRepository;
 
         /// <summary>Inicializa el contexto y los repositorios</summary>
         [TestInitialize]
@@ -41,7 +41,7 @@ namespace maintenance_calibration_system.Tests
             var nameCertificateAuthority = "Cert Authority";
 
             // Act: Crea una nueva calibración
-            var calibration = new Calibration(id, nameCertificateAuthority, dateActivity, nameTechnician);
+            var calibration = new Calibration(id, dateActivity, nameTechnician, nameCertificateAuthority);
 
             // Assert: Verifica que las propiedades se inicialicen correctamente
             Assert.AreEqual(id, calibration.Id);
@@ -168,7 +168,7 @@ namespace maintenance_calibration_system.Tests
             var nameCertificateAuthority = "Momoa";
 
             // Act: Añade una nueva calibración
-            var calibration = new Calibration(id, nameCertificateAuthority, dateActivity, nameTechnician);
+            var calibration = new Calibration(id, dateActivity, nameTechnician, nameCertificateAuthority);
             _calibrationRepository.Add(calibration);
             _unitOfWork.SaveChanges();
 
@@ -187,7 +187,7 @@ namespace maintenance_calibration_system.Tests
             var dateActivity = DateTime.Now;
             var nameTechnician = "John Smith";
             var nameCertificateAuthority = "Momoa";
-            var calibration = new Calibration(id, nameCertificateAuthority, dateActivity, nameTechnician);
+            var calibration = new Calibration(id, dateActivity, nameTechnician, nameCertificateAuthority);
             _context.Set<Calibration>().Add(calibration);
             _unitOfWork.SaveChanges();
 
@@ -205,8 +205,8 @@ namespace maintenance_calibration_system.Tests
         {
                 // Arrange: Configura los datos de prueba
                 var nameCertificateAuthority = "Momoa";
-                var calibration1 = new Calibration(Guid.NewGuid(), nameCertificateAuthority, DateTime.Now, "Technician C");
-                var calibration2 = new Calibration(Guid.NewGuid(), nameCertificateAuthority, DateTime.Now, "Technician D");
+                var calibration1 = new Calibration(Guid.NewGuid(), DateTime.Now, "Technician C", nameCertificateAuthority);
+                var calibration2 = new Calibration(Guid.NewGuid(), DateTime.Now, "Technician D", nameCertificateAuthority);
                 _context.Set<Calibration>().AddRange(calibration1, calibration2);
                 _unitOfWork.SaveChanges();
 
@@ -226,7 +226,7 @@ namespace maintenance_calibration_system.Tests
                 var dateActivity = DateTime.Now;
                 var nameTechnician = "John Smith";
                 var nameCertificateAuthority = "Momoa";
-                var calibration = new Calibration(id, nameCertificateAuthority, dateActivity, nameTechnician);
+                var calibration = new Calibration(id, dateActivity, nameTechnician, nameCertificateAuthority);
                 _context.Set<Calibration>().Add(calibration);
                 _unitOfWork.SaveChanges();
 
@@ -249,7 +249,7 @@ namespace maintenance_calibration_system.Tests
                 var dateActivity = DateTime.Now;
                 var nameTechnician = "John Smith";
                 var nameCertificateAuthority = "Momoa";
-                var calibration = new Calibration(id, nameCertificateAuthority, dateActivity, nameTechnician);
+                var calibration = new Calibration(id, dateActivity, nameTechnician, nameCertificateAuthority);
                 _context.Set<Calibration>().Add(calibration);
                 _unitOfWork.SaveChanges();
 

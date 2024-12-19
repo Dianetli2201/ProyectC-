@@ -10,6 +10,7 @@ namespace maintenance_calibration_system.DataAccess.Contexts
     public class ApplicationContext : DbContext
     {
         #region Tables
+
         /// <summary>Tabla de equipos.</summary>
         public DbSet<Equipment> Equipments { get; set; }
 
@@ -18,7 +19,10 @@ namespace maintenance_calibration_system.DataAccess.Contexts
 
         /// <summary>Tabla de planificaciones.</summary>
         public DbSet<Planning> Plannings { get; set; }
+
         #endregion
+
+
 
         /// <summary>Constructor por defecto.</summary>
         public ApplicationContext()

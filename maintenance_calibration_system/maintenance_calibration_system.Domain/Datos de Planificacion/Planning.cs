@@ -1,5 +1,6 @@
 using maintenance_calibration_system.Domain.Common;
 using maintenance_calibration_system.Domain.Types;
+using System.Xml.Linq;
 
 namespace maintenance_calibration_system.Domain.Datos_de_Planificación
 {
@@ -8,7 +9,7 @@ namespace maintenance_calibration_system.Domain.Datos_de_Planificación
     {
         #region Properties
         /// <summary>Equipo que planificó el evento.</summary>
-        public string? EquipmentElement { get; set; }
+        public string EquipmentElement { get; set; }
 
         /// <summary>Tipo de planificación.</summary>
         public PlanningTypes Type { get; set; }
@@ -18,7 +19,10 @@ namespace maintenance_calibration_system.Domain.Datos_de_Planificación
         #endregion
 
         /// <summary>Constructor por defecto.</summary>
-        public Planning() { }
+        public Planning() 
+        {
+            EquipmentElement = "Default";
+        }
 
         /// <summary>Constructor para crear una instancia de Planning.</summary>
         /// <param name="id">Identificador único del evento de planificación.</param>
@@ -28,7 +32,7 @@ namespace maintenance_calibration_system.Domain.Datos_de_Planificación
         public Planning(Guid id, string? equipmentElement, PlanningTypes type, DateTime executionDate)
             : base(id)
         {
-            EquipmentElement = equipmentElement;
+            EquipmentElement = equipmentElement ?? throw new ArgumentNullException(nameof(equipmentElement)); // Lanza excepción si EquipmentElement es nulo;;
             Type = type;
             ExecutionDate = executionDate;
         }

@@ -1,5 +1,6 @@
 ﻿using maintenance_calibration_system.Domain.Common;
 using maintenance_calibration_system.Domain.ValueObjects;
+using System.Xml.Linq;
 
 
 namespace maintenance_calibration_system.Domain.Datos_de_Configuracion
@@ -10,13 +11,13 @@ namespace maintenance_calibration_system.Domain.Datos_de_Configuracion
         #region Properties
 
         /// <summary>Código alfanumérico del equipo.</summary>
-        public string? AlphanumericCode { get; set; }
+        public string AlphanumericCode { get; set; }
 
         /// <summary>Magnitud física asociada.</summary>
         public PhysicalMagnitude Magnitude { get; }
 
         /// <summary>Nombre del fabricante.</summary>
-        public string? Manufacturer { get; set; }
+        public string Manufacturer { get; set; }
 
         #endregion
 
@@ -25,6 +26,8 @@ namespace maintenance_calibration_system.Domain.Datos_de_Configuracion
         public Equipment()
         {
             Magnitude = new PhysicalMagnitude("Default Name", "Default UnitOfMagnitude");
+            Manufacturer = "UnknownManufacturer";
+            AlphanumericCode = "Default";
         }
 
         /// <summary>Constructor para crear una instancia de Equipment.</summary>
@@ -32,10 +35,10 @@ namespace maintenance_calibration_system.Domain.Datos_de_Configuracion
         /// <param name="alphanumericCode">Código alfanumérico del equipo.</param>
         /// <param name="magnitude">Magnitud física asociada.</param>
         /// <param name="manufacturer">Nombre del fabricante.</param>
-        protected Equipment(Guid id, string? alphanumericCode, PhysicalMagnitude magnitude, string? manufacturer)
+        protected Equipment(Guid id, string alphanumericCode, PhysicalMagnitude magnitude, string manufacturer="UnknownManufacturer")
             : base(id)
         {
-            AlphanumericCode = alphanumericCode;
+            AlphanumericCode = alphanumericCode ?? throw new ArgumentNullException(nameof(AlphanumericCode)); // Lanza excepción si AlphanumericCode es nulo;;
             Magnitude = magnitude;
             Manufacturer = manufacturer;
         }

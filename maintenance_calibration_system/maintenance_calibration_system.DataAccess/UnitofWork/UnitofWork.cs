@@ -21,6 +21,7 @@ public class UnitOfWork : IUnitOfWork
         // Verifica si la base de datos puede conectarse, si no, aplica migraciones pendientes
         if (!context.Database.CanConnect())
             context.Database.Migrate();
+
     }
 
     /// <summary>Guarda los cambios realizados en el contexto.</summary>

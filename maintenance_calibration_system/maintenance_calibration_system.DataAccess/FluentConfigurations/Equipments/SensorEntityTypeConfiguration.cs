@@ -17,7 +17,7 @@ namespace maintenance_calibration_system.DataAccess.FluentConfigurations.Equipme
 
             // Configurando propiedades
             builder.Property(s => s.Protocol).IsRequired();
-            builder.Property(s => s.PrincipleOperation).IsRequired();
+            builder.Property(s => s.PrincipleOperation);
             builder.Property(s => s.Calibrated).IsRequired();
         }
     }

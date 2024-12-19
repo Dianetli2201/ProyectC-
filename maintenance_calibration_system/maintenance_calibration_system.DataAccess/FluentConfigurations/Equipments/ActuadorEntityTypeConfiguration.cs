@@ -18,7 +18,7 @@ namespace maintenance_calibration_system.DataAccess.FluentConfigurations.Equipme
 
             // Configurando propiedades
             builder.Property(a => a.SignalControl).IsRequired();
-            builder.Property(a => a.CodeControl).IsRequired();
+            builder.Property(a => a.CodeControl);
             builder.Property(a => a.Maintenance).IsRequired();
         }
     }

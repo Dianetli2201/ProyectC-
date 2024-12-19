@@ -1,4 +1,5 @@
 using maintenance_calibration_system.DataAccess.Contexts;
+using maintenance_calibration_system.Domain.Common;
 
 /// <summary>Interfaz genérica para un repositorio base que define las operaciones básicas de acceso a datos para cualquier tipo de entidad.</summary>
 /// <typeparam name="T">El tipo de entidad que el repositorio manejará.</typeparam>

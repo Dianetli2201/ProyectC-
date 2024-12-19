@@ -25,7 +25,7 @@ namespace maintenance_calibration_system.Domain.ValueObjects
         public PhysicalMagnitude(string name, string magnitude)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name)); // Lanza excepción si name es nulo;
-            UnitofMagnitude = magnitude;
+            UnitofMagnitude = magnitude ?? throw new ArgumentNullException(nameof(magnitude)); // Lanza excepción si name es nulo;;
         }
 
         /// <summary>Obtiene los componentes de igualdad para la magnitud física.</summary>

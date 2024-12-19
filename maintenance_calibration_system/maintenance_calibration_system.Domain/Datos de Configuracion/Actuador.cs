@@ -27,7 +27,7 @@ namespace maintenance_calibration_system.Domain.Datos_de_Configuracion
         /// <param name="manufacturer">Fabricante del actuador.</param>
         /// <param name="codeControl">Código de control del actuador.</param>
         /// <param name="signalControl">Tipo de control de señal del actuador.</param>
-        public Actuador(Guid id, string? alphanumericCode, PhysicalMagnitude magnitude, string? manufacturer, string? codeControl, SignalControl signalControl)
+        public Actuador(Guid id, string alphanumericCode, PhysicalMagnitude magnitude, string manufacturer, string? codeControl, SignalControl signalControl)
             : base(id, alphanumericCode, magnitude, manufacturer)
         {
             CodeControl = codeControl;

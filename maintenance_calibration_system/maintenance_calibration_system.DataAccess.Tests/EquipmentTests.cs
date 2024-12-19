@@ -12,10 +12,10 @@ namespace maintenance_calibration_system.Tests.DataAccess.Repositories.Equipment
     [TestClass]
     public class EquipmentRepositoryTests
     {
-        private ApplicationContext? _context;
-        private IUnitOfWork? _unitOfWork;
-        private EquipmentRepository<Sensor>? _sensorRepository;
-        private EquipmentRepository<Actuador>? _actuatorRepository;
+        private ApplicationContext _context;
+        private IUnitOfWork _unitOfWork;
+        private EquipmentRepository<Sensor> _sensorRepository;
+        private EquipmentRepository<Actuador> _actuatorRepository;
 
         /// <summary>Constructor que inicializa el contexto y los repositorios.</summary>
         [TestInitialize]
