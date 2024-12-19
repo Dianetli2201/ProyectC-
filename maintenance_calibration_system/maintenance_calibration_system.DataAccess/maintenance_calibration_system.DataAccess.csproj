@@ -20,8 +20,4 @@
     <ProjectReference Include="..\maintenance_calibration_system.Domain\maintenance_calibration_system.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>

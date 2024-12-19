@@ -11,7 +11,7 @@ namespace maintenance_calibration_system.DataAccess.Respositories.Plannings
         void Add(Planning planning);
 
         /// <summary>Obtiene una planificación por su identificador.</summary>
-        Planning GetById(Guid id);
+        Planning? GetById(Guid id);
 
         /// <summary>Obtiene todas las planificaciones.</summary>
         IEnumerable<Planning> GetAll();
@@ -52,7 +52,7 @@ namespace maintenance_calibration_system.DataAccess.Respositories.Plannings
         /// <summary>Obtiene una planificación por su identificador.</summary>
         /// <param name="id">El identificador de la planificación.</param>
         /// <returns>La planificación encontrada o null.</returns>
-        public Planning GetById(Guid id)
+        public Planning? GetById(Guid id)
         {
             return _plannings.FirstOrDefault(p => p.Id == id);
         }

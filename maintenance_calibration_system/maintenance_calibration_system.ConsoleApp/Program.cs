@@ -7,6 +7,7 @@ using maintenance_calibration_system.Domain.Datos_Historicos;
 using maintenance_calibration_system.Domain.Types;
 using maintenance_calibration_system.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
+using System.Data.Entity;
 
 namespace maintenance_calibration_system.ConsoleApp
 {
@@ -16,15 +17,11 @@ namespace maintenance_calibration_system.ConsoleApp
         /// <summary>Método principal del programa.</summary>
         static void Main(string[] args)
         {
-            // Configurando opciones para el contexto de la base de datos.
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationContext>();
-            optionsBuilder.UseSqlite("Data Source=maintenance_calibration_systemDb.sqlite");
-
-            // Creando una instancia del contexto de la base de datos.
-            using var appContext = new ApplicationContext(optionsBuilder.Options);
-
+            ApplicationContext appContext = new ApplicationContext("Data Source=maintenance_calibration_systemDb.sqlite");
+            
+            appContext.Database.EnsureDeleted();
             // Verificando si hay migraciones pendientes y aplicándolas si es necesario.
-            if (appContext.Database.GetPendingMigrations().Any())
+            if (!appContext.Database.CanConnect())
             {
                 Console.WriteLine("Aplicando migraciones...");
                 appContext.Database.Migrate();
