@@ -18,7 +18,8 @@ namespace maintenance_calibration_system.ConsoleApp
         static void Main(string[] args)
         {
             ApplicationContext appContext = new ApplicationContext("Data Source=maintenance_calibration_systemDb.sqlite");
-            
+
+            //Asegurando la eliminacion de bases de datos anteriores
             appContext.Database.EnsureDeleted();
             // Verificando si hay migraciones pendientes y aplicándolas si es necesario.
             if (!appContext.Database.CanConnect())
