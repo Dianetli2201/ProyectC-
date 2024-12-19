@@ -12,7 +12,7 @@ message DeleteRequest{
 	string id = 1;
 }
 
-message PhysicalMagnitud{
+message PhysicalMagnitude{
 	string name = 1;
     string unitofMagnitude = 2;
 }
