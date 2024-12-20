@@ -1,7 +1,7 @@
 using maintenance_calibration_system.DataAccess.Contexts;
 using maintenance_calibration_system.Domain.Datos_de_Configuracion; // Para ApplicationContext
 
-public interface IEquipment<T> where T : class
+public interface IEquipmentRepository<T> where T : Equipment
 {
     /// <summary>Añade una nueva entidad al repositorio.</summary>
     /// <param name="equipment">La entidad a añadir.</param>
@@ -14,7 +14,7 @@ public interface IEquipment<T> where T : class
 
     /// <summary>Devuelve todas las entidades del tipo especificado.</summary>
     /// <returns>Una colección de todas las entidades.</returns>
-    IEnumerable<Equipment> GetAll();
+    IEnumerable<T> GetAll();
 
     /// <summary>Actualiza una entidad existente en el repositorio.</summary>
     /// <param name="equipment">La entidad a actualizar.</param>

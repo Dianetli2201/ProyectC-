@@ -7,14 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Grpc.AspNetCore" Version="2.67.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\maintenance_calibration_system.DataAccess\maintenance_calibration_system.DataAccess.csproj" />
+    <ProjectReference Include="..\maintenance_calibration_system.Domain\maintenance_calibration_system.Domain.csproj" />
     <ProjectReference Include="..\maintenance_calibration_system.GrpcProtos\maintenance_calibration_system.GrpcProtos.csproj" />
   </ItemGroup>
 

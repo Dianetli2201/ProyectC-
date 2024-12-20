@@ -2,7 +2,7 @@ using maintenance_calibration_system.Domain.Datos_Historicos;
 using maintenance_calibration_system.DataAccess.Contexts;
 using maintenance_calibration_system.Domain.Datos_de_Configuracion;
 
-public interface IMaintenance<T> where T : class
+public interface IMaintenanceActivityRepository<T> where T : MaintenanceActivity
 {
     /// <summary>Añade una nueva entidad al repositorio.</summary>
     /// <param name="maintenance">La entidad a añadir.</param>

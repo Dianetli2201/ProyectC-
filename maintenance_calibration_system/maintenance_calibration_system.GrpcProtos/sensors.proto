@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option csharp_namespace = "miantenance_calibration_system.GrpcProtos";
+option csharp_namespace = "maintenance_calibration_system.GrpcProtos";
 
 package GrpcProtos;
 
