@@ -4,6 +4,7 @@ using maintenance_calibration_system.DataAccess.Contexts;
 using maintenance_calibration_system.DataAccess.Tests.Utilities;
 using maintenance_calibration_system.DataAccess.Respositories.MaintenanceActivitiy;
 using maintenance_calibration_system.DataAccess.Respositories.Equipments;
+using maintenance_calibration_system.Contacts;
 
 namespace maintenance_calibration_system.Tests
 {

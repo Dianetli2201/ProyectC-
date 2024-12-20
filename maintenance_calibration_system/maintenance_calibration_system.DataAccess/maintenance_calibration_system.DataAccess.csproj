@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\maintenance_calibration_system.Contacts\maintenance_calibration_system.Contacts.csproj" />
     <ProjectReference Include="..\maintenance_calibration_system.Domain\maintenance_calibration_system.Domain.csproj" />
   </ItemGroup>
 

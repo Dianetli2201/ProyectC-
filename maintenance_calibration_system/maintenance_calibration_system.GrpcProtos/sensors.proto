@@ -39,9 +39,8 @@ message NullableSensorDTO{
 }
 
 message CreateSensorRequest{
-	string id = 1;
-	string alphanumericCode = 2;
-	PhysicalMagnitude magnitude = 3;
-	CommunicationProtocol protocol = 4; 
-	string principleOperation = 5;
+	string alphanumericCode = 1;
+	PhysicalMagnitude magnitude = 2;
+	CommunicationProtocol protocol = 3; 
+	string principleOperation = 4;
 }

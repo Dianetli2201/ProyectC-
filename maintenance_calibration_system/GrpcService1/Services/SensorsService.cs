@@ -1,6 +1,7 @@
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using GrpcService1;
+using maintenance_calibration_system.Contacts;
 using maintenance_calibration_system.GrpcProtos;
 
 

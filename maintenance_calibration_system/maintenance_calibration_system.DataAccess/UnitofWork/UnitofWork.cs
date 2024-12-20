@@ -1,12 +1,7 @@
+using maintenance_calibration_system.Contacts;
 using maintenance_calibration_system.DataAccess.Contexts;
 using Microsoft.EntityFrameworkCore;
 
-/// <summary>Interfaz que define el contrato para el UnitOfWork.</summary>
-public interface IUnitOfWork
-{
-    /// <summary>Guarda los cambios realizados en el contexto.</summary>
-    void SaveChanges();
-}
 
 /// <summary>Implementación del patrón UnitOfWork.</summary>
 public class UnitOfWork : IUnitOfWork

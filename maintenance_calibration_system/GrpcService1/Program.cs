@@ -1,4 +1,5 @@
 using GrpcService1.Services;
+using maintenance_calibration_system.Contacts;
 using maintenance_calibration_system.DataAccess.Contexts;
 using maintenance_calibration_system.DataAccess.Respositories.Equipments;
 using maintenance_calibration_system.DataAccess.Respositories.MaintenanceActivitiy;

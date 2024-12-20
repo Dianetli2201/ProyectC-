@@ -2,7 +2,8 @@
 using maintenance_calibration_system.Domain.Types;
 using maintenance_calibration_system.DataAccess.Respositories.Plannings;
 using maintenance_calibration_system.DataAccess.Contexts;
-using maintenance_calibration_system.DataAccess.Tests.Utilities; // Para PlanningRepository
+using maintenance_calibration_system.DataAccess.Tests.Utilities;
+using maintenance_calibration_system.Contacts; // Para PlanningRepository
 
 namespace maintenance_calibration_system.DataAccess.Tests
 {
