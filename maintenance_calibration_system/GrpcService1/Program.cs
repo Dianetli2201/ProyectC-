@@ -4,6 +4,8 @@ using maintenance_calibration_system.DataAccess.Contexts;
 using maintenance_calibration_system.DataAccess.Respositories.Equipments;
 using maintenance_calibration_system.DataAccess.Respositories.MaintenanceActivitiy;
 using maintenance_calibration_system.DataAccess.Respositories.Plannings;
+using System.Reflection.Metadata;
+
 
 
 namespace GrpcService1
@@ -22,6 +24,12 @@ namespace GrpcService1
             builder.Services.AddScoped(typeof(IMaintenanceActivityRepository<>), typeof(MaintenanceActivityRepository<>));
             builder.Services.AddScoped<IPlanningRepository, PlanningRepository>();
             builder.Services.AddGrpc();
+            builder.Services.AddAutoMapper(typeof(Program).Assembly);
+            builder.Services.AddMediatR(new MediatRServiceConfiguration()
+            {
+                AutoRegisterRequestProcessors = true,
+            }
+            .RegisterServicesFromAssemblies(typeof(AssemblyReference).Assembly));
 
             var app = builder.Build();
 

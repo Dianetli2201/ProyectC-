@@ -13,5 +13,4 @@ namespace maintenance_calibration_system.Application.Equipments.Commands.UpdateS
          string Manufacturer,
          CommunicationProtocol Protocol,
          string PrincipleOperation) : ICommand<bool>;
-
 }

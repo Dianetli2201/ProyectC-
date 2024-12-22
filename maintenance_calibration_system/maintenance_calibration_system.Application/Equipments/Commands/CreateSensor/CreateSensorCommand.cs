@@ -4,6 +4,8 @@ using maintenance_calibration_system.Domain.Types;
 using maintenance_calibration_system.Domain.ValueObjects;
 
 
+
+
 namespace maintenance_calibration_system.Application.Equipments.Commands.CreateSensor
 {
     public record CreateSensorCommand(
