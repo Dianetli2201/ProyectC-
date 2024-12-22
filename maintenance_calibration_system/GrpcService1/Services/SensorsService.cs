@@ -10,7 +10,7 @@ using maintenance_calibration_system.Application.Equipments.Queries.GetSensor;
 using maintenance_calibration_system.Contacts;
 using maintenance_calibration_system.GrpcProtos;
 using MediatR;
-using System.Drawing.Text;
+
 
 namespace GrpcService1.Services
 {
