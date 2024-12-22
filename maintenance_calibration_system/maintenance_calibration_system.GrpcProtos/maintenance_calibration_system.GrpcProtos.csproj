@@ -9,6 +9,7 @@
   <ItemGroup>
     <None Remove="actuadores.proto" />
     <None Remove="common.proto" />
+    <None Remove="plannings.proto" />
     <None Remove="sensors.proto" />
   </ItemGroup>
 
