@@ -27,6 +27,8 @@ namespace maintenance_calibration_system.Domain.Datos_de_Configuracion
         /// <param name="manufacturer">Fabricante del sensor.</param>
         /// <param name="protocol">Protocolo de comunicación utilizado por el sensor.</param>
         /// <param name="principleOperation">Principio de operación del sensor.</param>
+
+
         public Sensor(Guid id, string alphanumericCode, PhysicalMagnitude magnitude, string manufacturer, CommunicationProtocol protocol, string? principleOperation)
             : base(id, alphanumericCode, magnitude, manufacturer)
         {

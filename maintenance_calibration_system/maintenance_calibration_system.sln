@@ -22,7 +22,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "maintenance_calibration_sys
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrpcService1", "GrpcService1\GrpcService1.csproj", "{1B58F3E3-0C3F-4F2A-AF60-DD9598FC9316}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "maintenance_calibration_system.Contacts", "maintenance_calibration_system.Contacts\maintenance_calibration_system.Contacts.csproj", "{6967245C-30D6-4ABC-89AF-47D5F24F69B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "maintenance_calibration_system.Contracts", "maintenance_calibration_system.Contacts\maintenance_calibration_system.Contracts.csproj", "{6967245C-30D6-4ABC-89AF-47D5F24F69B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "maintenance_calibration_system.Application", "maintenance_calibration_system.Application\maintenance_calibration_system.Application.csproj", "{9793039A-1B56-4DFF-9C95-F0322110A65D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +60,10 @@ Global
 		{6967245C-30D6-4ABC-89AF-47D5F24F69B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6967245C-30D6-4ABC-89AF-47D5F24F69B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6967245C-30D6-4ABC-89AF-47D5F24F69B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9793039A-1B56-4DFF-9C95-F0322110A65D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9793039A-1B56-4DFF-9C95-F0322110A65D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9793039A-1B56-4DFF-9C95-F0322110A65D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9793039A-1B56-4DFF-9C95-F0322110A65D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
