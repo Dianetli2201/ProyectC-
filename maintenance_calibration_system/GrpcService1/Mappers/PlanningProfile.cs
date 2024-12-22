@@ -30,7 +30,7 @@ namespace GrpcService1.Mappers
                 .ForMember(dest => dest.Planning, opt => opt.MapFrom(src => src != null ? new maintenance_calibration_system.GrpcProtos.PlanningDTO
                 {
                     // Solo mapeamos ExecutionDate manualmente, los demás se mapean automáticamente
-                    ExecutionDate = CreateMap<src.ExecutionDate, dest.ExecutionDate> // Llama a tu método de conversión aquí
+                 //   ExecutionDate = CreateMap<src.ExecutionDate, dest.ExecutionDate> // Llama a tu método de conversión aquí
 
                 } : null))
                 .ForMember(dest => dest.Null, opt => opt.MapFrom(src => src == null ? NullValue.NullValue : (NullValue?)null));

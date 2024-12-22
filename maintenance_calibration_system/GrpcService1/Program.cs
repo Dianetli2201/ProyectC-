@@ -1,5 +1,6 @@
 using GrpcService1.Services;
 using maintenance_calibration_system.Contacts;
+using maintenance_calibration_system.Contracts;
 using maintenance_calibration_system.DataAccess.Contexts;
 using maintenance_calibration_system.DataAccess.Respositories.Equipments;
 using maintenance_calibration_system.DataAccess.Respositories.MaintenanceActivitiy;
@@ -35,6 +36,8 @@ namespace GrpcService1
 
             // Configure the HTTP request pipeline.
             app.MapGrpcService<SensorsService>();
+            app.MapGrpcService<ActuadoresService>();
+            app.MapGrpcService<PlanningsService>();
 
             app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
 
