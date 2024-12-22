@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using maintenance_calibration_system.Application.Abstract;
+
 
 namespace maintenance_calibration_system.Application.Equipments.Commands.DeleteActuador
 {
-    internal class DeleteActuadorCommand
-    {
-    }
+    public record DeleteActuadorCommand(Guid Id) : ICommand<bool>;
 }

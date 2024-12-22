@@ -1,12 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using maintenance_calibration_system.Application.Abstract;
+using maintenance_calibration_system.Contacts;
+using maintenance_calibration_system.Domain.Datos_de_Configuracion;
+
 
 namespace maintenance_calibration_system.Application.Equipments.Commands.CreateActuador
 {
-    internal class CreateActuadorCommandHandler
+    public class CreateActuadorCommandHandler
+        : ICommandHandler<CreateActuadorCommand, Actuador>
     {
+
+        private readonly IEquipmentRepository<Actuador> _equipmentRepository;
+        private readonly IUnitOfWork _unitOfWork;
+
+        public CreateActuadorCommandHandler(
+            IEquipmentRepository<Actuador> equipmentRepository,
+            IUnitOfWork unitOfWork)
+        {
+            _equipmentRepository = equipmentRepository;
+            _unitOfWork = unitOfWork;
+        }
+
+        public Task<Actuador> Handle(CreateActuadorCommand request, CancellationToken cancellationToken)
+        {
+            Actuador result = new Actuador(
+                Guid.NewGuid(),
+                request.AlphanumericCode,
+                request.Magnitude,
+                request.Manufacturer,
+                request.CodeControl,
+                request.SignalControl);
+
+            _equipmentRepository.Add(result);
+            _unitOfWork.SaveChanges();
+
+            return Task.FromResult(result);
+        }
+
     }
 }

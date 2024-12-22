@@ -2,107 +2,103 @@ using AutoMapper;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using GrpcService1;
-using maintenance_calibration_system.Application.Equipments.Commands.CreateSensor;
-using maintenance_calibration_system.Application.Equipments.Commands.DeleteSensor;
-using maintenance_calibration_system.Application.Equipments.Commands.UpdateSensor;
-using maintenance_calibration_system.Application.Equipments.Queries.GetAllSensor;
-using maintenance_calibration_system.Application.Equipments.Queries.GetSensor;
+using maintenance_calibration_system.Application.Equipments.Commands.CreateActuador; // Cambiado
+using maintenance_calibration_system.Application.Equipments.Commands.DeleteActuador; // Cambiado
+using maintenance_calibration_system.Application.Equipments.Commands.UpdateActuador; // Cambiado
+using maintenance_calibration_system.Application.Equipments.Queries.GetAllActuador; // Cambiado
+using maintenance_calibration_system.Application.Equipments.Queries.GetActuador; // Cambiado
 using maintenance_calibration_system.Contacts;
 using maintenance_calibration_system.GrpcProtos;
 using MediatR;
 
-
 namespace GrpcService1.Services
 {
-    public class SensorsService : Sensor.SensorBase
+    public class ActuadoresService : Actuador.ActuadorBase // Cambiado
     {
-        private readonly IEquipmentRepository<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor> _equipmentRepository;
+        private readonly IEquipmentRepository<maintenance_calibration_system.Domain.Datos_de_Configuracion.Actuador> _equipmentRepository; // Cambiado
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
 
-        public SensorsService(
+        public ActuadoresService( // Cambiado
             IMediator mediator,
             IMapper mapper,
-            IEquipmentRepository<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor> equipmentRepository,
+            IEquipmentRepository<maintenance_calibration_system.Domain.Datos_de_Configuracion.Actuador> equipmentRepository, // Cambiado
             IUnitOfWork unitOfWork)
-        {   
+        {
             _mapper = mapper;
             _mediator = mediator;
             _equipmentRepository = equipmentRepository;
             _unitOfWork = unitOfWork;
         }
 
-        public override Task<SensorDTO> CreateSensor(CreateSensorRequest request, ServerCallContext context)
+        public override Task<ActuadorDTO> CreateActuador(CreateActuadorRequest request, ServerCallContext context) // Cambiado
         {
-            var command = new CreateSensorCommand(
+            var command = new CreateActuadorCommand( // Cambiado
                 request.AlphanumericCode,
                 new maintenance_calibration_system.Domain.ValueObjects.PhysicalMagnitude(
                     request.Magnitude.Name,
                     request.Magnitude.UnitofMagnitude),
                 request.Manufacturer,
-                (maintenance_calibration_system.Domain.Types.CommunicationProtocol)request.Protocol,
-                request.PrincipleOperation);
+                request.CodeControl,
+                request.SignalControl);
 
             var result = _mediator.Send(command).Result;
 
-            return Task.FromResult(_mapper.Map<SensorDTO>(result));
+            return Task.FromResult(_mapper.Map<ActuadorDTO>(result)); // Cambiado
         }
 
-        public override Task<NullableSensorDTO> GetSensor(GetRequest request, ServerCallContext context)
+        public override Task<NullableActuadorDTO> GetActuador(GetRequest request, ServerCallContext context) // Cambiado
         {
-            var query = new GetSensorByIdQuery(new Guid(request.Id));
+            var query = new GetActuadorByIdQuery(new Guid(request.Id)); // Cambiado
 
             var result = _mediator.Send(query).Result;
 
-            return Task.FromResult(_mapper.Map<NullableSensorDTO>(result));
-
+            return Task.FromResult(_mapper.Map<NullableActuadorDTO>(result)); // Cambiado
         }
 
-        public override Task<Sensors> GetAllSensors(Google.Protobuf.WellKnownTypes.Empty request, ServerCallContext context)
+        public override Task<Actuadores> GetAllActuadores(Google.Protobuf.WellKnownTypes.Empty request, ServerCallContext context) // Cambiado
         {
-            var query = new GetAllSensorQuery();
+            var query = new GetAllActuadorQuery(); // Cambiado
 
             var result = _mediator.Send(query).Result;
 
-            // Mapea la lista de Sensor a List<SensorDTO>
-            var sensorDTOs = _mapper.Map<List<SensorDTO>>(result);
+            // Mapea la lista de Actuador a List<ActuadorDTO> // Cambiado
+            var actuadorDTOs = _mapper.Map<List<ActuadorDTO>>(result); // Cambiado
 
-            // Crea un nuevo objeto Sensors y asigna la lista de SensorDTO
-            var sensorsResponse = new Sensors
+            // Crea un nuevo objeto Actuadores y asigna la lista de ActuadorDTO // Cambiado
+            var actuadoresResponse = new Actuadores // Cambiado
             {
-                Items = { sensorDTOs } // Asumiendo que Items es una colección repetida
+                Items = { actuadorDTOs } // Asumiendo que Items es una colección repetida
             };
 
-            return Task.FromResult(sensorsResponse); // Devuelve el objeto Sensors
+            return Task.FromResult(actuadoresResponse); // Devuelve el objeto Actuadores
         }
 
-        public override Task<Empty> UpdateSensor(SensorDTO request, ServerCallContext context)
+        public override Task<Empty> UpdateActuador(ActuadorDTO request, ServerCallContext context) // Cambiado
         {
-            var command = new UpdateSensorCommand(
+            var command = new UpdateActuadorCommand( // Cambiado
                 new Guid(request.Id),
                 request.AlphanumericCode,
                 new maintenance_calibration_system.Domain.ValueObjects.PhysicalMagnitude(
                     request.Magnitude.Name,
                     request.Magnitude.UnitofMagnitude),
                 request.Manufacturer,
-                (maintenance_calibration_system.Domain.Types.CommunicationProtocol)request.Protocol,
-                request.PrincipleOperation);
+                request.CodeControl,
+                request.SignalControl);
 
             var result = _mediator.Send(command).Result;
 
-           return Task.FromResult( new Empty());
+            return Task.FromResult(new Empty());
         }
 
-        public override Task<Empty> DeleteSensor(DeleteRequest request, ServerCallContext context)
+        public override Task<Empty> DeleteActuador(DeleteRequest request, ServerCallContext context) // Cambiado
         {
-            var query = new DeleteSensorCommand(new Guid(request.Id));
+            var query = new DeleteActuadorCommand(new Guid(request.Id)); // Cambiado
 
             var result = _mediator.Send(query).Result;
 
-            //  return Task.FromResult(_mapper.Map<SensorDTO>(result));
-
-            return base.DeleteSensor(request, context);
+            return Task.FromResult(new Empty());
         }
     }
 }

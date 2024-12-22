@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using maintenance_calibration_system.Application.Abstract;
+using maintenance_calibration_system.Domain.Datos_de_Configuracion;
+using maintenance_calibration_system.Domain.Types;
+using maintenance_calibration_system.Domain.ValueObjects;
+
 
 namespace maintenance_calibration_system.Application.Equipments.Commands.CreateActuador
 {
-    internal class CreateActuadorCommand
-    {
-    }
+    public record CreateActuadorCommand(
+    string AlphanumericCode,
+    PhysicalMagnitude Magnitude,
+    string Manufacturer,
+    string CodeControl,
+    SignalControl SignalControl) : ICommand<Actuador>;
 }

@@ -42,6 +42,6 @@ message CreateActuadorRequest{
 	string alphanumericCode = 1;
 	PhysicalMagnitude magnitude = 2;
 	string manufacturer = 3;
-	string codeControl = 5; 
-	SignalControl signalControl = 6;
+	string codeControl = 4; 
+	SignalControl signalControl = 5;
 }
