@@ -30,7 +30,7 @@ namespace maintenance_calibration_system.Domain.Datos_de_Planificación
         /// <param name="equipmentElement">Equipo que planificó el evento.</param>
         /// <param name="type">Tipo de planificación.</param>
         /// <param name="executionDate">Fecha de ejecución.</param>
-        public Planning(Guid id, string? equipmentElement, PlanningTypes type, DateTime executionDate)
+        public Planning(Guid id, string equipmentElement, PlanningTypes type, DateTime executionDate)
             : base(id)
         {
             EquipmentElement = equipmentElement ?? throw new ArgumentNullException(nameof(equipmentElement)); // Lanza excepción si EquipmentElement es nulo;;

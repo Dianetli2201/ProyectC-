@@ -42,3 +42,7 @@ message CreatePlanningRequest {
     PlanningTypes type = 2;
     google.protobuf.Timestamp executionDate = 3; 
 }
+
+
+
+
