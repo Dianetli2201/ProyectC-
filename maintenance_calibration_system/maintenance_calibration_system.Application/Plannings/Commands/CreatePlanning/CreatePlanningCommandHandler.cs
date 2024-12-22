@@ -1,6 +1,6 @@
 ﻿using maintenance_calibration_system.Application.Abstract;
 using maintenance_calibration_system.Contacts;
-using maintenance_calibration_system.DataAccess.Respositories.Plannings;
+using maintenance_calibration_system.Contracts;
 using maintenance_calibration_system.Domain.Datos_de_Planificación;
 
 

@@ -1,6 +1,7 @@
 ﻿using maintenance_calibration_system.Application.Abstract;
 using maintenance_calibration_system.Contacts;
-using maintenance_calibration_system.DataAccess.Respositories.Plannings;
+using maintenance_calibration_system.Contracts;
+
 
 
 namespace maintenance_calibration_system.Application.Plannings.Commands.DeletePlanning
