@@ -18,6 +18,7 @@ namespace maintenance_calibration_system.Domain.Datos_de_Planificación
         public DateTime ExecutionDate { get; set; }
         #endregion
 
+
         /// <summary>Constructor por defecto.</summary>
         public Planning() 
         {
