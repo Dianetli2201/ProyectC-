@@ -13,7 +13,7 @@ service Actuador {
 
 	rpc CreateActuador (CreateActuadorRequest) returns(ActuadorDTO);
 	rpc GetActuador (GetRequest) returns(NullableActuadorDTO);
-	rpc GetAllActuador (google.protobuf.Empty) returns(Actuadores);
+	rpc GetAllActuadores (google.protobuf.Empty) returns(Actuadores);
 	rpc UpdateActuador (ActuadorDTO) returns(google.protobuf.Empty);
 	rpc DeleteActuador (DeleteRequest) returns(google.protobuf.Empty);
 }

@@ -1,5 +1,4 @@
 ﻿using maintenance_calibration_system.Application.Abstract;
-using maintenance_calibration_system.Domain.Datos_de_Configuracion;
 using maintenance_calibration_system.Domain.Types;
 using maintenance_calibration_system.Domain.ValueObjects;
 
