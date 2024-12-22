@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="actuadores.proto" />
     <None Remove="common.proto" />
     <None Remove="sensors.proto" />
   </ItemGroup>
