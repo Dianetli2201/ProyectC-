@@ -36,8 +36,8 @@ namespace GrpcService1.Services
         {
             var command = new CreatePlanningCommand( // Cambiado
                 request.EquipmentElement, // Nuevo campo
-                request.Type, // Nuevo campo
-                request.ExecutionDate // Nuevo campo
+                (maintenance_calibration_system.Domain.Types.PlanningTypes)request.Type, // Nuevo campo
+                request.ExecutionDate.ToDateTime() // Nuevo campo
             );
 
             var result = _mediator.Send(command).Result;
@@ -76,8 +76,8 @@ namespace GrpcService1.Services
             var command = new UpdatePlanningCommand( // Cambiado
                 new Guid(request.Id), // Ahora se incluye el Id
                 request.EquipmentElement, // Nuevo campo
-                request.Type, // Nuevo campo
-                request.ExecutionDate // Nuevo campo
+                (maintenance_calibration_system.Domain.Types.PlanningTypes)request.Type, // Nuevo campo
+                request.ExecutionDate.ToDateTime() // Nuevo campo
             );
 
             var result = _mediator.Send(command).Result;
