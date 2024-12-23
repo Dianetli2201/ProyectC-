@@ -47,6 +47,7 @@ namespace maintenance_calibration_system.ConsoleApp
                     Protocol = GrpcProtos.CommunicationProtocol.ModBus,
                     PrincipleOperation = "Es un contador de tiempo, regido por un pulso de reloj a una frecuencia de 100kHz",
                 });
+
                 Console.WriteLine("Sensor creado con éxito");
             }
             catch (RpcException ex)

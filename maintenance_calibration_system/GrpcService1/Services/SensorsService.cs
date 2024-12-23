@@ -100,9 +100,8 @@ namespace GrpcService1.Services
 
             var result = _mediator.Send(query).Result;
 
-            //  return Task.FromResult(_mapper.Map<SensorDTO>(result));
 
-            return base.DeleteSensor(request, context);
+            return Task.FromResult(new Empty());
         }
     }
 }
