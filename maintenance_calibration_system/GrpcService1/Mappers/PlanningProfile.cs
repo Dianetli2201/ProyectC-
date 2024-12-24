@@ -39,7 +39,6 @@ namespace GrpcService1.Mappers
                 .ForMember(dest => dest.Null, opt => opt.MapFrom(src => (NullValue?)null)); // Aquí se indica que es nulo
 
 
-            CreateMap<List<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor>, List<SensorDTO>>();
         }
 
     }
