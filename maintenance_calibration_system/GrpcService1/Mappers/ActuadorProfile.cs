@@ -39,7 +39,7 @@ namespace GrpcService1.Mappers
                         UnitofMagnitude = src.Magnitude.UnitofMagnitude
                     }
 
-                } : null))
+                } : null));
                 
 
 
