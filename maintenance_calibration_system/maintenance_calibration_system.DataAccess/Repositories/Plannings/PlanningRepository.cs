@@ -2,6 +2,7 @@ using maintenance_calibration_system.Domain.Datos_de_Planificación;
 using maintenance_calibration_system.DataAccess.Contexts;
 using Microsoft.EntityFrameworkCore;
 using maintenance_calibration_system.Contracts;
+using maintenance_calibration_system.Domain.Common;
 
 namespace maintenance_calibration_system.DataAccess.Respositories.Plannings
 {
@@ -51,6 +52,18 @@ namespace maintenance_calibration_system.DataAccess.Respositories.Plannings
         /// <param name="planning">La planificación a actualizar.</param>
         public void Update(Planning planning)
         {
+            // Verificar si la entidad ya está siendo rastreada
+            var localEntity = _plannings.Local.FirstOrDefault(e => e.Id == planning.Id);
+            if (localEntity != null)
+            {
+                // Si la entidad ya está siendo rastreada, desadjuntarla
+                _context.Entry(localEntity).State = EntityState.Detached;
+            }
+
+            // Ahora puedes adjuntar la nueva instancia
+            _context.Update(planning);
+            _context.SaveChanges();
+
             var existingPlanning = GetById(planning.Id);
             if (existingPlanning != null)
             {

@@ -10,6 +10,7 @@ using maintenance_calibration_system.Application.Equipments.Queries.GetActuador;
 using maintenance_calibration_system.Contacts;
 using maintenance_calibration_system.GrpcProtos;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace GrpcService1.Services
 {
@@ -19,13 +20,16 @@ namespace GrpcService1.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
+        private readonly ILogger<ActuadoresService> _logger; // Inyectar el logger
 
         public ActuadoresService( // Cambiado
             IMediator mediator,
             IMapper mapper,
+            ILogger<ActuadoresService> logger,
             IEquipmentRepository<maintenance_calibration_system.Domain.Datos_de_Configuracion.Actuador> equipmentRepository, // Cambiado
             IUnitOfWork unitOfWork)
         {
+            _logger = logger;
             _mapper = mapper;
             _mediator = mediator;
             _equipmentRepository = equipmentRepository;
@@ -53,6 +57,16 @@ namespace GrpcService1.Services
             var query = new GetActuadorByIdQuery(new Guid(request.Id)); // Cambiado
 
             var result = _mediator.Send(query).Result;
+
+            if (result == null)
+            {
+                _logger.LogWarning("Actuador no encontrado para ID: {ActuadorId}", request.Id); // Log de advertencia
+                return Task.FromResult<NullableActuadorDTO>(null);
+            }
+            else
+            {
+                _logger.LogInformation("Actuador encontrado para ID: {ActuadorId}", request.Id); // Log de información
+            }
 
             return Task.FromResult(_mapper.Map<NullableActuadorDTO>(result)); // Cambiado
         }

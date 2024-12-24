@@ -1,9 +1,10 @@
 using maintenance_calibration_system.DataAccess.Contexts;
 using maintenance_calibration_system.Domain.Common;
+using Microsoft.EntityFrameworkCore;
 
 /// <summary>Interfaz genérica para un repositorio base que define las operaciones básicas de acceso a datos para cualquier tipo de entidad.</summary>
 /// <typeparam name="T">El tipo de entidad que el repositorio manejará.</typeparam>
-public interface IRepositoryBase<T> where T : class
+public interface IRepositoryBase<T> where T : Entity
 {
     /// <summary>Añade una nueva entidad al repositorio.</summary>
     /// <param name="entity">La entidad a añadir.</param>
@@ -29,7 +30,7 @@ public interface IRepositoryBase<T> where T : class
 
 
 /// <summary>Utiliza genéricos para permitir que cualquier tipo de entidad (que sea una clase) pueda ser manejada por el repositorio.</summary>
-public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
+public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : Entity
 {
     protected readonly ApplicationContext _context;
 
@@ -44,7 +45,7 @@ public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {
         if (entity == null)
         {
-            throw new ArgumentNullException(nameof(entity), "La planificación no puede ser nula.");
+            throw new ArgumentNullException(nameof(entity), "La Sensor o actuador no puede ser nulo.");
         }
         _context.Set<T>().Add(entity);
         _context.SaveChanges();
@@ -65,6 +66,15 @@ public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
     /// <summary>Actualiza una entidad existente en el contexto y guarda los cambios.</summary>
     public virtual void Update(T entity)
     {
+        // Verificar si la entidad ya está siendo rastreada
+        var localEntity = _context.Set<T>().Local.FirstOrDefault(e => e.Id == entity.Id);
+        if (localEntity != null)
+        {
+            // Si la entidad ya está siendo rastreada, desadjuntarla
+            _context.Entry(localEntity).State = EntityState.Detached;
+        }
+
+        // Ahora puedes adjuntar la nueva instancia
         _context.Set<T>().Update(entity);
         _context.SaveChanges();
     }

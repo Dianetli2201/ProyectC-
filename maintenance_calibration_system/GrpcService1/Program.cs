@@ -31,13 +31,15 @@ namespace GrpcService1
                 AutoRegisterRequestProcessors = true,
             }
             .RegisterServicesFromAssemblies(typeof(AssemblyReference).Assembly));
+            builder.Logging.AddConsole(); // Esto permite que los logs se muestren en la consola
+            builder.Logging.AddDebug(); // Esto permite que los logs se muestren en la ventana de salida de Visual Studio
 
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             app.MapGrpcService<SensorsService>();
-        //    app.MapGrpcService<ActuadoresService>();
-        //    app.MapGrpcService<PlanningsService>();
+            app.MapGrpcService<ActuadoresService>();
+           app.MapGrpcService<PlanningsService>();
 
             app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
 

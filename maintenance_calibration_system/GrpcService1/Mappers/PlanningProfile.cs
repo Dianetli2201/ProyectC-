@@ -35,8 +35,8 @@ namespace GrpcService1.Mappers
                     {
                         Id = src.Id.ToString(), // Convertir Guid a string
                         ExecutionDate = Timestamp.FromDateTime(src.ExecutionDate.ToUniversalTime()) // Llama a tu método de conversión aquí
-                    }))
-                .ForMember(dest => dest.Null, opt => opt.MapFrom(src => (NullValue?)null)); // Aquí se indica que es nulo
+                    }));
+                
 
 
         }

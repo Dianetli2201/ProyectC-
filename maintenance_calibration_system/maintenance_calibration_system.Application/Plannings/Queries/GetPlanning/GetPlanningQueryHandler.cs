@@ -8,7 +8,7 @@ using maintenance_calibration_system.Domain.Datos_de_Planificación;
 namespace maintenance_calibration_system.Application.Plannings.Queries.GetPlanning
 {
     public class GetPlanningByIdQueryHandler
-        : IQueryHandler<GetPlanningByIdQuery, Planning>
+        : IQueryHandler<GetPlanningByIdQuery, Planning?>
     {
         private readonly IPlanningRepository _planningRepository;
 
@@ -18,10 +18,10 @@ namespace maintenance_calibration_system.Application.Plannings.Queries.GetPlanni
             _planningRepository = planningRepository;
         }
 
-        public Task<Planning> Handle(GetPlanningByIdQuery request, CancellationToken cancellationToken)
+        public Task<Planning?> Handle(GetPlanningByIdQuery request, CancellationToken cancellationToken)
         {
             // Obtener todos los sensores del repositorio
-            Planning planning = _planningRepository.GetById(request.Id);
+            Planning? planning = _planningRepository.GetById(request.Id);
 
             return Task.FromResult(planning);
         }

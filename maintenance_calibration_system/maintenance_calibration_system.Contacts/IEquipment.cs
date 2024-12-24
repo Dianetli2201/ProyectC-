@@ -11,7 +11,7 @@ namespace maintenance_calibration_system.Contacts
         /// <summary>Busca una entidad por su identificador único.</summary>
         /// <param name="id">El identificador único de la entidad.</param>
         /// <returns>La entidad correspondiente al identificador, o null si no se encuentra.</returns>
-        T GetById(Guid id);
+        T? GetById(Guid id);
 
         /// <summary>Devuelve todas las entidades del tipo especificado.</summary>
         /// <returns>Una colección de todas las entidades.</returns>

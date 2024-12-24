@@ -40,7 +40,7 @@ namespace GrpcService1.Mappers
                     }
 
                 } : null))
-                .ForMember(dest => dest.Null, opt => opt.MapFrom(src => (NullValue?)null));
+                
 
 
             CreateMap<List<maintenance_calibration_system.Domain.Datos_de_Configuracion.Actuador>, Actuadores>();

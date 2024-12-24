@@ -19,13 +19,16 @@ namespace GrpcService1.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
+        private readonly ILogger<PlanningsService> _logger;
 
         public PlanningsService( // Cambiado
+            ILogger<PlanningsService> logger,
             IMediator mediator,
             IMapper mapper,
             IPlanningRepository planningRepository, // Cambiado
             IUnitOfWork unitOfWork)
         {
+            _logger = logger;
             _mapper = mapper;
             _mediator = mediator;
             _planningRepository = planningRepository; // Cambiado
@@ -49,6 +52,16 @@ namespace GrpcService1.Services
             var query = new GetPlanningByIdQuery(new Guid(request.Id)); // Cambiado
 
             var result = _mediator.Send(query).Result;
+
+            if (result == null)
+            {
+                _logger.LogWarning("Planiación no encontrada para ID: {PlanningId}", request.Id); // Log de advertencia
+                return Task.FromResult<NullablePlanningDTO>(null);
+            }
+            else
+            {
+                _logger.LogInformation("Planiación encontrada para ID: {PlanningId}", request.Id); // Log de información
+            }
 
             return Task.FromResult(_mapper.Map<NullablePlanningDTO>(result)); // Cambiado
         }

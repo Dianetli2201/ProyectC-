@@ -18,10 +18,12 @@ namespace maintenance_calibration_system.Application.Equipments.Queries.GetSenso
 
         public Task<Sensor> Handle(GetSensorByIdQuery request, CancellationToken cancellationToken)
         {
-            // Obtener todos los sensores del repositorio
-            Sensor sensor = _equipmentRepository.GetById(request.Id);
 
-            return Task.FromResult(sensor);
+                // Obtener el sensor del repositorio
+                Sensor sensor = _equipmentRepository.GetById(request.Id);
+
+                return Task.FromResult(sensor);
+            
         }
     }
 }
