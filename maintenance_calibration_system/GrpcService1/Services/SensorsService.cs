@@ -27,10 +27,10 @@ namespace GrpcService1.Services
             IEquipmentRepository<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor> equipmentRepository,
             IUnitOfWork unitOfWork)
         {   
-            _mapper = mapper;
             _mediator = mediator;
             _equipmentRepository = equipmentRepository;
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         public override Task<SensorDTO> CreateSensor(CreateSensorRequest request, ServerCallContext context)
@@ -46,7 +46,7 @@ namespace GrpcService1.Services
 
             var result = _mediator.Send(command).Result;
 
-            return Task.FromResult(_mapper.Map<SensorDTO>(result));
+           return Task.FromResult(_mapper.Map<SensorDTO>(result));
         }
 
         public override Task<NullableSensorDTO> GetSensor(GetRequest request, ServerCallContext context)

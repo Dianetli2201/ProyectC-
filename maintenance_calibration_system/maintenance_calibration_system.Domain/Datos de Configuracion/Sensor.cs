@@ -8,7 +8,7 @@ namespace maintenance_calibration_system.Domain.Datos_de_Configuracion
     {
         #region Properties
         /// <summary>Principio de operación del sensor.</summary>
-        public string? PrincipleOperation { get; set; }
+        public string PrincipleOperation { get; set; }
 
         /// <summary>Indica si el sensor está calibrado (predeterminado: false).</summary>
         public bool Calibrated { get; set; } = false;
@@ -29,7 +29,7 @@ namespace maintenance_calibration_system.Domain.Datos_de_Configuracion
         /// <param name="principleOperation">Principio de operación del sensor.</param>
 
 
-        public Sensor(Guid id, string alphanumericCode, PhysicalMagnitude magnitude, string manufacturer, CommunicationProtocol protocol, string? principleOperation)
+        public Sensor(Guid id, string alphanumericCode, PhysicalMagnitude magnitude, string manufacturer, CommunicationProtocol protocol, string principleOperation)
             : base(id, alphanumericCode, magnitude, manufacturer)
         {
             Protocol = protocol;

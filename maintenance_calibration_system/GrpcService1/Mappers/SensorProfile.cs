@@ -34,7 +34,7 @@ namespace GrpcService1.Mappers
                   Name = src.Magnitude.Name,
                   UnitofMagnitude = src.Magnitude.UnitofMagnitude,
               }));
-
+            
 
             // Mapeo de Sensor a NullableSensorDTO
             CreateMap<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor,
@@ -66,6 +66,7 @@ namespace GrpcService1.Mappers
                 .ForMember(dest => dest.Manufacturer, opt => opt.MapFrom(src => src.Sensor.Manufacturer))
                 .ForMember(dest => dest.Protocol, opt => opt.MapFrom(src => src.Sensor.Protocol))
                 .ForMember(dest => dest.PrincipleOperation, opt => opt.MapFrom(src => src.Sensor.PrincipleOperation));
+            
 
             CreateMap<maintenance_calibration_system.GrpcProtos.SensorDTO, maintenance_calibration_system.GrpcProtos.CreateSensorRequest>()
                 .ForMember(dest => dest.AlphanumericCode, opt => opt.MapFrom(src => src.AlphanumericCode))
@@ -78,8 +79,10 @@ namespace GrpcService1.Mappers
                 .ForMember(dest => dest.Protocol, opt => opt.MapFrom(src => src.Protocol))
                 .ForMember(dest => dest.PrincipleOperation, opt => opt.MapFrom(src => src.PrincipleOperation));
 
-            CreateMap<List<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor>, List<SensorDTO>>();
-            CreateMap<List<SensorDTO>,List<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor>>();
+            
+          CreateMap<List<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor>, Sensors>();
+            
+               CreateMap<Sensors,List<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor>>();
         }
 
 

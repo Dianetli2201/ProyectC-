@@ -1,5 +1,7 @@
-﻿using Grpc.Core;
+﻿using AutoMapper;
+using Grpc.Core;
 using Grpc.Net.Client;
+using GrpcService1.Mappers;
 using maintenance_calibration_system.GrpcProtos;
 
 namespace maintenance_calibration_system.ConsoleApp
@@ -29,6 +31,13 @@ namespace maintenance_calibration_system.ConsoleApp
             }
 
             var client = new maintenance_calibration_system.GrpcProtos.Sensor.SensorClient(channel);
+
+            var mapperConfig = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<SensorProfile>(); // Asegúrate de agregar tu perfil aquí
+            });
+
+            IMapper mapper = mapperConfig.CreateMapper();
 
             Console.WriteLine("Presione una tecla para crear un sensor");
             Console.ReadKey();
