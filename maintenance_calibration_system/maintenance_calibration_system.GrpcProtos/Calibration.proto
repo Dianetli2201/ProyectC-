@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+option csharp_namespace = "maintenance_calibration_system.GrpcProtos";
+
+package GrpcProtos;
+
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto"; // Para manejar fechas
+import "common.proto"; 
+
+// Servicio para manejar operaciones relacionadas con Calibraciones
+service CalibrationService {
+    rpc CreateCalibration (CreateCalibrationRequest) returns (CalibrationDTO);
+    rpc GetCalibration (GetRequest) returns (NullableCalibrationDTO);
+    rpc GetAllCalibrations (google.protobuf.Empty) returns (Calibrations);
+    rpc UpdateCalibration (CalibrationDTO) returns (google.protobuf.Empty);
+    rpc DeleteCalibration (DeleteRequest) returns (google.protobuf.Empty);
+}
+
+// Mensaje para representar un sensor
+message Sensor {
+    string id = 1; // Identificador único del sensor
+    string name = 2; // Nombre del sensor
+}
+
+// Mensaje para representar una calibración
+message CalibrationDTO {
+    string id = 1; // Identificador único de la calibración
+    google.protobuf.Timestamp dateActivity = 2; // Fecha de la actividad de calibración
+    string nameTechnician = 3; // Nombre del técnico que realizó la calibración
+    string nameCertificateAuthority = 4; // Nombre de la autoridad certificadora
+    repeated Sensor calibratedSensors = 5; // Lista de sensores calibrados
+}
+
+// Mensaje para representar una lista de calibraciones
+message Calibrations {
+    repeated CalibrationDTO items = 1; // Lista de calibraciones
+}
+
+// Mensaje para manejar respuestas nulas
+message NullableCalibrationDTO {
+    oneof kind {
+        google.protobuf.NullValue null = 1; // Valor nulo
+        CalibrationDTO calibration = 2; // Calibración
+    }
+}
+
+// Mensaje para crear una nueva calibración
+message CreateCalibrationRequest {
+    google.protobuf.Timestamp dateActivity = 1; // Fecha de la actividad de calibración
+    string nameTechnician = 2; // Nombre del técnico que realizó la actividad
+    string nameCertificateAuthority = 3; // Nombre de la autoridad certificadora
+    repeated Sensor calibratedSensors = 4; // Lista de sensores a calibrar
+}
