@@ -10,6 +10,7 @@ namespace maintenance_calibration_system.Application.Calibrations.Commands.Creat
     {
         void Add(Calibration result);
         object Delete(Guid id);
+        object GetAll();
         object GetById(Guid id);
         void Update(Calibration updatedCalibration);
     }

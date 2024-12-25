@@ -1,12 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using maintenance_calibration_system.Application.Abstract;
+using maintenance_calibration_system.Application.Calibrations.Commands.CreateCalibration;
+using maintenance_calibration_system.Contacts;
+using maintenance_calibration_system.Domain.Datos_Historicos; // Asegúrate de que este espacio de nombres sea correct
 
-namespace maintenance_calibration_system.Application.Equipments.Queries.GetAllCalibration
+namespace maintenance_calibration_system.Application.Calibrations.Queries.GetAllCalibration
 {
-    internal class GetAllCalibrationQueryHandler
+    public class GetAllCalibrationQueryHandler : IQueryHandler<GetAllCalibrationQuery, List<Calibration>>
     {
+        private readonly ICalibrationRepository<Calibration> _calibrationRepository; // Repositorio para manejar calibraciones
+
+        // Constructor que inyecta el repositorio
+        public GetAllCalibrationQueryHandler(IMaintenanceActivityRepository<Calibration> calibrationRepository)
+        {
+            _calibrationRepository = (ICalibrationRepository<Calibration>)calibrationRepository; // Asignar el repositorio de calibraciones
+        }
+
+        public Task<List<Calibration>> Handle(GetAllCalibrationQuery request, CancellationToken cancellationToken)
+        {
+            // Obtener todas las calibraciones del repositorio
+            var calibrations = _calibrationRepository.GetAll();
+
+            return Task.FromResult(calibrations.ToList()); // Retornar la lista de calibraciones
+        }
     }
 }
