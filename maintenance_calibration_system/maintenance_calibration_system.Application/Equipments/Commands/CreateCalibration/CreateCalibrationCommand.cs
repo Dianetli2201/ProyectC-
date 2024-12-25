@@ -6,6 +6,10 @@ using System;
 
 namespace maintenance_calibration_system.Application.Calibrations.Commands.CreateCalibration
 {
+    internal interface ICalibrationRepository<T>
+    {
+
+    }
     public record CreateCalibrationCommand(
         DateTime DateActivity,
         string NameTechnician,
