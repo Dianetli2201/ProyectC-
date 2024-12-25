@@ -1,12 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using maintenance_calibration_system.Application.Abstract;
+using maintenance_calibration_system.Application.Calibrations.Commands.CreateCalibration;
+using maintenance_calibration_system.Contacts;
+using maintenance_calibration_system.Domain.Datos_Historicos; // Asegúrate de que este espacio de nombres sea correcto
+using System;
+using System.Threading;
 using System.Threading.Tasks;
 
-namespace maintenance_calibration_system.Application.Equipments.Commands.UpdateCalibration
+namespace maintenance_calibration_system.Application.Calibrations.Commands.UpdateCalibration
 {
-    internal class UpdateCalibrationCommandHandler
+    public class UpdateCalibrationCommandHandler(
+        ICalibrationRepository<Calibration> calibrationRepository,
+        IUnitOfWork unitOfWork) : ICommandHandler<UpdateCalibrationCommand, bool>
     {
+        private readonly ICalibrationRepository<Calibration> _calibrationRepository = calibrationRepository; // Repositorio para manejar calibraciones
+        private readonly IUnitOfWork _unitOfWork = unitOfWork; // Unidad de trabajo para manejar transacciones
+
+        public Task<bool> Handle(UpdateCalibrationCommand request, CancellationToken cancellationToken)
+        {
+            // Buscar la calibración existente
+            var existingCalibration = _calibrationRepository.GetById(request.Id);
+
+            if (existingCalibration == null)
+            {
+                return Task.FromResult(false); // Retorna false si la calibración no existe
+            }
+
+            // Crear un nuevo objeto Calibration con los valores actualizados usando el constructor
+            var updatedCalibration = new Calibration(
+                existingCalibration.Id, // Mantener el mismo ID
+                request.DateActivity,
+                request.NameTechnician,
+                request.NameCertificateAuthority);
+
+            // Si hay sensores calibrados, puedes actualizarlos aquí si es necesario
+            updatedCalibration.CalibratedSensors = request.CalibratedSensors;
+
+            // Actualizar la calibración en el repositorio
+            _calibrationRepository.Update(updatedCalibration);
+            _unitOfWork.SaveChanges();
+
+            return Task.FromResult(true); // Devuelve true si la actualización fue exitosa
+        }
     }
 }
