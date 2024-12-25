@@ -8,10 +8,10 @@ using maintenance_calibration_system.Domain.Datos_Historicos; // Asegúrate de q
 namespace maintenance_calibration_system.Application.Calibrations.Commands.DeleteCalibration
 {
     public class DeleteCalibrationCommandHandler(
-        ICalibrationRepository<Calibration> calibrationRepository,
+       IMaintenanceActivityRepository<Calibration> calibrationRepository,
         IUnitOfWork unitOfWork) : ICommandHandler<DeleteCalibrationCommand, bool>
     {
-        private readonly ICalibrationRepository<Calibration> _calibrationRepository = calibrationRepository; // Repositorio para manejar calibraciones
+        private readonly ICalibrationRepository<Calibration> _calibrationRepository = (ICalibrationRepository<Calibration>)calibrationRepository; // Repositorio para manejar calibraciones
         private readonly IUnitOfWork _unitOfWork = unitOfWork; // Unidad de trabajo para manejar transacciones
 
         public Task<bool> Handle(DeleteCalibrationCommand request, CancellationToken cancellationToken)
