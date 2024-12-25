@@ -14,27 +14,18 @@ using Microsoft.Extensions.Logging;
 
 namespace GrpcService1.Services
 {
-    public class ActuadoresService : Actuador.ActuadorBase // Cambiado
+    public class ActuadoresService( // Cambiado
+        IMediator mediator,
+        IMapper mapper,
+        ILogger<ActuadoresService> logger,
+        IEquipmentRepository<maintenance_calibration_system.Domain.Datos_de_Configuracion.Actuador> equipmentRepository, // Cambiado
+        IUnitOfWork unitOfWork) : Actuador.ActuadorBase // Cambiado
     {
-        private readonly IEquipmentRepository<maintenance_calibration_system.Domain.Datos_de_Configuracion.Actuador> _equipmentRepository; // Cambiado
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMediator _mediator;
-        private readonly IMapper _mapper;
-        private readonly ILogger<ActuadoresService> _logger; // Inyectar el logger
-
-        public ActuadoresService( // Cambiado
-            IMediator mediator,
-            IMapper mapper,
-            ILogger<ActuadoresService> logger,
-            IEquipmentRepository<maintenance_calibration_system.Domain.Datos_de_Configuracion.Actuador> equipmentRepository, // Cambiado
-            IUnitOfWork unitOfWork)
-        {
-            _logger = logger;
-            _mapper = mapper;
-            _mediator = mediator;
-            _equipmentRepository = equipmentRepository;
-            _unitOfWork = unitOfWork;
-        }
+        private readonly IEquipmentRepository<maintenance_calibration_system.Domain.Datos_de_Configuracion.Actuador> _equipmentRepository = equipmentRepository; // Cambiado
+        private readonly IUnitOfWork _unitOfWork = unitOfWork;
+        private readonly IMediator _mediator = mediator;
+        private readonly IMapper _mapper = mapper;
+        private readonly ILogger<ActuadoresService> _logger = logger; // Inyectar el logger
 
         public override Task<ActuadorDTO> CreateActuador(CreateActuadorRequest request, ServerCallContext context) // Cambiado
         {

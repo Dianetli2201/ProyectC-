@@ -13,27 +13,16 @@ using MediatR;
 
 namespace GrpcService1.Services
 {
-    public class SensorsService : Sensor.SensorBase
-    {
-        private readonly IEquipmentRepository<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor>  _equipmentRepository;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMediator _mediator; 
-        private readonly IMapper _mapper;
-        private readonly ILogger<SensorsService> _logger; // Inyectar el logger
-
-        public SensorsService(
+    public class SensorsService(
         IMediator mediator,
-        ILogger<SensorsService> logger,
         IMapper mapper,
         IEquipmentRepository<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor> equipmentRepository,
-        IUnitOfWork unitOfWork)
-        {
-            _logger = logger;
-            _mapper = mapper;
-            _mediator = mediator;
-            _equipmentRepository = equipmentRepository;
-            _unitOfWork = unitOfWork;
-        }
+        IUnitOfWork unitOfWork) : Sensor.SensorBase
+    {
+        private readonly IEquipmentRepository<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor> _equipmentRepository = equipmentRepository;
+        private readonly IUnitOfWork _unitOfWork = unitOfWork;
+        private readonly IMediator _mediator = mediator; 
+        private readonly IMapper _mapper = mapper;
 
         public override Task<SensorDTO> CreateSensor(CreateSensorRequest request, ServerCallContext context)
         {
@@ -56,16 +45,6 @@ namespace GrpcService1.Services
             var query = new GetSensorByIdQuery(new Guid(request.Id));
 
             var result = _mediator.Send(query).Result;
-
-            if (result == null)
-            { 
-                _logger.LogWarning("Sensor no encontrado para ID: {SensorId}", request.Id); // Log de advertencia
-                return Task.FromResult<NullableSensorDTO>(null);
-            }
-            else
-            {
-                _logger.LogInformation("Sensor encontrado para ID: {SensorId}", request.Id); // Log de información
-            }
 
             return Task.FromResult(_mapper.Map<NullableSensorDTO>(result));
 

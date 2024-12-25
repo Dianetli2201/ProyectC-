@@ -5,18 +5,12 @@ using maintenance_calibration_system.Domain.Datos_de_Configuracion;
 
 namespace maintenance_calibration_system.Application.Equipments.Commands.DeleteSensor
 {
-    public class DeleteSensorCommandHandler : ICommandHandler<DeleteSensorCommand, bool>
+    public class DeleteSensorCommandHandler(
+        IEquipmentRepository<Sensor> equipmentRepository,
+        IUnitOfWork unitOfWork) : ICommandHandler<DeleteSensorCommand, bool>
     {
-        private readonly IEquipmentRepository<Sensor> _equipmentRepository;
-        private readonly IUnitOfWork _unitOfWork;
-
-        public DeleteSensorCommandHandler(
-            IEquipmentRepository<Sensor> equipmentRepository, 
-            IUnitOfWork unitOfWork)
-        {
-            _equipmentRepository = equipmentRepository;
-            _unitOfWork = unitOfWork;
-        }
+        private readonly IEquipmentRepository<Sensor> _equipmentRepository = equipmentRepository;
+        private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
         public Task<bool> Handle(DeleteSensorCommand request, CancellationToken cancellationToken)
         {

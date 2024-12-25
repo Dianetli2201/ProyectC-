@@ -10,16 +10,10 @@ using System.Threading.Tasks;
 
 namespace maintenance_calibration_system.Application.Equipments.Queries.GetAllActuador
 {
-    public class GetAllActuadorQueryHandler
-        : IQueryHandler<GetAllActuadorQuery, List<Actuador>>
+    public class GetAllActuadorQueryHandler(IEquipmentRepository<Actuador> equipmentRepository)
+                : IQueryHandler<GetAllActuadorQuery, List<Actuador>>
     {
-        private readonly IEquipmentRepository<Actuador> _equipmentRepository;
-
-        // Constructor que inyecta el repositorio
-        public GetAllActuadorQueryHandler(IEquipmentRepository<Actuador> equipmentRepository)
-        {
-            _equipmentRepository = equipmentRepository;
-        }
+        private readonly IEquipmentRepository<Actuador> _equipmentRepository = equipmentRepository;
 
         public Task<List<Actuador>> Handle(GetAllActuadorQuery request, CancellationToken cancellationToken)
         {

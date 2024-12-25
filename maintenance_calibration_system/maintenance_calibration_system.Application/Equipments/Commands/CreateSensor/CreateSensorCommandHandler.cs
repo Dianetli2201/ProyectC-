@@ -5,20 +5,14 @@ using maintenance_calibration_system.Domain.Datos_de_Configuracion;
 
 namespace maintenance_calibration_system.Application.Equipments.Commands.CreateSensor
 {
-    public class CreateSensorCommandHandler
-        : ICommandHandler<CreateSensorCommand, Sensor>
+    public class CreateSensorCommandHandler(
+        IEquipmentRepository<Sensor> equipmentRepository,
+        IUnitOfWork unitOfWork)
+                : ICommandHandler<CreateSensorCommand, Sensor>
     {
 
-        private readonly IEquipmentRepository<Sensor> _equipmentRepository;
-        private readonly IUnitOfWork _unitOfWork;
-
-        public CreateSensorCommandHandler(
-            IEquipmentRepository<Sensor> equipmentRepository,
-            IUnitOfWork unitOfWork)
-        {
-            _equipmentRepository = equipmentRepository;
-            _unitOfWork = unitOfWork;
-        }
+        private readonly IEquipmentRepository<Sensor> _equipmentRepository = equipmentRepository;
+        private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
         public Task<Sensor> Handle(CreateSensorCommand request, CancellationToken cancellationToken)
         {

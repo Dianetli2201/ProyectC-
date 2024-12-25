@@ -9,16 +9,10 @@ using System.Threading.Tasks;
 
 namespace maintenance_calibration_system.Application.Equipments.Queries.GetAllSensor
 {
-    public class GetAllSensorQueryHandler
-        : IQueryHandler<GetAllSensorQuery, List<Sensor>>
+    public class GetAllSensorQueryHandler(IEquipmentRepository<Sensor> equipmentRepository)
+                : IQueryHandler<GetAllSensorQuery, List<Sensor>>
     {
-        private readonly IEquipmentRepository<Sensor> _equipmentRepository;
-
-        // Constructor que inyecta el repositorio
-        public GetAllSensorQueryHandler(IEquipmentRepository<Sensor> equipmentRepository)
-        {
-            _equipmentRepository = equipmentRepository;
-        }
+        private readonly IEquipmentRepository<Sensor> _equipmentRepository = equipmentRepository;
 
         public Task<List<Sensor>> Handle(GetAllSensorQuery request, CancellationToken cancellationToken)
         {

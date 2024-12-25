@@ -5,18 +5,12 @@ using maintenance_calibration_system.Domain.Datos_de_Configuracion;
 
 namespace maintenance_calibration_system.Application.Equipments.Commands.UpdateSensor
 {
-    public class UpdateSensorCommandHandler : ICommandHandler<UpdateSensorCommand, bool>
+    public class UpdateSensorCommandHandler(
+        IEquipmentRepository<Sensor> equipmentRepository,
+        IUnitOfWork unitOfWork) : ICommandHandler<UpdateSensorCommand, bool>
     {
-        private readonly IEquipmentRepository<Sensor> _equipmentRepository;
-        private readonly IUnitOfWork _unitOfWork;
-
-        public UpdateSensorCommandHandler(
-            IEquipmentRepository<Sensor> equipmentRepository,
-            IUnitOfWork unitOfWork)
-        {
-            _equipmentRepository = equipmentRepository;
-            _unitOfWork = unitOfWork;
-        }
+        private readonly IEquipmentRepository<Sensor> _equipmentRepository = equipmentRepository;
+        private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
         public Task<bool> Handle(UpdateSensorCommand request, CancellationToken cancellationToken)
         {

@@ -6,18 +6,12 @@ using maintenance_calibration_system.Contracts;
 
 namespace maintenance_calibration_system.Application.Plannings.Commands.DeletePlanning
 {
-    public class DeletePlanningCommandHandler : ICommandHandler<DeletePlanningCommand, bool>
+    public class DeletePlanningCommandHandler(
+        IPlanningRepository planningRepository,
+        IUnitOfWork unitOfWork) : ICommandHandler<DeletePlanningCommand, bool>
     {
-        private readonly IPlanningRepository _planningRepository;
-        private readonly IUnitOfWork _unitOfWork;
-
-        public DeletePlanningCommandHandler(
-            IPlanningRepository planningRepository,
-            IUnitOfWork unitOfWork)
-        {
-            _planningRepository = planningRepository;
-            _unitOfWork = unitOfWork;
-        }
+        private readonly IPlanningRepository _planningRepository = planningRepository;
+        private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
         public Task<bool> Handle(DeletePlanningCommand request, CancellationToken cancellationToken)
         {

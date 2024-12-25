@@ -6,16 +6,10 @@ using maintenance_calibration_system.Domain.Datos_de_Configuracion;
 
 namespace maintenance_calibration_system.Application.Equipments.Queries.GetActuador
 {
-    public class GetActuadorByIdQueryHandler
-        : IQueryHandler<GetActuadorByIdQuery, Actuador>
+    public class GetActuadorByIdQueryHandler(IEquipmentRepository<Actuador> equipmentRepository)
+                : IQueryHandler<GetActuadorByIdQuery, Actuador>
     {
-        private readonly IEquipmentRepository<Actuador> _equipmentRepository;
-
-        // Constructor que inyecta el repositorio
-        public GetActuadorByIdQueryHandler(IEquipmentRepository<Actuador> equipmentRepository)
-        {
-            _equipmentRepository = equipmentRepository;
-        }
+        private readonly IEquipmentRepository<Actuador> _equipmentRepository = equipmentRepository;
 
         public Task<Actuador> Handle(GetActuadorByIdQuery request, CancellationToken cancellationToken)
         {

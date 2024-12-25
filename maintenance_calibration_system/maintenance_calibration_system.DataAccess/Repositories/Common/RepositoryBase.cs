@@ -30,15 +30,10 @@ public interface IRepositoryBase<T> where T : Entity
 
 
 /// <summary>Utiliza genéricos para permitir que cualquier tipo de entidad (que sea una clase) pueda ser manejada por el repositorio.</summary>
-public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : Entity
+/// <remarks>El constructor recibe un contexto de aplicación (ApplicationContext), que se utiliza para interactuar con la base de datos.</remarks>
+public abstract class RepositoryBase<T>(ApplicationContext context) : IRepositoryBase<T> where T : Entity
 {
-    protected readonly ApplicationContext _context;
-
-    /// <summary>El constructor recibe un contexto de aplicación (ApplicationContext), que se utiliza para interactuar con la base de datos.</summary>
-    protected RepositoryBase(ApplicationContext context)
-    {
-        _context = context;
-    }
+    protected readonly ApplicationContext _context = context;
 
     /// <summary>Añade una entidad al contexto y guarda los cambios.</summary>
     public void Add(T entity)

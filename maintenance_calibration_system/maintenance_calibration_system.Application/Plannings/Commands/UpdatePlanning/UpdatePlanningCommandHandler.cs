@@ -7,18 +7,12 @@ using maintenance_calibration_system.Domain.Datos_de_Planificación;
 
 namespace maintenance_calibration_system.Application.Plannings.Commands.UpdatePlanning
 {
-    public class UpdatePlanningCommandHandler : ICommandHandler<UpdatePlanningCommand, bool>
+    public class UpdatePlanningCommandHandler(
+        IPlanningRepository planningRepository,
+        IUnitOfWork unitOfWork) : ICommandHandler<UpdatePlanningCommand, bool>
     {
-        private readonly IPlanningRepository _planningRepository;
-        private readonly IUnitOfWork _unitOfWork;
-
-        public UpdatePlanningCommandHandler(
-            IPlanningRepository planningRepository,
-            IUnitOfWork unitOfWork)
-        {
-            _planningRepository = planningRepository;
-            _unitOfWork = unitOfWork;
-        }
+        private readonly IPlanningRepository _planningRepository = planningRepository;
+        private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
         public Task<bool> Handle(UpdatePlanningCommand request, CancellationToken cancellationToken)
         {

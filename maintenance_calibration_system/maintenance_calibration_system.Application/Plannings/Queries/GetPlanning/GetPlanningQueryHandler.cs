@@ -7,16 +7,10 @@ using maintenance_calibration_system.Domain.Datos_de_Planificación;
 
 namespace maintenance_calibration_system.Application.Plannings.Queries.GetPlanning
 {
-    public class GetPlanningByIdQueryHandler
-        : IQueryHandler<GetPlanningByIdQuery, Planning?>
+    public class GetPlanningByIdQueryHandler(IPlanningRepository planningRepository)
+                : IQueryHandler<GetPlanningByIdQuery, Planning?>
     {
-        private readonly IPlanningRepository _planningRepository;
-
-        // Constructor que inyecta el repositorio
-        public GetPlanningByIdQueryHandler(IPlanningRepository planningRepository)
-        {
-            _planningRepository = planningRepository;
-        }
+        private readonly IPlanningRepository _planningRepository = planningRepository;
 
         public Task<Planning?> Handle(GetPlanningByIdQuery request, CancellationToken cancellationToken)
         {

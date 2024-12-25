@@ -13,27 +13,18 @@ using MediatR;
 
 namespace GrpcService1.Services
 {
-    public class PlanningsService : Planning.PlanningBase // Cambiado
+    public class PlanningsService( // Cambiado
+        ILogger<PlanningsService> logger,
+        IMediator mediator,
+        IMapper mapper,
+        IPlanningRepository planningRepository, // Cambiado
+        IUnitOfWork unitOfWork) : Planning.PlanningBase // Cambiado
     {
-        private readonly IPlanningRepository _planningRepository; // Cambiado
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMediator _mediator;
-        private readonly IMapper _mapper;
-        private readonly ILogger<PlanningsService> _logger;
-
-        public PlanningsService( // Cambiado
-            ILogger<PlanningsService> logger,
-            IMediator mediator,
-            IMapper mapper,
-            IPlanningRepository planningRepository, // Cambiado
-            IUnitOfWork unitOfWork)
-        {
-            _logger = logger;
-            _mapper = mapper;
-            _mediator = mediator;
-            _planningRepository = planningRepository; // Cambiado
-            _unitOfWork = unitOfWork;
-        }
+        private readonly IPlanningRepository _planningRepository = planningRepository; // Cambiado
+        private readonly IUnitOfWork _unitOfWork = unitOfWork;
+        private readonly IMediator _mediator = mediator;
+        private readonly IMapper _mapper = mapper;
+        private readonly ILogger<PlanningsService> _logger = logger;
 
         public override Task<PlanningDTO> CreatePlanning(CreatePlanningRequest request, ServerCallContext context) // Cambiado
         {

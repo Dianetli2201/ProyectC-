@@ -8,16 +8,10 @@ using maintenance_calibration_system.Domain.Datos_de_Planificación;
 
 namespace maintenance_calibration_system.Application.Plannings.Queries.GetAllPlannings
 {
-    public class GetAllPlanningQueryHandler
-        : IQueryHandler<GetAllPlanningQuery, List<Planning>>
+    public class GetAllPlanningQueryHandler(IPlanningRepository planningRepository)
+                : IQueryHandler<GetAllPlanningQuery, List<Planning>>
     {
-        private readonly IPlanningRepository _planningRepository;
-
-        // Constructor que inyecta el repositorio
-        public GetAllPlanningQueryHandler(IPlanningRepository planningRepository)
-        {
-            _planningRepository = planningRepository;
-        }
+        private readonly IPlanningRepository _planningRepository = planningRepository;
 
         public Task<List<Planning>> Handle(GetAllPlanningQuery request, CancellationToken cancellationToken)
         {

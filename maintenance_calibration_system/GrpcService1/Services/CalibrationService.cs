@@ -14,27 +14,18 @@ using Microsoft.Extensions.Logging;
 
 namespace GrpcService1.Services
 {
-    public class CalibracionesService : Calibration.CalibrationBase // Cambiado
+    public class CalibracionesService( // Cambiado
+        IMediator mediator,
+        IMapper mapper,
+        ILogger<CalibracionesService> logger,
+        ICalibrationRepository<maintenance_calibration_system.Domain.Datos_Historicos.Calibration> calibrationRepository, // Cambiado
+        IUnitOfWork unitOfWork) : Calibration.CalibrationBase // Cambiado
     {
-        private readonly ICalibrationRepository<maintenance_calibration_system.Domain.Datos_Historicos.Calibration> _calibrationRepository; // Cambiado
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMediator _mediator;
-        private readonly IMapper _mapper;
-        private readonly ILogger<CalibracionesService> _logger; // Inyectar el logger
-
-        public CalibracionesService( // Cambiado
-            IMediator mediator,
-            IMapper mapper,
-            ILogger<CalibracionesService> logger,
-            ICalibrationRepository<maintenance_calibration_system.Domain.Datos_Historicos.Calibration> calibrationRepository, // Cambiado
-            IUnitOfWork unitOfWork)
-        {
-            _logger = logger;
-            _mapper = mapper;
-            _mediator = mediator;
-            _calibrationRepository = calibrationRepository;
-            _unitOfWork = unitOfWork;
-        }
+        private readonly ICalibrationRepository<maintenance_calibration_system.Domain.Datos_Historicos.Calibration> _calibrationRepository = calibrationRepository; // Cambiado
+        private readonly IUnitOfWork _unitOfWork = unitOfWork;
+        private readonly IMediator _mediator = mediator;
+        private readonly IMapper _mapper = mapper;
+        private readonly ILogger<CalibracionesService> _logger = logger; // Inyectar el logger
 
         public override Task<CalibrationDTO> CreateCalibration(CreateCalibrationRequest request, ServerCallContext context) // Cambiado
         {

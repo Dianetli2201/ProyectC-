@@ -5,18 +5,12 @@ using maintenance_calibration_system.Domain.Datos_de_Configuracion;
 
 namespace maintenance_calibration_system.Application.Equipments.Commands.UpdateActuador
 {
-    public class UpdateActuadorCommandHandler : ICommandHandler<UpdateActuadorCommand, bool>
+    public class UpdateActuadorCommandHandler(
+        IEquipmentRepository<Actuador> equipmentRepository,
+        IUnitOfWork unitOfWork) : ICommandHandler<UpdateActuadorCommand, bool>
     {
-        private readonly IEquipmentRepository<Actuador> _equipmentRepository;
-        private readonly IUnitOfWork _unitOfWork;
-
-        public UpdateActuadorCommandHandler(
-            IEquipmentRepository<Actuador> equipmentRepository,
-            IUnitOfWork unitOfWork)
-        {
-            _equipmentRepository = equipmentRepository;
-            _unitOfWork = unitOfWork;
-        }
+        private readonly IEquipmentRepository<Actuador> _equipmentRepository = equipmentRepository;
+        private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
         public Task<bool> Handle(UpdateActuadorCommand request, CancellationToken cancellationToken)
         {
