@@ -4,7 +4,7 @@ using maintenance_calibration_system.Domain.Datos_de_Configuracion;
 using maintenance_calibration_system.Domain.Types; // Asegúrate de que este espacio de nombres sea correcto
 using maintenance_calibration_system.Domain.ValueObjects; // Asegúrate de que este espacio de nombres sea correcto
 
-namespace maintenance_calibration_system.Application.Abstract.MaintenanceActivity.Command.UpdateCalibration
+namespace maintenance_calibration_system.Application.MaintenanceActivity.Command.UpdateCalibration
 {
     public record UpdateCalibrationCommand(
         Guid Id, // Identificador único de la calibración

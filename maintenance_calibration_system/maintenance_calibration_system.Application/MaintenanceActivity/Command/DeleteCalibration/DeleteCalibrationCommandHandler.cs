@@ -1,10 +1,10 @@
 ﻿using maintenance_calibration_system.Application.Abstract;
-using maintenance_calibration_system.Application.Abstract.MaintenanceActivity.Command.CreateCalibration;
+using maintenance_calibration_system.Application.MaintenanceActivity.Command.CreateCalibration;
 using maintenance_calibration_system.Contacts;
 using maintenance_calibration_system.Domain.Datos_Historicos; // Asegúrate de que este espacio de nombres sea correcto
 
 
-namespace maintenance_calibration_system.Application.Abstract.MaintenanceActivity.Command.DeleteCalibration
+namespace maintenance_calibration_system.Application.MaintenanceActivity.Command.DeleteCalibration
 {
     public class DeleteCalibrationCommandHandler(
        IMaintenanceActivityRepository<Calibration> calibrationRepository,

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace maintenance_calibration_system.Application.Abstract.MaintenanceActivity.Command.CreateCalibration
+namespace maintenance_calibration_system.Application.MaintenanceActivity.Command.CreateCalibration
 {
     public class CreateCalibrationCommandHandler(
        IMaintenanceActivityRepository<Calibration> calibrationRepository,

@@ -1,9 +1,9 @@
 ﻿using maintenance_calibration_system.Application.Abstract;
-using maintenance_calibration_system.Application.Abstract.MaintenanceActivity.Command.CreateCalibration;
+using maintenance_calibration_system.Application.MaintenanceActivity.Command.CreateCalibration;
 using maintenance_calibration_system.Contacts;
 using maintenance_calibration_system.Domain.Datos_Historicos; // Asegúrate de que este espacio de nombres sea correct
 
-namespace maintenance_calibration_system.Application.Abstract.MaintenanceActivity.Queries.GetAllCalibration
+namespace maintenance_calibration_system.Application.MaintenanceActivity.Queries.GetAllCalibration
 {
     public class GetAllCalibrationQueryHandler : IQueryHandler<GetAllCalibrationQuery, List<Calibration>>
     {

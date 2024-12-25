@@ -2,9 +2,9 @@
 using maintenance_calibration_system.Contacts;
 using maintenance_calibration_system.Domain.Datos_Historicos;// Asegúrate de que este espacio de nombres sea correcto
 using maintenance_calibration_system.Application.Equipments.Commands.UpdateActuador;
-using maintenance_calibration_system.Application.Abstract.MaintenanceActivity.Command.CreateCalibration;
+using maintenance_calibration_system.Application.MaintenanceActivity.Command.CreateCalibration;
 
-namespace maintenance_calibration_system.Application.Abstract.MaintenanceActivity.Command.UpdateCalibration
+namespace maintenance_calibration_system.Application.MaintenanceActivity.Command.UpdateCalibration
 {
     public class UpdateCalibrationCommandHandler(
        IMaintenanceActivityRepository<Calibration> calibrationRepository,

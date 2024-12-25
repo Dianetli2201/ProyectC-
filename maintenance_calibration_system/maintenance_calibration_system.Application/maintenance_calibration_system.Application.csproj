@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="MaintenanceActivitiy\" />
+    <Compile Remove="MaintenanceActivitiy\**" />
+    <EmbeddedResource Remove="MaintenanceActivitiy\**" />
+    <None Remove="MaintenanceActivitiy\**" />
   </ItemGroup>
 
   <ItemGroup>
