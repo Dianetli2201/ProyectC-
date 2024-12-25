@@ -2,7 +2,7 @@
 using MediatR;
 using System.Collections.Generic;
 
-namespace maintenance_calibration_system.Application.Calibrations.Queries.GetAllCalibration
+namespace maintenance_calibration_system.Application.Abstract.MaintenanceActivity.Queries.GetAllCalibration
 {
     public record GetAllCalibrationQuery : IRequest<List<Calibration>>; // Solicitud para obtener todas las calibraciones
 }

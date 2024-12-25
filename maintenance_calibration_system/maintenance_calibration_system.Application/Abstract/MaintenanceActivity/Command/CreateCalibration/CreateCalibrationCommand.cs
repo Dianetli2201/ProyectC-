@@ -4,7 +4,7 @@ using maintenance_calibration_system.Domain.Datos_de_Configuracion;
 using maintenance_calibration_system.Domain.Types; // Asegúrate de que este espacio de nombres tenga las definiciones necesarias
 using System;
 
-namespace maintenance_calibration_system.Application.Calibrations.Commands.CreateCalibration
+namespace maintenance_calibration_system.Application.Abstract.MaintenanceActivity.Command.CreateCalibration
 {
     internal interface ICalibrationRepository<T>
     {

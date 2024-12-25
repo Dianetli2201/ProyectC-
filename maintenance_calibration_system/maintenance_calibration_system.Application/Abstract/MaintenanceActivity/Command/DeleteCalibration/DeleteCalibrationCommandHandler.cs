@@ -1,11 +1,10 @@
 ﻿using maintenance_calibration_system.Application.Abstract;
-using maintenance_calibration_system.Application.Calibrations.Commands.CreateCalibration;
-using maintenance_calibration_system.Application.Equipments.Commands.DeleteActuador;
+using maintenance_calibration_system.Application.Abstract.MaintenanceActivity.Command.CreateCalibration;
 using maintenance_calibration_system.Contacts;
 using maintenance_calibration_system.Domain.Datos_Historicos; // Asegúrate de que este espacio de nombres sea correcto
 
 
-namespace maintenance_calibration_system.Application.Calibrations.Commands.DeleteCalibration
+namespace maintenance_calibration_system.Application.Abstract.MaintenanceActivity.Command.DeleteCalibration
 {
     public class DeleteCalibrationCommandHandler(
        IMaintenanceActivityRepository<Calibration> calibrationRepository,
@@ -20,7 +19,7 @@ namespace maintenance_calibration_system.Application.Calibrations.Commands.Delet
 
             try
             {
-                object value =_calibrationRepository.Delete(request.Id); // Eliminar la calibración por ID
+                object value = _calibrationRepository.Delete(request.Id); // Eliminar la calibración por ID
                 _unitOfWork.SaveChanges(); // Guardar cambios en la unidad de trabajo
             }
             catch (Exception)
