@@ -8,6 +8,7 @@ namespace maintenance_calibration_system.Application.Calibrations.Commands.Creat
 {
     internal interface ICalibrationRepository<T>
     {
+        void Add(Calibration result);
         object Delete(Guid id);
         object GetById(Guid id);
         void Update(Calibration updatedCalibration);

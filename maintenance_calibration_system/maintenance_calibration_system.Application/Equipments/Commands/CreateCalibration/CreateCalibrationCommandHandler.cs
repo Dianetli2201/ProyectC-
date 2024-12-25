@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 namespace maintenance_calibration_system.Application.Calibrations.Commands.CreateCalibration
 {
     public class CreateCalibrationCommandHandler(
-        ICalibrationRepository<Calibration> calibrationRepository,
+       IMaintenanceActivityRepository<Calibration> calibrationRepository,
         IUnitOfWork unitOfWork)
                 : ICommandHandler<CreateCalibrationCommand, Calibration>
     {
-        private readonly ICalibrationRepository<Calibration> _calibrationRepository = calibrationRepository; // Cambiado para usar el repositorio de calibraciones
+        private readonly ICalibrationRepository<Calibration> _calibrationRepository = (ICalibrationRepository<Calibration>)calibrationRepository; // Cambiado para usar el repositorio de calibraciones
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
         public Task<Calibration> Handle(CreateCalibrationCommand request, CancellationToken cancellationToken)

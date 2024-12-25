@@ -7,10 +7,10 @@ using maintenance_calibration_system.Application.Equipments.Commands.UpdateActua
 namespace maintenance_calibration_system.Application.Calibrations.Commands.UpdateCalibration
 {
     public class UpdateCalibrationCommandHandler(
-        ICalibrationRepository<Calibration> calibrationRepository,
+       IMaintenanceActivityRepository<Calibration> calibrationRepository,
         IUnitOfWork unitOfWork) : ICommandHandler<UpdateCalibrationCommand, bool>
     {
-        private readonly ICalibrationRepository<Calibration> _calibrationRepository = calibrationRepository; // Repositorio para manejar calibraciones
+        private readonly ICalibrationRepository<Calibration> _calibrationRepository = (ICalibrationRepository<Calibration>)calibrationRepository; // Repositorio para manejar calibraciones
         private readonly IUnitOfWork _unitOfWork = unitOfWork; // Unidad de trabajo para manejar transacciones
 
         public Task<bool> Handle(UpdateCalibrationCommand request, CancellationToken cancellationToken)
