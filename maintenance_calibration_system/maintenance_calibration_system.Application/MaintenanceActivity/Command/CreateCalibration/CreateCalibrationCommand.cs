@@ -3,6 +3,7 @@ using maintenance_calibration_system.Domain.Datos_Historicos;
 using maintenance_calibration_system.Domain.Datos_de_Configuracion;
 using maintenance_calibration_system.Domain.Types; // Asegúrate de que este espacio de nombres tenga las definiciones necesarias
 using System;
+using maintenance_calibration_system.Application.Equipments.Queries.GetActuador;
 
 namespace maintenance_calibration_system.Application.MaintenanceActivity.Command.CreateCalibration
 {
@@ -11,7 +12,7 @@ namespace maintenance_calibration_system.Application.MaintenanceActivity.Command
         void Add(Calibration result);
         object Delete(Guid id);
         List<object> GetAll();
-        object GetById(Guid id);
+        Calibration GetById(Guid id);
         void Update(Calibration updatedCalibration);
     }
     public record CreateCalibrationCommand(
@@ -20,3 +21,4 @@ namespace maintenance_calibration_system.Application.MaintenanceActivity.Command
         string NameCertificateAuthority,
         List<Sensor> CalibratedSensors) : ICommand<Calibration>;
 }
+
