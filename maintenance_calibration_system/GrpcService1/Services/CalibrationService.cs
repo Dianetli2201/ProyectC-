@@ -15,7 +15,7 @@ namespace GrpcService1.Services
 {
     public class CalibrationService : Calibration.CalibrationBase // Cambiado
     {
-        private readonly ICalibrationRepository<maintenance_calibration_system.Domain.Datos_Historicos.Calibration> _calibrationRepository; // Cambiado
+        private readonly ICalibrationRepository<Calibration> _calibrationRepository; // Cambiado
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
@@ -35,20 +35,20 @@ namespace GrpcService1.Services
             _unitOfWork = unitOfWork;
         }
 
-        public override Task<CalibrationDTO> CreateCalibration(CreateCalibrationRequest request, ServerCallContext context) // Cambiado
+        public  Task<CalibrationDTO> CreateCalibration(CreateCalibrationRequest request, ServerCallContext context) // Cambiado
         {
             var command = new CreateCalibrationCommand( // Cambiado
                 request.DateActivity.ToDateTime(), // Convertir Timestamp a DateTime
                 request.NameTechnician,
                 request.NameCertificateAuthority,
-                new List<Sensor>()); // Aquí puedes llenar la lista de sensores según sea necesario
+                new List<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor>()); // Aquí puedes llenar la lista de sensores según sea necesario
 
             var result = _mediator.Send(command).Result;
 
             return Task.FromResult(_mapper.Map<CalibrationDTO>(result)); // Cambiado
         }
 
-        public override Task<NullableCalibrationDTO> GetCalibration(GetRequest request, ServerCallContext context) // Cambiado
+        public  Task<NullableCalibrationDTO> GetCalibration(GetRequest request, ServerCallContext context) // Cambiado
         {
             var query = new GetCalibrationByIdQuery(new Guid(request.Id)); // Cambiado
 
@@ -67,7 +67,7 @@ namespace GrpcService1.Services
             return Task.FromResult(_mapper.Map<NullableCalibrationDTO>(result)); // Cambiado
         }
 
-        public override Task<Calibration> GetAllCalibrations(Google.Protobuf.WellKnownTypes.Empty request, ServerCallContext context) // Cambiado
+        public  Task<Calibration> GetAllCalibrations(Google.Protobuf.WellKnownTypes.Empty request, ServerCallContext context) // Cambiado
         {
             var query = new GetAllCalibrationQuery(); // Cambiado
 
@@ -81,7 +81,7 @@ namespace GrpcService1.Services
             return Task.FromResult(calibrationResponse); // Devuelve el objeto Calibration
         }
 
-        public override Task<Empty> UpdateCalibration(CalibrationDTO request, ServerCallContext context) // Cambiado
+        public  Task<Empty> UpdateCalibration(CalibrationDTO request, ServerCallContext context) // Cambiado
         {
             var command = new UpdateCalibrationCommand( // Cambiado
                 new Guid(request.Id),
@@ -95,7 +95,7 @@ namespace GrpcService1.Services
             return Task.FromResult(new Empty());
         }
 
-        public override Task<Empty> DeleteCalibration(DeleteRequest request, ServerCallContext context) // Cambiado
+        public  Task<Empty> DeleteCalibration(DeleteRequest request, ServerCallContext context) // Cambiado
         {
             var command = new DeleteCalibrationCommand(new Guid(request.Id)); // Cambiado
 

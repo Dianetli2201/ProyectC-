@@ -10,6 +10,8 @@ namespace maintenance_calibration_system.Domain.Datos_Historicos
         /// <summary>Nombre de la autoridad certificadora.</summary>
         public string NameCertificateAuthority { get; set; }
 
+        public List<object> Items { get; set; }
+
         /// <summary>Lista de sensores calibrados.</summary>
         public List<Sensor> CalibratedSensors { get; set; }
         #endregion
@@ -19,6 +21,7 @@ namespace maintenance_calibration_system.Domain.Datos_Historicos
         {
             NameCertificateAuthority = "Unknown name of Certificate Authority";
             CalibratedSensors = new List<Sensor>(); 
+            Items = new List<object>();
         }
 
         /// <summary>Constructor para crear una instancia de Calibration.</summary>

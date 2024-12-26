@@ -7,7 +7,7 @@ using maintenance_calibration_system.Application.Equipments.Queries.GetActuador;
 
 namespace maintenance_calibration_system.Application.MaintenanceActivity.Command.CreateCalibration
 {
-    internal interface ICalibrationRepository<T>
+    public interface ICalibrationRepository<T>
     {
         void Add(Calibration result);
         object Delete(Guid id);
