@@ -88,7 +88,7 @@ namespace GrpcService1.Services
                 request.DateActivity.ToDateTime(), // Convertir Timestamp a DateTime
                 request.NameTechnician,
                 request.NameCertificateAuthority,
-                new List<Sensor>()); // Aquí puedes llenar la lista de sensores según sea necesario
+                new List<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor>()); // Aquí puedes llenar la lista de sensores según sea necesario
 
             var result = _mediator.Send(command).Result;
 
