@@ -7,7 +7,7 @@ using maintenance_calibration_system.Domain.ValueObjects; // Asegúrate de que e
 namespace maintenance_calibration_system.Application.MaintenanceActivity.Command.UpdateCalibration
 {
     public record UpdateCalibrationCommand(
-        Guid Id, // Identificador único de la calibración
+        Guid id, // Identificador único de la calibración
         DateTime DateActivity, // Fecha de la actividad de calibración
         string NameTechnician, // Nombre del técnico que realizó la calibración
         string NameCertificateAuthority, // Nombre de la autoridad certificadora

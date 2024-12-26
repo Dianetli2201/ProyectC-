@@ -32,5 +32,9 @@ namespace maintenance_calibration_system.Domain.Datos_Historicos
             NameCertificateAuthority = nameCertificateAuthority;
             CalibratedSensors = new List<Sensor>();
         }
+
+        public class CalibrationBase
+        {
+        }
     }
 }

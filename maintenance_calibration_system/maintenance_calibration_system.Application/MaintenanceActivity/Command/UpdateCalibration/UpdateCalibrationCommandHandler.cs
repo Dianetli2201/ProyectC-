@@ -16,7 +16,7 @@ namespace maintenance_calibration_system.Application.MaintenanceActivity.Command
         public Task<bool> Handle(UpdateCalibrationCommand request, CancellationToken cancellationToken)
         {
             // Buscar la calibración existente
-            var existingCalibration = _calibrationRepository.GetById(request.Id);
+            var existingCalibration = _calibrationRepository.GetById(request.id);
 
             if (existingCalibration == null)
             {
