@@ -9,20 +9,7 @@ namespace maintenance_calibration_system.DataAccess.Contexts
     /// <summary>Contexto de la aplicación para la base de datos SQLite.</summary>
     public class ApplicationContext : DbContext
     {
-        #region Tables
-
-        /// <summary>Tabla de equipos.</summary>
-        public DbSet<Equipment> Equipments { get; set; }
-
-        /// <summary>Tabla de actividades de mantenimiento.</summary>
-        public DbSet<MaintenanceActivity> MaintenanceActivities { get; set; }
-
-        /// <summary>Tabla de planificaciones.</summary>
-        public DbSet<Planning> Plannings { get; set; }
-
-        #endregion
-
-
+       
 
         /// <summary>Constructor por defecto.</summary>
         public ApplicationContext()
