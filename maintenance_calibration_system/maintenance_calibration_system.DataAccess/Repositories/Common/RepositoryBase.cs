@@ -86,4 +86,9 @@ public abstract class RepositoryBase<T>(ApplicationContext context) : IRepositor
             _context.SaveChanges();
         }
     }
+
+    public object GetAll(T entity)
+    {
+        throw new NotImplementedException();
+    }
 }

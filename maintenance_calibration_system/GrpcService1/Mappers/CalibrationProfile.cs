@@ -15,17 +15,16 @@ namespace GrpcService1.Mappers
                     src.CalibratedSensors.ConvertAll(sensor => new SensorDTO
                     {
                         Id = sensor.Id.ToString(), // Asumiendo que Sensor tiene una propiedad Id de tipo Guid
-                        Name = sensor.Name // Asumiendo que Sensor tiene una propiedad Name
                     })));
 
             CreateMap<CalibrationDTO, Calibration>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.Parse(src.Id))) // Convertir string a Guid
                 .ForMember(dest => dest.CalibratedSensors, opt => opt.MapFrom(src =>
-                    src.CalibratedSensors.ConvertAll(sensorDto => new Sensor
+                    src.CalibratedSensors.Select(sensorDto => new maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor()
                     {
-                        Id = Guid.Parse(sensorDto.Id), // Asumiendo que Sensor tiene una propiedad Id de tipo Guid
-                        Name = sensorDto.Name // Asumiendo que Sensor tiene una propiedad Name
+                        Id = Guid.Parse(sensorDto.Id) // Asumiendo que Sensor tiene una propiedad Id de tipo Guid
                     })));
+            
         }
     }
 }

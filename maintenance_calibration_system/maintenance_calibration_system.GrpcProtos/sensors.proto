@@ -28,6 +28,7 @@ message SensorDTO{
 }
 
 message Sensors{
+	string id = 2;
 	repeated SensorDTO items = 1;
 }
 

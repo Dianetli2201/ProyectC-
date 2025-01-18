@@ -9,7 +9,9 @@ using maintenance_calibration_system.Application.MaintenanceActivity.Queries.Get
 using maintenance_calibration_system.Contacts;
 using maintenance_calibration_system.Domain.Datos_Historicos;
 using maintenance_calibration_system.GrpcProtos;
+using maintenance_calibration_system.Domain.Datos_de_Configuracion;
 using MediatR;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace GrpcService1.Services
 {
@@ -31,33 +33,47 @@ namespace GrpcService1.Services
             _logger = logger;
             _mapper = mapper;
             _mediator = mediator;
-            _calibrationRepository = calibrationRepository; // Cambiado
+            _calibrationRepository = calibrationRepository; 
             _unitOfWork = unitOfWork;
         }
 
-        public  Task<CalibrationDTO> CreateCalibration(CreateCalibrationRequest request, ServerCallContext context) // Cambiado
+        public async Task<CalibrationDTO> CreateCalibration(CreateCalibrationRequest request, ServerCallContext context)
         {
-            var command = new CreateCalibrationCommand( // Cambiado
-                request.DateActivity.ToDateTime(), // Convertir Timestamp a DateTime
+            var sensors = new List<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor>();
+
+            var command = new CreateCalibrationCommand(
+                request.DateActivity.ToDateTime(),
                 request.NameTechnician,
                 request.NameCertificateAuthority,
-                new List<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor>()); // Aquí puedes llenar la lista de sensores según sea necesario
+                sensors
+            );
 
-            var result = _mediator.Send(command).Result;
-
-            return Task.FromResult(_mapper.Map<CalibrationDTO>(result)); // Cambiado
+            try
+            {
+                var result = await _mediator.Send(command);
+                return _mapper.Map<CalibrationDTO>(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al crear la calibración");
+                throw new RpcException(new Status(StatusCode.Internal, "Error interno del servidor"));
+            }
         }
 
         public  Task<NullableCalibrationDTO> GetCalibration(GetRequest request, ServerCallContext context) // Cambiado
         {
-            var query = new GetCalibrationByIdQuery(new Guid(request.Id)); // Cambiado
-
+            var query = new GetCalibrationByIdQuery(new Guid(request.Id)); 
             var result = _mediator.Send(query).Result;
 
             if (result == null)
             {
                 _logger.LogWarning("Calibración no encontrada para ID: {CalibrationId}", request.Id); // Log de advertencia
-                return Task.FromResult<NullableCalibrationDTO>(null);
+                //return Task.FromResult<NullableCalibrationDTO>(null);
+                if (result == null)
+                {
+                    _logger.LogWarning("Calibración no encontrada para ID: {CalibrationId}", request.Id);
+                    return Task.FromResult(new NullableCalibrationDTO { Null = Google.Protobuf.WellKnownTypes.NullValue.NullValue });
+                }
             }
             else
             {
@@ -67,7 +83,7 @@ namespace GrpcService1.Services
             return Task.FromResult(_mapper.Map<NullableCalibrationDTO>(result)); // Cambiado
         }
 
-        public  Task<Calibration> GetAllCalibrations(Google.Protobuf.WellKnownTypes.Empty request, ServerCallContext context) // Cambiado
+        public  Task<Calibrations> GetAllCalibrations(Google.Protobuf.WellKnownTypes.Empty request, ServerCallContext context) // Cambiado
         {
             var query = new GetAllCalibrationQuery(); // Cambiado
 
@@ -75,7 +91,7 @@ namespace GrpcService1.Services
 
             var calibrationDTOs = _mapper.Map<List<CalibrationDTO>>(result); // Mapea la lista de Calibration a List<CalibrationDTO>
 
-            var calibrationResponse = new Calibration(); // Cambiado
+            var calibrationResponse = new Calibrations(); // Cambiado
             calibrationResponse.Items.AddRange(calibrationDTOs); // Asumiendo que Items es una colección repetida
 
             return Task.FromResult(calibrationResponse); // Devuelve el objeto Calibration
