@@ -25,7 +25,7 @@ message CalibrationDTO {
     google.protobuf.Timestamp dateActivity = 2; // Fecha de la actividad de calibración
     string nameTechnician = 3; // Nombre del técnico que realizó la calibración
     string nameCertificateAuthority = 4; // Nombre de la autoridad certificadora
-    repeated Sensors calibratedSensors = 5; // Lista de sensores calibrados
+    Sensors calibratedSensors = 5; // Lista de sensores calibrados
 }
 
 // Mensaje para representar una lista de calibraciones
@@ -46,5 +46,5 @@ message CreateCalibrationRequest {
     google.protobuf.Timestamp dateActivity = 1; // Fecha de la actividad de calibración
     string nameTechnician = 2; // Nombre del técnico que realizó la actividad
     string nameCertificateAuthority = 3; // Nombre de la autoridad certificadora
-    repeated Sensors calibratedSensors = 4; // Lista de sensores a calibrar
+ //   Sensors calibratedSensors = 4; // Lista de sensores a calibrar
 }

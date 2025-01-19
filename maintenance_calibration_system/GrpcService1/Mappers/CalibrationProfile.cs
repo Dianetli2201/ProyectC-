@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
+using Google.Protobuf.WellKnownTypes;
 using maintenance_calibration_system.Domain.Datos_Historicos;
 using maintenance_calibration_system.GrpcProtos;
-using System.Collections.Generic;
+
 
 namespace GrpcService1.Mappers
 {
@@ -11,20 +12,13 @@ namespace GrpcService1.Mappers
         {
             CreateMap<Calibration, CalibrationDTO>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToString())) // Convertir Guid a string
-                .ForMember(dest => dest.CalibratedSensors, opt => opt.MapFrom(src =>
-                    src.CalibratedSensors.ConvertAll(sensor => new SensorDTO
-                    {
-                        Id = sensor.Id.ToString(), // Asumiendo que Sensor tiene una propiedad Id de tipo Guid
-                    })));
+                .ForMember(dest => dest.DateActivity, opt => opt.MapFrom(src => src.DateActivity.ToTimestamp()))
+                .ForMember(dest => dest.CalibratedSensors, opt => opt.MapFrom(src => src.CalibratedSensors)); // Mapeo automático de la lista
 
             CreateMap<CalibrationDTO, Calibration>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.Parse(src.Id))) // Convertir string a Guid
-                .ForMember(dest => dest.CalibratedSensors, opt => opt.MapFrom(src =>
-                    src.CalibratedSensors.Select(sensorDto => new maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor()
-                    {
-                        Id = Guid.Parse(sensorDto.Id) // Asumiendo que Sensor tiene una propiedad Id de tipo Guid
-                    })));
-            
+                .ForMember(dest => dest.DateActivity, opt => opt.MapFrom(src => src.DateActivity.ToDateTime()))
+                .ForMember(dest => dest.CalibratedSensors, opt => opt.MapFrom(src => src.CalibratedSensors)); // Mapeo automático de la lista
         }
     }
 }
