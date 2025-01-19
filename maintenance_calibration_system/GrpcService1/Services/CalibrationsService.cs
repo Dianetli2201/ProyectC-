@@ -13,7 +13,7 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace GrpcService1.Services
 {
-    public class CalibrationsService : Calibration.CalibrationBase // Cambiado
+    public class CalibrationsService : CalibrationService.CalibrationServiceBase // Cambiado
     {
         private readonly ICalibrationRepository<maintenance_calibration_system.Domain.Datos_Historicos.Calibration> _calibrationRepository; // Cambiado
         private readonly IUnitOfWork _unitOfWork;

@@ -3,6 +3,7 @@ syntax = "proto3";
 option csharp_namespace = "maintenance_calibration_system.GrpcProtos";
 
 package GrpcProtos;
+
 import "google/protobuf/wrappers.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/struct.proto";
@@ -11,7 +12,7 @@ import "common.proto";
 import "sensors.proto";
 
 // Servicio para manejar operaciones relacionadas con Calibraciones
-service Calibration {
+service CalibrationService {
     rpc CreateCalibration (CreateCalibrationRequest) returns (CalibrationDTO);
     rpc GetCalibration (GetRequest) returns (NullableCalibrationDTO);
     rpc GetAllCalibrations (google.protobuf.Empty) returns (Calibrations);
