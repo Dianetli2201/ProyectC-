@@ -7,26 +7,24 @@ using maintenance_calibration_system.Application.MaintenanceActivity.Command.Upd
 using maintenance_calibration_system.Application.MaintenanceActivity.Queries.GetAllCalibration;
 using maintenance_calibration_system.Application.MaintenanceActivity.Queries.GetCalibration;
 using maintenance_calibration_system.Contacts;
-using maintenance_calibration_system.Domain.Datos_Historicos;
 using maintenance_calibration_system.GrpcProtos;
-using maintenance_calibration_system.Domain.Datos_de_Configuracion;
 using MediatR;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace GrpcService1.Services
 {
-    public class CalibrationService : Calibration.CalibrationBase // Cambiado
+    public class CalibrationsService : Calibration.CalibrationBase // Cambiado
     {
-        private readonly ICalibrationRepository<Calibration> _calibrationRepository; // Cambiado
+        private readonly ICalibrationRepository<maintenance_calibration_system.Domain.Datos_Historicos.Calibration> _calibrationRepository; // Cambiado
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
-        private readonly ILogger<CalibrationService> _logger; // Inyectar el logger
+        private readonly ILogger<CalibrationsService> _logger; // Inyectar el logger
 
-        public CalibrationService( // Cambiado
+        public CalibrationsService( // Cambiado
             IMediator mediator,
             IMapper mapper,
-            ILogger<CalibrationService> logger,
+            ILogger<CalibrationsService> logger,
             ICalibrationRepository<maintenance_calibration_system.Domain.Datos_Historicos.Calibration> calibrationRepository, // Cambiado
             IUnitOfWork unitOfWork)
         {
