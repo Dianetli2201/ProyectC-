@@ -17,7 +17,7 @@ service CalibrationService {
     rpc CreateCalibration (CreateCalibrationRequest) returns (CalibrationDTO);
     rpc GetCalibration (GetRequest) returns (NullableCalibrationDTO);
     rpc GetAllCalibrations (google.protobuf.Empty) returns (Calibrations);
-    rpc UpdateCalibration (CalibrationDTOUpdate) returns (google.protobuf.Empty);
+    rpc UpdateCalibration (CalibrationDTO) returns (google.protobuf.Empty);
     rpc DeleteCalibration (DeleteRequest) returns (google.protobuf.Empty);
 }
 
@@ -28,14 +28,6 @@ message CalibrationDTO {
     string nameTechnician = 3; // Nombre del técnico que realizó la calibración
     string nameCertificateAuthority = 4; // Nombre de la autoridad certificadora
     Sensors calibratedSensors = 5; // Lista de sensores calibrados
-}
-
-// Mensaje para representar una calibración de update
-message CalibrationDTO {
-    string id = 1; // Identificador único de la calibración
-    google.protobuf.Timestamp dateActivity = 2; // Fecha de la actividad de calibración
-    string nameTechnician = 3; // Nombre del técnico que realizó la calibración
-    string nameCertificateAuthority = 4; // Nombre de la autoridad certificadora
 }
 
 
