@@ -13,6 +13,7 @@ import "sensors.proto";
 
 // Servicio para manejar operaciones relacionadas con Calibraciones
 service CalibrationService {
+    
     rpc CreateCalibration (CreateCalibrationRequest) returns (CalibrationDTO);
     rpc GetCalibration (GetRequest) returns (NullableCalibrationDTO);
     rpc GetAllCalibrations (google.protobuf.Empty) returns (Calibrations);
