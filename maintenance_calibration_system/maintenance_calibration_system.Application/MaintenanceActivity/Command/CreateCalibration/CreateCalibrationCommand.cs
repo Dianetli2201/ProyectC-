@@ -7,22 +7,6 @@ using maintenance_calibration_system.Application.Equipments.Queries.GetActuador;
 
 namespace maintenance_calibration_system.Application.MaintenanceActivity.Command.CreateCalibration
 {
-    public interface ICalibrationRepository<T>
-    {
-        void Add(Calibration result);
-        object Delete(Guid id);
-        List<object> GetAll();
-        Calibration GetById(Guid id);
-        void Update(Calibration updatedCalibration);
-    }
-    /*public interface ICalibrationRepository
-    {
-        Task AddAsync(Calibration calibration);
-        Task<bool> DeleteAsync(Guid id);
-        Task<List<Calibration>> GetAllAsync();
-        Task<Calibration> GetByIdAsync(Guid id);
-        Task UpdateAsync(Calibration updatedCalibration);
-    }*/
     public record CreateCalibrationCommand(
         DateTime DateActivity,
         string NameTechnician,

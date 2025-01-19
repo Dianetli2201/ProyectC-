@@ -10,7 +10,7 @@ namespace maintenance_calibration_system.Application.MaintenanceActivity.Command
        IMaintenanceActivityRepository<Calibration> calibrationRepository,
         IUnitOfWork unitOfWork) : ICommandHandler<DeleteCalibrationCommand, bool>
     {
-        private readonly ICalibrationRepository<Calibration> _calibrationRepository = (ICalibrationRepository<Calibration>)calibrationRepository; // Repositorio para manejar calibraciones
+        private readonly IMaintenanceActivityRepository<Calibration> _calibrationRepository = (IMaintenanceActivityRepository<Calibration>)calibrationRepository; // Repositorio para manejar calibraciones
         private readonly IUnitOfWork _unitOfWork = unitOfWork; // Unidad de trabajo para manejar transacciones
 
         public Task<bool> Handle(DeleteCalibrationCommand request, CancellationToken cancellationToken)
@@ -19,7 +19,7 @@ namespace maintenance_calibration_system.Application.MaintenanceActivity.Command
 
             try
             {
-                object value = _calibrationRepository.Delete(request.Id); // Eliminar la calibración por ID
+                _calibrationRepository.Delete(request.Id); // Eliminar la calibración por ID
                 _unitOfWork.SaveChanges(); // Guardar cambios en la unidad de trabajo
             }
             catch (Exception)

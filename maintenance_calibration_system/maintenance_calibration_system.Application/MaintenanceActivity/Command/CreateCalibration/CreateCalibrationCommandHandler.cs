@@ -14,7 +14,7 @@ namespace maintenance_calibration_system.Application.MaintenanceActivity.Command
         IUnitOfWork unitOfWork)
                 : ICommandHandler<CreateCalibrationCommand, Calibration>
     {
-        private readonly ICalibrationRepository<Calibration> _calibrationRepository = (ICalibrationRepository<Calibration>)calibrationRepository; // Cambiado para usar el repositorio de calibraciones
+        private readonly IMaintenanceActivityRepository<Calibration> _calibrationRepository = (IMaintenanceActivityRepository<Calibration>)calibrationRepository; // Cambiado para usar el repositorio de calibraciones
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
         public Task<Calibration> Handle(CreateCalibrationCommand request, CancellationToken cancellationToken)

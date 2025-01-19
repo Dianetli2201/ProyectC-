@@ -10,7 +10,7 @@ namespace maintenance_calibration_system.Application.MaintenanceActivity.Command
        IMaintenanceActivityRepository<Calibration> calibrationRepository,
         IUnitOfWork unitOfWork) : ICommandHandler<UpdateCalibrationCommand, bool>
     {
-        private readonly ICalibrationRepository<Calibration> _calibrationRepository = (ICalibrationRepository<Calibration>)calibrationRepository; // Repositorio para manejar calibraciones
+        private readonly IMaintenanceActivityRepository<Calibration> _calibrationRepository = (IMaintenanceActivityRepository<Calibration>)calibrationRepository; // Repositorio para manejar calibraciones
         private readonly IUnitOfWork _unitOfWork = unitOfWork; // Unidad de trabajo para manejar transacciones
 
         public Task<bool> Handle(UpdateCalibrationCommand request, CancellationToken cancellationToken)

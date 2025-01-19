@@ -9,18 +9,18 @@ namespace maintenance_calibration_system.Application.MaintenanceActivity.Queries
 
     public class GetAllCalibrationQueryHandler : IQueryHandler<GetAllCalibrationQuery, List<Calibration>>
     {
-        private readonly ICalibrationRepository<Calibration> _calibrationRepository; // Repositorio para manejar calibraciones
+        private readonly IMaintenanceActivityRepository<Calibration> _calibrationRepository; // Repositorio para manejar calibraciones
 
         // Constructor que inyecta el repositorio
         public GetAllCalibrationQueryHandler(IMaintenanceActivityRepository<Calibration> calibrationRepository)
         {
-            _calibrationRepository = (ICalibrationRepository<Calibration>)calibrationRepository; // Asignar el repositorio de calibraciones
+            _calibrationRepository = (IMaintenanceActivityRepository<Calibration>)calibrationRepository; // Asignar el repositorio de calibraciones
         }
 
-        public Task<List<object>> Handle(GetAllCalibrationQuery request, CancellationToken cancellationToken)
+        public Task<List<Calibration>> Handle(GetAllCalibrationQuery request, CancellationToken cancellationToken)
         {
             // Obtener todas las calibraciones del repositorio
-            List<object> CalibratedSensors = _calibrationRepository.GetAll();
+            List<Calibration> CalibratedSensors = _calibrationRepository.GetAll().ToList();
 
             return Task.FromResult(CalibratedSensors); // Retornar la lista de calibraciones
         }
