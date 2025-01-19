@@ -111,6 +111,7 @@ namespace GrpcService1.Services
 
         public override Task<Empty> DeleteCalibration(DeleteRequest request, ServerCallContext context) // Cambiado
         {
+       
             try
             {
                 var command = new DeleteCalibrationCommand(new Guid(request.Id));
