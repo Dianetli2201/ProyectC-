@@ -101,8 +101,7 @@ namespace GrpcService1.Services
                 new Guid(request.Id),
                 request.DateActivity.ToDateTime(), // Convertir Timestamp a DateTime
                 request.NameTechnician,
-                request.NameCertificateAuthority,
-                new List<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor>()); // Aquí puedes llenar la lista de sensores según sea necesario
+                request.NameCertificateAuthority); // Aquí puedes llenar la lista de sensores según sea necesario
 
             var result = _mediator.Send(command).Result;
 
