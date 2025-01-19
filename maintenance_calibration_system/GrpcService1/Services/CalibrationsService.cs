@@ -111,9 +111,17 @@ namespace GrpcService1.Services
 
         public override Task<Empty> DeleteCalibration(DeleteRequest request, ServerCallContext context) // Cambiado
         {
-            var command = new DeleteCalibrationCommand(new Guid(request.Id)); // Cambiado
+            try
+            {
+                var command = new DeleteCalibrationCommand(new Guid(request.Id));
+                var result = _mediator.Send(command).Result;
+            }
+            catch (FormatException)
+            {
+                throw new RpcException(new Status(StatusCode.InvalidArgument, "El formato del ID no es válido."));
+            }
 
-            var result = _mediator.Send(command).Result;
+            
 
             return Task.FromResult(new Empty());
         }
