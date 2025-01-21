@@ -10,6 +10,7 @@ namespace maintenance_calibration_system.Application.MaintenanceActivity.Command
         Guid id, // Identificador único de la calibración
         DateTime DateActivity, // Fecha de la actividad de calibración
         string NameTechnician, // Nombre del técnico que realizó la calibración
-        string NameCertificateAuthority // Nombre de la autoridad certificadora
-                           ) : ICommand<bool>; // Lista de sensores calibrados
+        string NameCertificateAuthority, // Nombre de la autoridad certificadora
+        List<Sensor> CalibratedSensors) : ICommand<bool>;// Lista de sensores calibrados
+    
 }

@@ -7,6 +7,7 @@ using maintenance_calibration_system.Application.MaintenanceActivity.Command.Upd
 using maintenance_calibration_system.Application.MaintenanceActivity.Queries.GetAllCalibration;
 using maintenance_calibration_system.Application.MaintenanceActivity.Queries.GetCalibration;
 using maintenance_calibration_system.Contacts;
+using maintenance_calibration_system.Domain.Datos_de_Configuracion;
 using maintenance_calibration_system.GrpcProtos;
 using MediatR;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
@@ -101,7 +102,10 @@ namespace GrpcService1.Services
                 new Guid(request.Id),
                 request.DateActivity.ToDateTime(), // Convertir Timestamp a DateTime
                 request.NameTechnician,
-                request.NameCertificateAuthority
+                request.NameCertificateAuthority,
+                new List<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor>()
+
+
                 ); // Aquí puedes llenar la lista de sensores según sea necesario
 
             var result = _mediator.Send(command).Result;

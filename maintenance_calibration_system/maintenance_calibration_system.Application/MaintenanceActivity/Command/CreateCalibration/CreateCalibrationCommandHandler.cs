@@ -26,19 +26,13 @@ namespace maintenance_calibration_system.Application.MaintenanceActivity.Command
                 request.NameCertificateAuthority);
 
             // Asumiendo que necesitas agregar sensores calibrados a la calibración
-            if (request.CalibratedSensors != null)
-            {
-                foreach (var sensor in request.CalibratedSensors)
-                {
-                    // Aquí puedes agregar lógica para manejar los sensores si es necesario
-                    result.CalibratedSensors.Add(sensor);
-                }
-            }
+           
 
             _calibrationRepository.Add(result);
             _unitOfWork.SaveChanges();
 
             return Task.FromResult(result);
+
         }
     }
 }
