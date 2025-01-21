@@ -25,8 +25,6 @@ namespace maintenance_calibration_system.Application.MaintenanceActivity.Command
                 request.NameTechnician,
                 request.NameCertificateAuthority);
 
-            // Asumiendo que necesitas agregar sensores calibrados a la calibración
-           
 
             _calibrationRepository.Add(result);
             _unitOfWork.SaveChanges();

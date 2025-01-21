@@ -14,7 +14,7 @@ namespace maintenance_calibration_system.Application.MaintenanceActivity.Queries
         // Constructor que inyecta el repositorio
         public GetAllCalibrationQueryHandler(IMaintenanceActivityRepository<Calibration> calibrationRepository)
         {
-            _calibrationRepository = (IMaintenanceActivityRepository<Calibration>)calibrationRepository; // Asignar el repositorio de calibraciones
+            _calibrationRepository = calibrationRepository; // Asignar el repositorio de calibraciones
         }
 
         public Task<List<Calibration>> Handle(GetAllCalibrationQuery request, CancellationToken cancellationToken)

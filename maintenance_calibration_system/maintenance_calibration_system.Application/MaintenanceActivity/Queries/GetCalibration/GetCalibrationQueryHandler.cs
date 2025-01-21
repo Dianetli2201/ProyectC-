@@ -8,7 +8,7 @@ namespace maintenance_calibration_system.Application.MaintenanceActivity.Queries
 {
     public class GetCalibrationByIdQueryHandler(IMaintenanceActivityRepository<Calibration> calibrationRepository) : IQueryHandler<GetCalibrationByIdQuery, Calibration>
     {
-        private readonly IMaintenanceActivityRepository<Calibration> _calibrationRepository = (IMaintenanceActivityRepository<Calibration>)calibrationRepository; // Repositorio para manejar calibraciones
+        private readonly IMaintenanceActivityRepository<Calibration> _calibrationRepository = calibrationRepository; // Repositorio para manejar calibraciones
 
         public Task<Calibration> Handle(GetCalibrationByIdQuery request, CancellationToken cancellationToken)
         {

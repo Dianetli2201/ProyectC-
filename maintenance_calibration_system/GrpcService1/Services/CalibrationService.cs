@@ -115,9 +115,10 @@ namespace GrpcService1.Services
         /// <returns>Una colección de todas las entidades.</returns>
         public override Task<Empty> AddOrModifyCalibratedSensors(ModifyCalibrationDTO request, ServerCallContext context) // Cambiado
         {
+
             var command = new ModifyCalibrationCommand( // Cambiado
                 new Guid(request.Id),
-                request.CalibratedSensors
+                _mapper.Map<List<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor>>(request.CalibratedSensors)
                 );
 
             var result = _mediator.Send(command).Result;
