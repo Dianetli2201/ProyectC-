@@ -8,13 +8,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace maintenance_calibration_system.Application.MaintenanceActivity.ModifyCalibration
+namespace maintenance_calibration_system.Application.MaintenanceActivity.Command.ModifyCalibration
 {
     public class ModifyCalibrationCommandHandler(
     IMaintenanceActivityRepository<Calibration> calibrationRepository,
     IUnitOfWork unitOfWork) : ICommandHandler<ModifyCalibrationCommand, bool>
     {
-        private readonly IMaintenanceActivityRepository<Calibration> _calibrationRepository = (IMaintenanceActivityRepository<Calibration>)calibrationRepository; // Repositorio para manejar calibraciones
+        private readonly IMaintenanceActivityRepository<Calibration> _calibrationRepository = calibrationRepository; // Repositorio para manejar calibraciones
         private readonly IUnitOfWork _unitOfWork = unitOfWork; // Unidad de trabajo para manejar transacciones
 
         public Task<bool> Handle(ModifyCalibrationCommand request, CancellationToken cancellationToken)

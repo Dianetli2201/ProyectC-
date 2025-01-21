@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace maintenance_calibration_system.Application.MaintenanceActivity.ModifyCalibration
+namespace maintenance_calibration_system.Application.MaintenanceActivity.Command.ModifyCalibration
 {
-     public record ModifyCalibrationCommand(
-        Guid id,
-        List<Sensor> CalibratedSensors) : ICommand<bool>;
+    public record ModifyCalibrationCommand(
+       Guid id,
+       List<Sensor> CalibratedSensors) : ICommand<bool>;
 
 }
