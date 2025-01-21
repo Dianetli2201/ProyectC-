@@ -91,7 +91,7 @@ namespace GrpcService1.Services
             return Task.FromResult(calibrationResponse); // Devuelve el objeto Calibration
         }
 
-        public override Task<Empty> UpdateCalibration(CalibrationDTO request, ServerCallContext context) // Cambiado
+        public override Task<Empty> UpdateCalibration(UpdatedCalibrationDTO request, ServerCallContext context) // Cambiado
         {
             var command = new UpdateCalibrationCommand( // Cambiado
                 new Guid(request.Id),

@@ -11,5 +11,4 @@ namespace maintenance_calibration_system.Application.MaintenanceActivity.Command
     public record ModifyCalibrationCommand(
        Guid id,
        List<Sensor> CalibratedSensors) : ICommand<bool>;
-
 }
