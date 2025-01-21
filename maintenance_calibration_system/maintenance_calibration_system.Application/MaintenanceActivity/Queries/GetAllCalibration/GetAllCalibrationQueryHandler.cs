@@ -25,9 +25,5 @@ namespace maintenance_calibration_system.Application.MaintenanceActivity.Queries
             return Task.FromResult(CalibratedSensors); // Retornar la lista de calibraciones
         }
 
-        Task<List<Calibration>> IRequestHandler<GetAllCalibrationQuery, List<Calibration>>.Handle(GetAllCalibrationQuery request, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
     }  
 }

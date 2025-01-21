@@ -59,7 +59,7 @@ namespace GrpcService1.Services
             }
         }
 
-        public override Task<NullableCalibrationDTO> GetCalibration(GetRequest request, ServerCallContext context) // Cambiado
+        public override Task<CalibrationDTO> GetCalibration(GetRequest request, ServerCallContext context) // Cambiado
         {
             var query = new GetCalibrationByIdQuery(new Guid(request.Id)); 
             var result = _mediator.Send(query).Result;
@@ -71,7 +71,7 @@ namespace GrpcService1.Services
                 if (result == null)
                 {
                     _logger.LogWarning("Calibración no encontrada para ID: {CalibrationId}", request.Id);
-                    return Task.FromResult(new NullableCalibrationDTO { Null = Google.Protobuf.WellKnownTypes.NullValue.NullValue });
+                //    return Task.FromResult(new CalibrationDTO { Null = Google.Protobuf.WellKnownTypes.NullValue.NullValue });
                 }
             }
             else
@@ -79,7 +79,7 @@ namespace GrpcService1.Services
                 _logger.LogInformation("Calibración encontrada para ID: {CalibrationId}", request.Id); // Log de información
             }
 
-            return Task.FromResult(_mapper.Map<NullableCalibrationDTO>(result)); // Cambiado
+            return Task.FromResult(_mapper.Map<CalibrationDTO>(result)); // Cambiado
         }
 
         public override Task<Calibrations> GetAllCalibrations(Google.Protobuf.WellKnownTypes.Empty request, ServerCallContext context) // Cambiado

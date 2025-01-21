@@ -15,7 +15,7 @@ import "sensors.proto";
 service CalibrationService {
     
     rpc CreateCalibration (CreateCalibrationRequest) returns (CalibrationDTO);
-    rpc GetCalibration (GetRequest) returns (NullableCalibrationDTO);
+    rpc GetCalibration (GetRequest) returns (CalibrationDTO);
     rpc GetAllCalibrations (google.protobuf.Empty) returns (Calibrations);
     rpc UpdateCalibration (CalibrationDTO) returns (google.protobuf.Empty);
     rpc AddOrModifyCalibratedSensors (ModifyCalibrationDTO) returns (google.protobuf.Empty);
@@ -40,7 +40,7 @@ message ModifyCalibrationDTO{
 message Calibrations {
     repeated CalibrationDTO items = 1; // Lista de calibraciones
 }
-
+/*
 // Mensaje para manejar respuestas nulas
 message NullableCalibrationDTO {
     oneof kind {
@@ -48,6 +48,7 @@ message NullableCalibrationDTO {
         CalibrationDTO calibration = 2; // Calibración
     }
 }
+*/
 
 // Mensaje para crear una nueva calibración
 message CreateCalibrationRequest {
