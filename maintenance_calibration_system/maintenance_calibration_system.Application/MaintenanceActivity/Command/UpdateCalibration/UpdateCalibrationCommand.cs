@@ -12,5 +12,4 @@ namespace maintenance_calibration_system.Application.MaintenanceActivity.Command
         string NameTechnician, // Nombre del técnico que realizó la calibración
         string NameCertificateAuthority, // Nombre de la autoridad certificadora
         List<Sensor> CalibratedSensors) : ICommand<bool>;// Lista de sensores calibrados
-    
 }

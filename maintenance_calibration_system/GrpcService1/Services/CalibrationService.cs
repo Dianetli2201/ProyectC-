@@ -3,8 +3,8 @@ using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using maintenance_calibration_system.Application.MaintenanceActivity.Command.CreateCalibration;
 using maintenance_calibration_system.Application.MaintenanceActivity.Command.DeleteCalibration;
+using maintenance_calibration_system.Application.MaintenanceActivity.Command.ModifyCalibration;
 using maintenance_calibration_system.Application.MaintenanceActivity.Command.UpdateCalibration;
-using maintenance_calibration_system.Application.MaintenanceActivity.ModifyCalibration;
 using maintenance_calibration_system.Application.MaintenanceActivity.Queries.GetAllCalibration;
 using maintenance_calibration_system.Application.MaintenanceActivity.Queries.GetCalibration;
 using maintenance_calibration_system.Contacts;
@@ -67,12 +67,7 @@ namespace GrpcService1.Services
             if (result == null)
             {
                 _logger.LogWarning("Calibración no encontrada para ID: {CalibrationId}", request.Id); // Log de advertencia
-                //return Task.FromResult<NullableCalibrationDTO>(null);
-                if (result == null)
-                {
-                    _logger.LogWarning("Calibración no encontrada para ID: {CalibrationId}", request.Id);
-                //    return Task.FromResult(new CalibrationDTO { Null = Google.Protobuf.WellKnownTypes.NullValue.NullValue });
-                }
+                return Task.FromResult<CalibrationDTO>(null);
             }
             else
             {
