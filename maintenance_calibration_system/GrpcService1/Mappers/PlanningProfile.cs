@@ -24,9 +24,6 @@ namespace GrpcService1.Mappers
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.Parse(src.Id))) // Convertir string a Guid
                 .ForMember(dest => dest.ExecutionDate, opt => opt.MapFrom(src => src.ExecutionDate));
 
-
-
-
             // Mapeo de Planning a NullablePlanningDTO
             CreateMap<maintenance_calibration_system.Domain.Datos_de_Planificación.Planning,
                 maintenance_calibration_system.GrpcProtos.NullablePlanningDTO>()
@@ -36,8 +33,6 @@ namespace GrpcService1.Mappers
                         Id = src.Id.ToString(), // Convertir Guid a string
                         ExecutionDate = Timestamp.FromDateTime(src.ExecutionDate.ToUniversalTime()) // Llama a tu método de conversión aquí
                     }));
-                
-
 
         }
 

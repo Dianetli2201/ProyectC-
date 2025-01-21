@@ -78,7 +78,7 @@ namespace GrpcService1.Mappers
                 .ForMember(dest => dest.Protocol, opt => opt.MapFrom(src => src.Protocol))
                 .ForMember(dest => dest.PrincipleOperation, opt => opt.MapFrom(src => src.PrincipleOperation));
 
-
+             
             CreateMap<List<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor>, Sensors>();
 
             CreateMap<Sensors, List<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor>>();

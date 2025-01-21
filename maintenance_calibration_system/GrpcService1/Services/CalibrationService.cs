@@ -4,10 +4,10 @@ using Grpc.Core;
 using maintenance_calibration_system.Application.MaintenanceActivity.Command.CreateCalibration;
 using maintenance_calibration_system.Application.MaintenanceActivity.Command.DeleteCalibration;
 using maintenance_calibration_system.Application.MaintenanceActivity.Command.UpdateCalibration;
+using maintenance_calibration_system.Application.MaintenanceActivity.ModifyCalibration;
 using maintenance_calibration_system.Application.MaintenanceActivity.Queries.GetAllCalibration;
 using maintenance_calibration_system.Application.MaintenanceActivity.Queries.GetCalibration;
 using maintenance_calibration_system.Contacts;
-using maintenance_calibration_system.Domain.Datos_de_Configuracion;
 using maintenance_calibration_system.GrpcProtos;
 using MediatR;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
@@ -104,14 +104,28 @@ namespace GrpcService1.Services
                 request.NameTechnician,
                 request.NameCertificateAuthority,
                 new List<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor>()
-
-
-                ); // Aquí puedes llenar la lista de sensores según sea necesario
+                ); 
 
             var result = _mediator.Send(command).Result;
 
             return Task.FromResult(new Empty());
         }
+
+        /// <summary>Devuelve todas las entidades del tipo especificado.</summary>
+        /// <returns>Una colección de todas las entidades.</returns>
+        public override Task<Empty> AddOrModifyCalibratedSensors(ModifyCalibrationDTO request, ServerCallContext context) // Cambiado
+        {
+            var command = new ModifyCalibrationCommand( // Cambiado
+                new Guid(request.Id),
+                request.CalibratedSensors
+                );
+
+            var result = _mediator.Send(command).Result;
+
+            return Task.FromResult(new Empty());
+        }
+
+
 
         public override Task<Empty> DeleteCalibration(DeleteRequest request, ServerCallContext context) // Cambiado
         {

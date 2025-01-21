@@ -24,4 +24,8 @@
     <ProjectReference Include="..\maintenance_calibration_system.GrpcProtos\maintenance_calibration_system.GrpcProtos.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="MaintenanceActivity\Command\NewFolder\" />
+  </ItemGroup>
+
 </Project>

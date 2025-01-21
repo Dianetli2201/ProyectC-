@@ -1,4 +1,5 @@
-﻿using maintenance_calibration_system.Domain.Datos_Historicos;
+﻿using maintenance_calibration_system.Domain.Datos_de_Configuracion;
+using maintenance_calibration_system.Domain.Datos_Historicos;
 
 
 namespace maintenance_calibration_system.Contacts

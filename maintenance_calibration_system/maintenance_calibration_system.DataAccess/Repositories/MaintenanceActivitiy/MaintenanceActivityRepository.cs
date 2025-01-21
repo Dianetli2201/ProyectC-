@@ -2,6 +2,7 @@ using maintenance_calibration_system.Domain.Datos_Historicos;
 using maintenance_calibration_system.DataAccess.Contexts;
 using maintenance_calibration_system.Domain.Datos_de_Configuracion;
 using maintenance_calibration_system.Contacts;
+using maintenance_calibration_system.Domain.Common;
 
 
 namespace maintenance_calibration_system.DataAccess.Respositories.MaintenanceActivitiy
