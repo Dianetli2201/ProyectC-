@@ -17,7 +17,7 @@ namespace GrpcService1.Services
     public class SensorsService(
         IMediator mediator,
         IMapper mapper,
-        ILogger logger,
+        ILogger <SensorsService> logger,
         IEquipmentRepository<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor> equipmentRepository,
         IUnitOfWork unitOfWork) : Sensor.SensorBase
     {
@@ -25,7 +25,7 @@ namespace GrpcService1.Services
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
         private readonly IMediator _mediator = mediator; 
         private readonly IMapper _mapper = mapper;
-        private readonly ILogger _logger = logger;
+        private readonly ILogger <SensorsService> _logger = logger;
 
         public override Task<SensorDTO> CreateSensor(CreateSensorRequest request, ServerCallContext context)
         {

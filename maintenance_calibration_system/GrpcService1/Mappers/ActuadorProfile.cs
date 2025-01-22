@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Google.Protobuf.Collections;
 using Google.Protobuf.WellKnownTypes;
 using maintenance_calibration_system.GrpcProtos;
 
@@ -8,6 +9,10 @@ namespace GrpcService1.Mappers
     {
         public ActuadorProfile()
         {
+
+            CreateMap(typeof(RepeatedField<>), typeof(List<>))
+                .ConvertUsing(typeof(RepeatedFieldToListTypeConverter<,>));
+
             CreateMap<maintenance_calibration_system.Domain.Datos_de_Configuracion.Actuador,
              maintenance_calibration_system.GrpcProtos.ActuadorDTO>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToString())) // Convertir Guid a string

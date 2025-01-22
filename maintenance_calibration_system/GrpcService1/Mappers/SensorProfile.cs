@@ -118,16 +118,6 @@ namespace GrpcService1.Mappers
 
             CreateMap<List<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor>, maintenance_calibration_system.GrpcProtos.Sensors>();
 
-           /*
-                // Mapeo específico de CalibratedSensors (asumiendo que "Sensors" es el tipo que contiene una lista de SensorDTO)
-                CreateMap<maintenance_calibration_system.GrpcProtos.Sensors, List<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor>>()
-                .ConvertUsing(src => _mapper.Map<List<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor>>(src.Items));
-
-            CreateMap<List<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor>, maintenance_calibration_system.GrpcProtos.Sensors>()
-                .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src));
-           */
-
-
 
             // Mapeo de Sensor a NullableSensorDTO
             CreateMap<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor,
@@ -146,6 +136,7 @@ namespace GrpcService1.Mappers
                     }
                 } : null));
 
+            // Mapeo de NullableSensorDTO a Sensor
             CreateMap<maintenance_calibration_system.GrpcProtos.NullableSensorDTO,
               maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Sensor != null ? Guid.Parse(src.Sensor.Id) : Guid.Empty)) // Convertir string a Guid, o usar Guid.Empty si Sensor es null

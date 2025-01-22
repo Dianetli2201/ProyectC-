@@ -15,7 +15,12 @@ namespace maintenance_calibration_system.Application.Equipments.Queries.GetSenso
             // Obtener todos los sensores del repositorio
             Sensor sensor = _equipmentRepository.GetById(request.Id);
 
-            return Task.FromResult(sensor);
+            // Devolver null si no se encuentra el sensor
+            if (sensor == null)
+            {
+                return Task.FromResult<Sensor>(null);
+            }
+                return Task.FromResult(sensor);
         }
     }
 }
