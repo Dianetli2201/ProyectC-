@@ -4,10 +4,10 @@ using Grpc.Core;
 using maintenance_calibration_system.Application.MaintenanceActivity.Command.CreateCalibration;
 using maintenance_calibration_system.Application.MaintenanceActivity.Command.DeleteCalibration;
 using maintenance_calibration_system.Application.MaintenanceActivity.Command.UpdateCalibration;
+using maintenance_calibration_system.Application.MaintenanceActivity.Command.ModifyCalibration;
 using maintenance_calibration_system.Application.MaintenanceActivity.Queries.GetAllCalibration;
 using maintenance_calibration_system.Application.MaintenanceActivity.Queries.GetCalibration;
 using maintenance_calibration_system.Contacts;
-using maintenance_calibration_system.Domain.Datos_de_Configuracion;
 using maintenance_calibration_system.GrpcProtos;
 using MediatR;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
@@ -32,7 +32,7 @@ namespace GrpcService1.Services
             _logger = logger;
             _mapper = mapper;
             _mediator = mediator;
-            _calibrationRepository = calibrationRepository; 
+            _calibrationRepository = calibrationRepository;
             _unitOfWork = unitOfWork;
         }
 
@@ -59,9 +59,9 @@ namespace GrpcService1.Services
             }
         }
 
-        public override Task<NullableCalibrationDTO> GetCalibration(GetRequest request, ServerCallContext context) // Cambiado
+        public override Task<CalibrationDTO> GetCalibration(GetRequest request, ServerCallContext context) // Cambiado
         {
-            var query = new GetCalibrationByIdQuery(new Guid(request.Id)); 
+            var query = new GetCalibrationByIdQuery(new Guid(request.Id));
             var result = _mediator.Send(query).Result;
 
             if (result == null)
@@ -71,7 +71,7 @@ namespace GrpcService1.Services
                 if (result == null)
                 {
                     _logger.LogWarning("Calibración no encontrada para ID: {CalibrationId}", request.Id);
-                    return Task.FromResult(new NullableCalibrationDTO { Null = Google.Protobuf.WellKnownTypes.NullValue.NullValue });
+                    //    return Task.FromResult(new CalibrationDTO { Null = Google.Protobuf.WellKnownTypes.NullValue.NullValue });
                 }
             }
             else
@@ -79,7 +79,7 @@ namespace GrpcService1.Services
                 _logger.LogInformation("Calibración encontrada para ID: {CalibrationId}", request.Id); // Log de información
             }
 
-            return Task.FromResult(_mapper.Map<NullableCalibrationDTO>(result)); // Cambiado
+            return Task.FromResult(_mapper.Map<CalibrationDTO>(result)); // Cambiado
         }
 
         public override Task<Calibrations> GetAllCalibrations(Google.Protobuf.WellKnownTypes.Empty request, ServerCallContext context) // Cambiado
@@ -104,18 +104,33 @@ namespace GrpcService1.Services
                 request.NameTechnician,
                 request.NameCertificateAuthority,
                 new List<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor>()
-
-
-                ); // Aquí puedes llenar la lista de sensores según sea necesario
+                );
 
             var result = _mediator.Send(command).Result;
 
             return Task.FromResult(new Empty());
         }
 
+        /// <summary>Devuelve todas las entidades del tipo especificado.</summary>
+        /// <returns>Una colección de todas las entidades.</returns>
+        public override Task<Empty> AddOrModifyCalibratedSensors(ModifyCalibrationDTO request, ServerCallContext context) // Cambiado
+        {
+
+            var command = new ModifyCalibrationCommand( // Cambiado
+                new Guid(request.Id),
+                _mapper.Map<List<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor>>(request.CalibratedSensors)
+                );
+
+            var result = _mediator.Send(command).Result;
+
+            return Task.FromResult(new Empty());
+        }
+
+
+
         public override Task<Empty> DeleteCalibration(DeleteRequest request, ServerCallContext context) // Cambiado
         {
-       
+
             try
             {
                 var command = new DeleteCalibrationCommand(new Guid(request.Id));
@@ -126,7 +141,7 @@ namespace GrpcService1.Services
                 throw new RpcException(new Status(StatusCode.InvalidArgument, "El formato del ID no es válido."));
             }
 
-            
+
 
             return Task.FromResult(new Empty());
         }

@@ -30,9 +30,9 @@ namespace maintenance_calibration_system.Application.MaintenanceActivity.Command
                 request.NameTechnician,
                 request.NameCertificateAuthority);
 
-     /*       // Si hay sensores calibrados, puedes actualizarlos aquí si es necesario
-            updatedCalibration.CalibratedSensors = request.CalibratedSensors;
-     */
+            /*       // Si hay sensores calibrados, puedes actualizarlos aquí si es necesario
+                   updatedCalibration.CalibratedSensors = request.CalibratedSensors;
+            */
             // Actualizar la calibración en el repositorio
             _calibrationRepository.Update(updatedCalibration);
             _unitOfWork.SaveChanges();

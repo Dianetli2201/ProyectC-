@@ -5,7 +5,7 @@ using maintenance_calibration_system.Domain.Datos_Historicos; // Asegúrate de q
 using MediatR;
 using System.Linq;
 namespace maintenance_calibration_system.Application.MaintenanceActivity.Queries.GetAllCalibration
-{   
+{
 
     public class GetAllCalibrationQueryHandler : IQueryHandler<GetAllCalibrationQuery, List<Calibration>>
     {
@@ -14,7 +14,7 @@ namespace maintenance_calibration_system.Application.MaintenanceActivity.Queries
         // Constructor que inyecta el repositorio
         public GetAllCalibrationQueryHandler(IMaintenanceActivityRepository<Calibration> calibrationRepository)
         {
-            _calibrationRepository = (IMaintenanceActivityRepository<Calibration>)calibrationRepository; // Asignar el repositorio de calibraciones
+            _calibrationRepository = calibrationRepository; // Asignar el repositorio de calibraciones
         }
 
         public Task<List<Calibration>> Handle(GetAllCalibrationQuery request, CancellationToken cancellationToken)
@@ -25,9 +25,5 @@ namespace maintenance_calibration_system.Application.MaintenanceActivity.Queries
             return Task.FromResult(CalibratedSensors); // Retornar la lista de calibraciones
         }
 
-        Task<List<Calibration>> IRequestHandler<GetAllCalibrationQuery, List<Calibration>>.Handle(GetAllCalibrationQuery request, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-    }  
+    }
 }

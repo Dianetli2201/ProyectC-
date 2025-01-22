@@ -6,9 +6,9 @@ using maintenance_calibration_system.GrpcProtos;
 
 namespace GrpcService1.Mappers
 {
-    public class CalibrationProfile : Profile
+    public class MaintenanceProfile : Profile
     {
-        public CalibrationProfile()
+        public MaintenanceProfile()
         {
             CreateMap<DateTime, Timestamp>()
                 .ConvertUsing(dt => Timestamp.FromDateTime(dt.ToUniversalTime()));
@@ -16,30 +16,30 @@ namespace GrpcService1.Mappers
             CreateMap<Timestamp, DateTime>()
                 .ConvertUsing(ts => ts.ToDateTime());
 
-            CreateMap<Calibration, CalibrationDTO>()
+            CreateMap<Maintenance, MaintenanceDTO>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToString())) // Convertir Guid a string
                                                                                           //       .ForMember(dest => dest.DateActivity, opt => opt.MapFrom(src => src.DateActivity.ToTimestamp()))
-                .ForMember(dest => dest.CalibratedSensors, opt => opt.MapFrom(src => src.CalibratedSensors)); // Mapeo automático de la lista
+                .ForMember(dest => dest.MaintenanceActuador, opt => opt.MapFrom(src => src.MaintenanceActuador)); // Mapeo automático de la lista
 
-            CreateMap<CalibrationDTO, Calibration>()
+            CreateMap<MaintenanceDTO, Maintenance>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.Parse(src.Id))) // Convertir string a Guid
                                                                                            //      .ForMember(dest => dest.DateActivity, opt => opt.MapFrom(src => src.DateActivity.ToDateTime()))
-                .ForMember(dest => dest.CalibratedSensors, opt => opt.MapFrom(src => src.CalibratedSensors)); // Mapeo automático de la lista
-            /*
-                        // Mapeo de Sensor a NullableSensorDTO
-                        CreateMap<Calibration, NullableCalibrationDTO>()
-                            .ForMember(dest => dest.Calibration, opt => opt.MapFrom(src => src != null ? new CalibrationDTO
+                .ForMember(dest => dest.MaintenanceActuador, opt => opt.MapFrom(src => src.MaintenanceActuador)); // Mapeo automático de la lista
+            
+                      /*  // Mapeo de Sensor a NullableSensorDTO
+                        CreateMap<Maintenance, NullableMaintenanceDTO>()
+                            .ForMember(dest => dest.Maintenance, opt => opt.MapFrom(src => src != null ? new CalibrationDTO
                             {
                                 Id = src.Id.ToString(), // Convertir Guid a string      
                                 DateActivity = src.DateActivity.ToTimestamp(),
                                 CalibratedSensors = new maintenance_calibration_system.GrpcProtos.Sensors
                                 {
-                                    Sensor = src.CalibratedSensors.Sele
-                                    Id = Sensor.Id.ToString(), // Convertir Guid a string
-                                    AlphanumericCode = Sensor.AlphanumericCode,
-                                    Manufacturer = Sensor.Manufacturer,
-                                    Protocol = (CommunicationProtocol)Sensor.Protocol,
-                                    PrincipleOperation = Sensor.PrincipleOperation,
+                                    Actuador = src.MaintenanceActuador.Sele
+                                    Id = Actuador.Id.ToString(), // Convertir Guid a string
+                                    AlphanumericCode = Actuador.AlphanumericCode,
+                                    Manufacturer = Actuador.Manufacturer,
+                                    Protocol = (CommunicationProtocol)Actuador.Protocol,
+                                    PrincipleOperation = Actuador.PrincipleOperation,
                                     Magnitude = new maintenance_calibration_system.GrpcProtos.PhysicalMagnitude
                                     {
                                         Name = Sensor.Magnitude.Name,
@@ -53,8 +53,7 @@ namespace GrpcService1.Mappers
                             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Calibration != null ? Guid.Parse(src.Calibration.Id) : Guid.Empty)) // Convertir string a Guid, o usar Guid.Empty si Sensor es null
                             .ForMember(dest => dest.DateActivity, opt => opt.MapFrom(src => src.Calibration.DateActivity.ToDateTime()))
                             .ForMember(dest => dest.CalibratedSensors, opt => opt.MapFrom(src => src.Calibration.CalibratedSensors)); // Mapeo automático de la lista
-
-                   */
+                      */
         }
     }
 }
