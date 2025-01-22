@@ -14,7 +14,7 @@ namespace maintenance_calibration_system.Domain.Datos_de_Configuracion
         public string AlphanumericCode { get; set; }
 
         /// <summary>Magnitud física asociada.</summary>
-        public PhysicalMagnitude Magnitude { get; }
+        public PhysicalMagnitude Magnitude { get; set; }
 
         /// <summary>Nombre del fabricante.</summary>
         public string Manufacturer { get; set; }

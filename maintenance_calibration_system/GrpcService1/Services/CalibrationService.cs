@@ -3,6 +3,7 @@ using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using maintenance_calibration_system.Application.MaintenanceActivity.Command.CreateCalibration;
 using maintenance_calibration_system.Application.MaintenanceActivity.Command.DeleteCalibration;
+using maintenance_calibration_system.Application.MaintenanceActivity.Command.ModifyCalibration;
 using maintenance_calibration_system.Application.MaintenanceActivity.Command.UpdateCalibration;
 //using maintenance_calibration_system.Application.MaintenanceActivity.Command.ModifyCalibration;
 using maintenance_calibration_system.Application.MaintenanceActivity.Queries.GetAllCalibration;
@@ -67,12 +68,7 @@ namespace GrpcService1.Services
             if (result == null)
             {
                 _logger.LogWarning("Calibración no encontrada para ID: {CalibrationId}", request.Id); // Log de advertencia
-                //return Task.FromResult<NullableCalibrationDTO>(null);
-                if (result == null)
-                {
-                    _logger.LogWarning("Calibración no encontrada para ID: {CalibrationId}", request.Id);
-                    //    return Task.FromResult(new CalibrationDTO { Null = Google.Protobuf.WellKnownTypes.NullValue.NullValue });
-                }
+                return Task.FromResult<CalibrationDTO>(null);
             }
             else
             {
@@ -96,7 +92,7 @@ namespace GrpcService1.Services
             return Task.FromResult(calibrationResponse); // Devuelve el objeto Calibration
         }
 
-        public override Task<Empty> UpdateCalibration(CalibrationDTO request, ServerCallContext context) // Cambiado
+        public override Task<Empty> UpdateCalibration(UpdatedCalibrationDTO request, ServerCallContext context) // Cambiado
         {
             var command = new UpdateCalibrationCommand( // Cambiado
                 new Guid(request.Id),
@@ -104,27 +100,16 @@ namespace GrpcService1.Services
                 request.NameTechnician,
                 request.NameCertificateAuthority,
                 new List<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor>()
-                );
 
-            var result = _mediator.Send(command).Result;
 
-            return Task.FromResult(new Empty());
-        }
-
-        /// <summary>Devuelve todas las entidades del tipo especificado.</summary>
-        /// <returns>Una colección de todas las entidades.</returns>
-        /*public override Task<Empty> AddOrModifyCalibratedSensors(ModifyCalibrationDTO request, ServerCallContext context) // Cambiado
-        {
-
-            var command = new ModifyCalibrationCommand( // Cambiado
-                new Guid(request.Id),
-                _mapper.Map<List<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor>>(request.CalibratedSensors)
-                );
+                ); // Aquí puedes llenar la lista de sensores según sea necesario
 
             var result = _mediator.Send(command).Result;
 
             return Task.FromResult(new Empty());
         }*/
+
+
 
 
 

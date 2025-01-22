@@ -15,8 +15,6 @@ public interface IRepositoryBase<T> where T : Entity
     /// <returns>La entidad correspondiente al identificador, o null si no se encuentra.</returns>
     T? GetById(Guid id);
 
-    object GetAll(T entity);
-
     /// <summary>Devuelve todas las entidades del tipo especificado.</summary>
     /// <returns>Una colección de todas las entidades.</returns>
     IEnumerable<T> GetAll();
@@ -87,8 +85,4 @@ public abstract class RepositoryBase<T>(ApplicationContext context) : IRepositor
         }
     }
 
-    public object GetAll(T entity)
-    {
-        throw new NotImplementedException();
-    }
 }

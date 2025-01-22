@@ -1,6 +1,7 @@
 ﻿using maintenance_calibration_system.Application.Abstract;
 using maintenance_calibration_system.Contacts;
 using maintenance_calibration_system.Domain.Datos_de_Configuracion;
+using Microsoft.Extensions.Logging;
 
 
 namespace maintenance_calibration_system.Application.Equipments.Commands.UpdateActuador
@@ -12,10 +13,16 @@ namespace maintenance_calibration_system.Application.Equipments.Commands.UpdateA
         private readonly IEquipmentRepository<Actuador> _equipmentRepository = equipmentRepository;
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
+
         public Task<bool> Handle(UpdateActuadorCommand request, CancellationToken cancellationToken)
         {
             // Buscar el sensor existente
             var existingActuador = _equipmentRepository.GetById(request.Id);
+
+            if (existingActuador == null)
+            {
+                return Task.FromResult(false); // Devuelve false si no se encuentra el sensor
+            }
 
             // Crear un nuevo objeto Sensor con los valores actualizados usando el constructor
             var updatedActuador = new Actuador(

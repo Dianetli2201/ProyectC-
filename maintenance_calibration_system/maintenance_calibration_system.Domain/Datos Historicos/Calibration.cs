@@ -33,6 +33,13 @@ namespace maintenance_calibration_system.Domain.Datos_Historicos
             CalibratedSensors = new List<Sensor>();
         }
 
+        public Calibration(Guid id, DateTime dateActivity, string nameTechnician, List<Sensor> calibratedSensors, string nameCertificateAuthority = "Unknown name of Certificate Authority")
+          : base(id, dateActivity, nameTechnician)
+        {
+            NameCertificateAuthority = nameCertificateAuthority;
+            CalibratedSensors = calibratedSensors;
+        }
+
         public class CalibrationBase
         {
         }

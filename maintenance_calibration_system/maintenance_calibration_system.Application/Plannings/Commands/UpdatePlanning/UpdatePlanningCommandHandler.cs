@@ -3,6 +3,7 @@ using maintenance_calibration_system.Application.Equipments.Commands.UpdateActua
 using maintenance_calibration_system.Contacts;
 using maintenance_calibration_system.Contracts;
 using maintenance_calibration_system.Domain.Datos_de_Planificación;
+using Microsoft.Extensions.Logging;
 
 
 namespace maintenance_calibration_system.Application.Plannings.Commands.UpdatePlanning
@@ -14,10 +15,16 @@ namespace maintenance_calibration_system.Application.Plannings.Commands.UpdatePl
         private readonly IPlanningRepository _planningRepository = planningRepository;
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
+
         public Task<bool> Handle(UpdatePlanningCommand request, CancellationToken cancellationToken)
         {
             // Buscar el sensor existente
             var existingPlanning = _planningRepository.GetById(request.Id);
+
+            if (existingPlanning == null)
+            {
+                return Task.FromResult(false); // Devuelve false si no se encuentra el sensor
+            }
 
             // Crear un nuevo objeto Sensor con los valores actualizados usando el constructor
             var updatedPlanning = new Planning(

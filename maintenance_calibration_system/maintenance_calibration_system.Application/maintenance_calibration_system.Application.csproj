@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="MaintenanceActivity\Command\ModifyMaintenance\" />
+    <Folder Include="MaintenanceActivity\Command\NewFolder\" />
   </ItemGroup>
 
 </Project>

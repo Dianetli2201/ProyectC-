@@ -1,12 +1,8 @@
-﻿/*using maintenance_calibration_system.Application.Abstract;
+﻿using maintenance_calibration_system.Application.Abstract;
 using maintenance_calibration_system.Application.MaintenanceActivity.Command.UpdateCalibration;
 using maintenance_calibration_system.Contacts;
 using maintenance_calibration_system.Domain.Datos_Historicos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace maintenance_calibration_system.Application.MaintenanceActivity.Command.ModifyCalibration
 {
@@ -42,4 +38,4 @@ namespace maintenance_calibration_system.Application.MaintenanceActivity.Command
             return Task.FromResult(true); // Devuelve true si la actualización fue exitosa
         }
     }
-}*/
+}

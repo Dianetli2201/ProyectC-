@@ -6,6 +6,12 @@ using maintenance_calibration_system.DataAccess.Respositories.Equipments;
 using maintenance_calibration_system.DataAccess.Respositories.MaintenanceActivitiy;
 using maintenance_calibration_system.DataAccess.Respositories.Plannings;
 using maintenance_calibration_system.Application;
+using maintenance_calibration_system.Application.Equipments.Commands.UpdateActuador;
+using maintenance_calibration_system.Application.Equipments.Commands.UpdateSensor;
+using maintenance_calibration_system.Application.MaintenanceActivity.Command.UpdateCalibration;
+using maintenance_calibration_system.Application.Plannings.Commands.UpdatePlanning;
+using MediatR;
+using Microsoft.Extensions.Logging;
 
 
 
@@ -31,15 +37,22 @@ namespace GrpcService1
                 AutoRegisterRequestProcessors = true,
             }
             .RegisterServicesFromAssemblies(typeof(AssemblyReference).Assembly));
+            // Agregar servicios al contenedor
+            builder.Services.AddLogging();
             builder.Logging.AddConsole(); // Esto permite que los logs se muestren en la consola
             builder.Logging.AddDebug(); // Esto permite que los logs se muestren en la ventana de salida de Visual Studio
+
+
+
+            // Asegurar que ILogger<T> está registrado
+            builder.Services.AddTransient(typeof(ILogger<>), typeof(Logger<>));
 
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             app.MapGrpcService<SensorsService>();
             app.MapGrpcService<ActuadoresService>();
-           app.MapGrpcService<PlanningsService>();
+            app.MapGrpcService<PlanningsService>();
             app.MapGrpcService<CalibrationsService>();
 
             app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
