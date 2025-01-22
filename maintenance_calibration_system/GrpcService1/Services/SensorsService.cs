@@ -47,7 +47,7 @@ namespace GrpcService1.Services
         {
             
                 var query = new GetSensorByIdQuery(new Guid(request.Id));
-                var result =  _mediator.Send(query);
+                var result =  _mediator.Send(query).Result;
 
                 if (result == null)
                 {
@@ -61,7 +61,6 @@ namespace GrpcService1.Services
                 }
 
                 return Task.FromResult(_mapper.Map<NullableSensorDTO>(result));
-            
         }
 
 

@@ -3,21 +3,29 @@ using maintenance_calibration_system.Application.Equipments.Commands.UpdateActua
 using maintenance_calibration_system.Contacts;
 using maintenance_calibration_system.Contracts;
 using maintenance_calibration_system.Domain.Datos_de_Planificación;
+using Microsoft.Extensions.Logging;
 
 
 namespace maintenance_calibration_system.Application.Plannings.Commands.UpdatePlanning
 {
     public class UpdatePlanningCommandHandler(
         IPlanningRepository planningRepository,
-        IUnitOfWork unitOfWork) : ICommandHandler<UpdatePlanningCommand, bool>
+        IUnitOfWork unitOfWork, ILogger logger) : ICommandHandler<UpdatePlanningCommand, bool>
     {
         private readonly IPlanningRepository _planningRepository = planningRepository;
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
+        private readonly ILogger _logger = logger;
 
         public Task<bool> Handle(UpdatePlanningCommand request, CancellationToken cancellationToken)
         {
             // Buscar el sensor existente
             var existingPlanning = _planningRepository.GetById(request.Id);
+
+            if (existingPlanning == null)
+            {
+                _logger.LogWarning("Planning with ID {PlanningId} not found.", request.Id);
+                return Task.FromResult(false); // Devuelve false si no se encuentra el sensor
+            }
 
             // Crear un nuevo objeto Sensor con los valores actualizados usando el constructor
             var updatedPlanning = new Planning(
@@ -31,6 +39,7 @@ namespace maintenance_calibration_system.Application.Plannings.Commands.UpdatePl
             _planningRepository.Update(updatedPlanning);
             _unitOfWork.SaveChanges();
 
+            _logger.LogInformation("Planning with ID {PlanningId} updated successfully.", request.Id);
             return Task.FromResult(true); // Devuelve true si la actualización fue exitosa
         }
     }

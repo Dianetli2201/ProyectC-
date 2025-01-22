@@ -1,17 +1,17 @@
 ﻿using maintenance_calibration_system.Application.Abstract;
 using maintenance_calibration_system.Contacts;
 using maintenance_calibration_system.Domain.Datos_Historicos;// Asegúrate de que este espacio de nombres sea correcto
-using maintenance_calibration_system.Application.Equipments.Commands.UpdateActuador;
-using maintenance_calibration_system.Application.MaintenanceActivity.Command.CreateCalibration;
+using Microsoft.Extensions.Logging;
 
 namespace maintenance_calibration_system.Application.MaintenanceActivity.Command.UpdateCalibration
 {
     public class UpdateCalibrationCommandHandler(
        IMaintenanceActivityRepository<Calibration> calibrationRepository,
-        IUnitOfWork unitOfWork) : ICommandHandler<UpdateCalibrationCommand, bool>
+        IUnitOfWork unitOfWork, ILogger logger) : ICommandHandler<UpdateCalibrationCommand, bool>
     {
         private readonly IMaintenanceActivityRepository<Calibration> _calibrationRepository = (IMaintenanceActivityRepository<Calibration>)calibrationRepository; // Repositorio para manejar calibraciones
         private readonly IUnitOfWork _unitOfWork = unitOfWork; // Unidad de trabajo para manejar transacciones
+        private readonly ILogger _logger = logger;
 
         public Task<bool> Handle(UpdateCalibrationCommand request, CancellationToken cancellationToken)
         {
@@ -20,6 +20,7 @@ namespace maintenance_calibration_system.Application.MaintenanceActivity.Command
 
             if (existingCalibration == null)
             {
+                _logger.LogWarning("Calibration with ID {CalibrationId} not found.", request.id);
                 return Task.FromResult(false); // Retorna false si la calibración no existe
             }
 
@@ -35,6 +36,7 @@ namespace maintenance_calibration_system.Application.MaintenanceActivity.Command
             _calibrationRepository.Update(updatedCalibration);
             _unitOfWork.SaveChanges();
 
+            _logger.LogInformation("Calibration with ID {CalibrationId} updated successfully.", request.id);
             return Task.FromResult(true); // Devuelve true si la actualización fue exitosa
         }
     }
