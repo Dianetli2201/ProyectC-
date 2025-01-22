@@ -67,7 +67,8 @@ namespace GrpcService1.Services
             if (result == null)
             {
                 _logger.LogWarning("Calibración no encontrada para ID: {CalibrationId}", request.Id); // Log de advertencia
-                return Task.FromResult<CalibrationDTO>(null);
+                throw new RpcException(new Status(StatusCode.NotFound, $"Calibración con ID {request.Id} no encontrada."));
+
             }
             else
             {
@@ -103,7 +104,18 @@ namespace GrpcService1.Services
 
             var result = _mediator.Send(command).Result;
 
-            return Task.FromResult(new Empty());
+            if (result)
+            {
+                context.ResponseTrailers.Add("status", "200");
+                context.ResponseTrailers.Add("message", "Calibration updated successfully.");
+            }
+            else
+            {
+                context.ResponseTrailers.Add("status", "404");
+                context.ResponseTrailers.Add("message", "Calibration ID not found.");
+            }
+
+                return Task.FromResult(new Empty());
         }
 
         /// <summary>Devuelve todas las entidades del tipo especificado.</summary>
@@ -117,6 +129,17 @@ namespace GrpcService1.Services
                 );
 
             var result = _mediator.Send(command).Result;
+
+            if (result)
+            {
+                context.ResponseTrailers.Add("status", "200");
+                context.ResponseTrailers.Add("message", "Calibration updated successfully.");
+            }
+            else
+            {
+                context.ResponseTrailers.Add("status", "404");
+                context.ResponseTrailers.Add("message", "Calibration ID not found.");
+            }
 
             return Task.FromResult(new Empty());
         }

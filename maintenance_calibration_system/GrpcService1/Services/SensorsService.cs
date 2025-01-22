@@ -97,6 +97,17 @@ namespace GrpcService1.Services
 
             var result = _mediator.Send(command).Result;
 
+            if (result)
+            {
+                context.ResponseTrailers.Add("status", "200");
+                context.ResponseTrailers.Add("message", "Sensor updated successfully.");
+            }
+            else
+            {
+                context.ResponseTrailers.Add("status", "404");
+                context.ResponseTrailers.Add("message", "Sensor ID not found.");
+            }
+
             return Task.FromResult(new Empty());
         }
 

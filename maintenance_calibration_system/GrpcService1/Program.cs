@@ -42,10 +42,13 @@ namespace GrpcService1
             builder.Logging.AddConsole(); // Esto permite que los logs se muestren en la consola
             builder.Logging.AddDebug(); // Esto permite que los logs se muestren en la ventana de salida de Visual Studio
 
+            builder.Services.AddGrpc(options =>
+            {
+                options.EnableDetailedErrors = true; // Esto habilita los errores detallados
+            });
 
-
-            // Asegurar que ILogger<T> está registrado
-            builder.Services.AddTransient(typeof(ILogger<>), typeof(Logger<>));
+                // Asegurar que ILogger<T> está registrado
+                builder.Services.AddTransient(typeof(ILogger<>), typeof(Logger<>));
 
             var app = builder.Build();
 

@@ -69,7 +69,8 @@ namespace GrpcService1.Services
             if (result == null)
             {
                 _logger.LogWarning("Mantenimiento no encontrado para ID: {MaintenanceId}", request.Id); // Log de advertencia
-                return Task.FromResult<MaintenanceDTO>(null);
+                throw new RpcException(new Status(StatusCode.NotFound, $"Maintenance con ID {request.Id} no encontrada."));
+
             }
             else
             {
@@ -105,6 +106,17 @@ namespace GrpcService1.Services
 
             var result = _mediator.Send(command).Result;
 
+            if (result)
+            {
+                context.ResponseTrailers.Add("status", "200");
+                context.ResponseTrailers.Add("message", "Maintenance updated successfully.");
+            }
+            else
+            {
+                context.ResponseTrailers.Add("status", "404");
+                context.ResponseTrailers.Add("message", "Maintenance ID not found.");
+            }
+
             return Task.FromResult(new Empty());
         }
 
@@ -117,6 +129,17 @@ namespace GrpcService1.Services
                 );
 
             var result = _mediator.Send(command).Result;
+
+            if (result)
+            {
+                context.ResponseTrailers.Add("status", "200");
+                context.ResponseTrailers.Add("message", "Maintenance updated successfully.");
+            }
+            else
+            {
+                context.ResponseTrailers.Add("status", "404");
+                context.ResponseTrailers.Add("message", "Maintenance ID not found.");
+            }
 
             return Task.FromResult(new Empty());
         }
