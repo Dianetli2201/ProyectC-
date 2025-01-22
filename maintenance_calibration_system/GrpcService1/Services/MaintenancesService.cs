@@ -8,15 +8,10 @@ using maintenance_calibration_system.Application.MaintenanceActivity.Command.Mod
 using maintenance_calibration_system.Application.MaintenanceActivity.Queries.GetAllMaintenance;
 using maintenance_calibration_system.Application.MaintenanceActivity.Queries.GetAllCalibration;
 using maintenance_calibration_system.Application.MaintenanceActivity.Queries.GetCalibration;
-using maintenance_calibration_system.Application.MaintenanceActivity.Queries.GetMaintenance;
-using maintenance_calibration_system.Application.MaintenanceActivity.Command.CreateCalibration;
-using maintenance_calibration_system.Domain.Datos_Historicos;
-using GrpcService1.Mappers;
 using maintenance_calibration_system.Contacts;
 using maintenance_calibration_system.GrpcProtos;
-using maintenance_calibration_system.Application.Abstract;
 using MediatR;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+
 
 namespace GrpcService1.Services
 {
@@ -98,13 +93,13 @@ namespace GrpcService1.Services
             return Task.FromResult(maintenanceResponse); // Devuelve el objeto Maintenance
         }
 
-      /*  public override Task<Empty> UpdateMaintenance(MaintenanceDTO request, ServerCallContext context) // Cambiado
+      public override Task<Empty> UpdateMaintenance(UpdatedMaintenanceDTO request, ServerCallContext context) // Cambiado
         {
             var command = new UpdateMaintenanceCommand( // Cambiado
                 new Guid(request.Id),
                 request.DateActivity.ToDateTime(), // Convertir Timestamp a DateTime
                 request.NameTechnician,
-                request.typeMaintenance,
+                 (maintenance_calibration_system.Domain.Types.TypeMaintenance)request.TypeMaintenance,
                 new List<maintenance_calibration_system.Domain.Datos_de_Configuracion.Actuador>()
                 );
 
@@ -112,22 +107,19 @@ namespace GrpcService1.Services
 
             return Task.FromResult(new Empty());
         }
-      */
-        /// <summary>Devuelve todas las entidades del tipo especificado.</summary>
-        /// <returns>Una colección de todas las entidades.</returns>
-       /* public override Task<Empty> AddOrModifyCalibratedSensors(ModifyCalibrationDTO request, ServerCallContext context) // Cambiado
+
+        public override Task<Empty> AddOrModifyMaintenanceActuador(ModifyMaintenanceDTO request, ServerCallContext context) // Cambiado
         {
 
-            var command = new ModifyCalibrationCommand( // Cambiado
+            var command = new ModifyMaintenanceCommand( // Cambiado
                 new Guid(request.Id),
-                _mapper.Map<List<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor>>(request.CalibratedSensors)
+                _mapper.Map<List<maintenance_calibration_system.Domain.Datos_de_Configuracion.Actuador>>(request.MaintenanceActuador)
                 );
 
             var result = _mediator.Send(command).Result;
 
             return Task.FromResult(new Empty());
-        } */
-
+        }
 
 
         public override Task<Empty> DeleteMaintenance(DeleteRequest request, ServerCallContext context) // Cambiado
@@ -142,8 +134,6 @@ namespace GrpcService1.Services
             {
                 throw new RpcException(new Status(StatusCode.InvalidArgument, "El formato del ID no es válido."));
             }
-
-
 
             return Task.FromResult(new Empty());
         }

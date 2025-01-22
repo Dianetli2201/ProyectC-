@@ -16,48 +16,47 @@ namespace GrpcService1.Mappers
             CreateMap<Timestamp, DateTime>()
                 .ConvertUsing(ts => ts.ToDateTime());
 
-            // Configuración para mapear TypeMaintenance a string
-            //CreateMap<TypeMaintenance, string>()
-                //.ConvertUsing(enumValue => enumValue.ToString());
 
             CreateMap<Maintenance, MaintenanceDTO>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToString())) // Convertir Guid a string
-                                                                                          //       .ForMember(dest => dest.DateActivity, opt => opt.MapFrom(src => src.DateActivity.ToTimestamp()))
-                .ForMember(dest => dest.MaintenanceActuador, opt => opt.MapFrom(src => src.MaintenanceActuador)); // Mapeo automático de la lista
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToString())) // Convertir Guid a string  
+                .ForMember(dest => dest.MaintenanceActuador, opt => opt.MapFrom(src => new Actuadores
+                {
+                    Items = { src.MaintenanceActuador.Select(actuador => new ActuadorDTO
+                    {
+                        Id = actuador.Id.ToString(),   // Convertir Guid a string  
+                        AlphanumericCode = actuador.AlphanumericCode,
+                        Magnitude = new maintenance_calibration_system.GrpcProtos.PhysicalMagnitude // Si tienes un DTO para PhysicalMagnitude  
+                        {
+                            Name = actuador.Magnitude.Name,
+                            UnitofMagnitude = actuador.Magnitude.UnitofMagnitude
+                        },
+                        Manufacturer = actuador.Manufacturer,
+                        CodeControl = actuador.CodeControl,
+                        SignalControl = (SignalControl)actuador.SignalControl // Asumiendo que Protocol es un enum  
+                        
+                    })}
+                }));
+
+            //  .ForMember(dest => dest.CalibratedSensors, opt => opt.MapFrom(src => src.CalibratedSensors)); // Mapeo automático de la lista
 
             CreateMap<MaintenanceDTO, Maintenance>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.Parse(src.Id))) // Convertir string a Guid
-                                                                                           //      .ForMember(dest => dest.DateActivity, opt => opt.MapFrom(src => src.DateActivity.ToDateTime()))
-                .ForMember(dest => dest.MaintenanceActuador, opt => opt.MapFrom(src => src.MaintenanceActuador)); // Mapeo automático de la lista
-            
-                      /*  // Mapeo de Sensor a NullableSensorDTO
-                        CreateMap<Maintenance, NullableMaintenanceDTO>()
-                            .ForMember(dest => dest.Maintenance, opt => opt.MapFrom(src => src != null ? new CalibrationDTO
-                            {
-                                Id = src.Id.ToString(), // Convertir Guid a string      
-                                DateActivity = src.DateActivity.ToTimestamp(),
-                                CalibratedSensors = new maintenance_calibration_system.GrpcProtos.Sensors
-                                {
-                                    Actuador = src.MaintenanceActuador.Sele
-                                    Id = Actuador.Id.ToString(), // Convertir Guid a string
-                                    AlphanumericCode = Actuador.AlphanumericCode,
-                                    Manufacturer = Actuador.Manufacturer,
-                                    Protocol = (CommunicationProtocol)Actuador.Protocol,
-                                    PrincipleOperation = Actuador.PrincipleOperation,
-                                    Magnitude = new maintenance_calibration_system.GrpcProtos.PhysicalMagnitude
-                                    {
-                                        Name = Sensor.Magnitude.Name,
-                                        UnitofMagnitude = Sensor.Magnitude.UnitofMagnitude
-                                    }
-                                }).ToList() // Mapeo  de la lista
-                            } : null));
-
-
-                        CreateMap<NullableCalibrationDTO, Calibration>()
-                            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Calibration != null ? Guid.Parse(src.Calibration.Id) : Guid.Empty)) // Convertir string a Guid, o usar Guid.Empty si Sensor es null
-                            .ForMember(dest => dest.DateActivity, opt => opt.MapFrom(src => src.Calibration.DateActivity.ToDateTime()))
-                            .ForMember(dest => dest.CalibratedSensors, opt => opt.MapFrom(src => src.Calibration.CalibratedSensors)); // Mapeo automático de la lista
-                      */
+                .ForMember(dest => dest.MaintenanceActuador, opt => opt.MapFrom(src =>
+                    src.MaintenanceActuador.Items.Select(actuadorDto => new maintenance_calibration_system.Domain.Datos_de_Configuracion.Actuador
+                    {
+                        // Mapea cada propiedad necesaria
+                        Id = new Guid(actuadorDto.Id),
+                        AlphanumericCode = actuadorDto.AlphanumericCode,
+                        Magnitude = new maintenance_calibration_system.Domain.ValueObjects.PhysicalMagnitude
+                        {
+                            Name = actuadorDto.Magnitude.Name,
+                            UnitofMagnitude = actuadorDto.Magnitude.UnitofMagnitude
+                        },
+                        Manufacturer = actuadorDto.Manufacturer,
+                        CodeControl = actuadorDto.CodeControl,
+                        SignalControl = (maintenance_calibration_system.Domain.Types.SignalControl)actuadorDto.SignalControl
+                               
+                    }).ToList())); // Construye la lista manualmente  
         }
     }
 }

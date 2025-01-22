@@ -99,16 +99,27 @@ namespace GrpcService1.Services
                 request.NameTechnician,
                 request.NameCertificateAuthority,
                 new List<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor>()
-
-
-                ); // Aquí puedes llenar la lista de sensores según sea necesario
+                );
 
             var result = _mediator.Send(command).Result;
 
             return Task.FromResult(new Empty());
-        }*/
+        }
 
+        /// <summary>Devuelve todas las entidades del tipo especificado.</summary>
+        /// <returns>Una colección de todas las entidades.</returns>
+        public override Task<Empty> AddOrModifyCalibratedSensors(ModifyCalibrationDTO request, ServerCallContext context) // Cambiado
+        {
 
+            var command = new ModifyCalibrationCommand( // Cambiado
+                new Guid(request.Id),
+                _mapper.Map<List<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor>>(request.CalibratedSensors)
+                );
+
+            var result = _mediator.Send(command).Result;
+
+            return Task.FromResult(new Empty());
+        }
 
 
 

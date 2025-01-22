@@ -18,7 +18,7 @@ namespace maintenance_calibration_system.Domain.Datos_de_Configuracion
         #endregion
 
         /// <summary>Constructor necesario para EntityFramework y la creación de la base de datos.</summary>
-        protected Actuador() { }
+        public Actuador() { }
 
         /// <summary>Constructor para crear una instancia de Actuador.</summary>
         /// <param name="id">Identificador único del actuador.</param>

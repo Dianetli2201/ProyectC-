@@ -46,7 +46,16 @@ namespace GrpcService1.Mappers
 
                 } : null));
 
-            CreateMap<List<maintenance_calibration_system.Domain.Datos_de_Configuracion.Actuador>, Actuadores>();
+            // Mapeo específico de CalibratedSensors
+            CreateMap<maintenance_calibration_system.GrpcProtos.Actuadores, List<maintenance_calibration_system.Domain.Datos_de_Configuracion.Actuador>>()
+                .ConvertUsing((src, dest, ctx) =>
+                {
+                    if (src.Items != null)
+                    {
+                        return ctx.Mapper.Map<List<maintenance_calibration_system.Domain.Datos_de_Configuracion.Actuador>>(src.Items);
+                    }
+                    return new List<maintenance_calibration_system.Domain.Datos_de_Configuracion.Actuador>();
+                });
         }
 
 
