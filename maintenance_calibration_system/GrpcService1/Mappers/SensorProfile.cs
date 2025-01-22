@@ -1,23 +1,10 @@
 ﻿using AutoMapper;
 using Google.Protobuf.Collections;
+using Google.Protobuf.WellKnownTypes;
 using maintenance_calibration_system.GrpcProtos;
 
 namespace GrpcService1.Mappers
 {
-
-    public class EnumerableToRepeatedFieldTypeConverter<TItemSource, TItemDest> : ITypeConverter<IEnumerable<TItemSource>, RepeatedField<TItemDest>>
-    {
-        public RepeatedField<TItemDest> Convert(IEnumerable<TItemSource> source, RepeatedField<TItemDest> destination, ResolutionContext context)
-        {
-            destination = destination ?? new RepeatedField<TItemDest>();
-            foreach (var item in source)
-            {
-                // Verifica que AutoMapper sepa cómo mapear TItemSource a TItemDest
-                destination.Add(context.Mapper.Map<TItemDest>(item));
-            }
-            return destination;
-        }
-    }
 
     public class RepeatedFieldToListTypeConverter<TItemSource, TItemDest> : ITypeConverter<RepeatedField<TItemSource>, List<TItemDest>>
     {
@@ -74,8 +61,6 @@ namespace GrpcService1.Mappers
             CreateMap(typeof(RepeatedField<>), typeof(List<>))
                 .ConvertUsing(typeof(RepeatedFieldToListTypeConverter<,>));
 
-            CreateMap(typeof(IEnumerable<>), typeof(RepeatedField<>))
-                .ConvertUsing(typeof(EnumerableToRepeatedFieldTypeConverter<,>));
 
             CreateMap<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor,
              maintenance_calibration_system.GrpcProtos.SensorDTO>()
@@ -134,9 +119,10 @@ namespace GrpcService1.Mappers
                         Name = src.Magnitude.Name,
                         UnitofMagnitude = src.Magnitude.UnitofMagnitude
                     }
-                } : null));
+                } : null))
+                .ForMember(dest => dest.Null, opt => opt.MapFrom(src => src == null ? NullValue.NullValue : (NullValue?)null));
 
-            // Mapeo de NullableSensorDTO a Sensor
+
             CreateMap<maintenance_calibration_system.GrpcProtos.NullableSensorDTO,
               maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Sensor != null ? Guid.Parse(src.Sensor.Id) : Guid.Empty)) // Convertir string a Guid, o usar Guid.Empty si Sensor es null
@@ -151,6 +137,7 @@ namespace GrpcService1.Mappers
                 .ForMember(dest => dest.PrincipleOperation, opt => opt.MapFrom(src => src.Sensor.PrincipleOperation));
 
 
+
             CreateMap<maintenance_calibration_system.GrpcProtos.SensorDTO, maintenance_calibration_system.GrpcProtos.CreateSensorRequest>()
                 .ForMember(dest => dest.AlphanumericCode, opt => opt.MapFrom(src => src.AlphanumericCode))
                 .ForMember(dest => dest.Magnitude, opt => opt.MapFrom(src => new maintenance_calibration_system.GrpcProtos.PhysicalMagnitude
@@ -161,12 +148,6 @@ namespace GrpcService1.Mappers
                 .ForMember(dest => dest.Manufacturer, opt => opt.MapFrom(src => src.Manufacturer))
                 .ForMember(dest => dest.Protocol, opt => opt.MapFrom(src => src.Protocol))
                 .ForMember(dest => dest.PrincipleOperation, opt => opt.MapFrom(src => src.PrincipleOperation));
-          
-
-
         }
-
     }
-
-
 }

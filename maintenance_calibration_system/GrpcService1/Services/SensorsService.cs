@@ -45,8 +45,7 @@ namespace GrpcService1.Services
 
         public override Task<NullableSensorDTO> GetSensor(GetRequest request, ServerCallContext context)
         {
-            try
-            {
+            
                 var query = new GetSensorByIdQuery(new Guid(request.Id));
                 var result =  _mediator.Send(query);
 
@@ -56,13 +55,13 @@ namespace GrpcService1.Services
                     return Task.FromResult<NullableSensorDTO>(null); // Return an empty DTO or handle as required
                 }
 
+                else
+                {
+                    _logger.LogInformation("Actuador encontrado para ID: {SensorId}", request.Id); // Log de información
+                }
+
                 return Task.FromResult(_mapper.Map<NullableSensorDTO>(result));
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error occurred while fetching sensor with ID {SensorId}.", request.Id);
-                throw; // Re-throw the exception after logging it
-            }
+            
         }
 
 
