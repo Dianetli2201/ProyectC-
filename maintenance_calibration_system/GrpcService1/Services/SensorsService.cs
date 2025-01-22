@@ -10,12 +10,14 @@ using maintenance_calibration_system.Application.Equipments.Queries.GetSensor;
 using maintenance_calibration_system.Contacts;
 using maintenance_calibration_system.GrpcProtos;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace GrpcService1.Services
 {
     public class SensorsService(
         IMediator mediator,
         IMapper mapper,
+        ILogger logger,
         IEquipmentRepository<maintenance_calibration_system.Domain.Datos_de_Configuracion.Sensor> equipmentRepository,
         IUnitOfWork unitOfWork) : Sensor.SensorBase
     {
@@ -23,6 +25,7 @@ namespace GrpcService1.Services
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
         private readonly IMediator _mediator = mediator; 
         private readonly IMapper _mapper = mapper;
+        private readonly ILogger _logger = logger;
 
         public override Task<SensorDTO> CreateSensor(CreateSensorRequest request, ServerCallContext context)
         {
@@ -42,13 +45,26 @@ namespace GrpcService1.Services
 
         public override Task<NullableSensorDTO> GetSensor(GetRequest request, ServerCallContext context)
         {
-            var query = new GetSensorByIdQuery(new Guid(request.Id));
+            try
+            {
+                var query = new GetSensorByIdQuery(new Guid(request.Id));
+                var result =  _mediator.Send(query);
 
-            var result = _mediator.Send(query).Result;
+                if (result == null)
+                {
+                    _logger.LogWarning("Sensor with ID {SensorId} not found.", request.Id);
+                    return Task.FromResult<NullableSensorDTO>(null); // Return an empty DTO or handle as required
+                }
 
-            return Task.FromResult(_mapper.Map<NullableSensorDTO>(result));
-
+                return Task.FromResult(_mapper.Map<NullableSensorDTO>(result));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while fetching sensor with ID {SensorId}.", request.Id);
+                throw; // Re-throw the exception after logging it
+            }
         }
+
 
         public override Task<Sensors> GetAllSensors(Google.Protobuf.WellKnownTypes.Empty request, ServerCallContext context)
         {
