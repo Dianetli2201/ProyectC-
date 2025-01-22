@@ -10,6 +10,6 @@ namespace maintenance_calibration_system.Application.MaintenanceActivity.Command
     public record CreateMaintenanceCommand(
         DateTime DateActivity,
         string NameTechnician,
-        TypeMaintenance TypeMaintenance,
+        TypeMaintenance typeMaintenance,
         List<Actuador> MaintenanceActuators) : ICommand<Maintenance>;
 }

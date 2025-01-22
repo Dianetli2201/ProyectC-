@@ -22,7 +22,7 @@ namespace maintenance_calibration_system.Application.MaintenanceActivity.Command
             var result = new Maintenance(
                 Guid.NewGuid(),
                 request.DateActivity,
-                request.TypeMaintenance,
+                request.typeMaintenance,
                 request.NameTechnician);
 
             // Asumiendo que necesitas agregar Actuadores con Mantenimienti al Maintenance

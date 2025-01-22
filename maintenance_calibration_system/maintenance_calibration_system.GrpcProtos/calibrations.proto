@@ -54,5 +54,6 @@ message NullableCalibrationDTO {
 message CreateCalibrationRequest {
     google.protobuf.Timestamp dateActivity = 1; // Fecha de la actividad de calibración
     string nameTechnician = 2; // Nombre del técnico que realizó la actividad
+
     string nameCertificateAuthority = 3; // Nombre de la autoridad certificadora
 }

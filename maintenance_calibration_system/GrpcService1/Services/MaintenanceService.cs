@@ -10,9 +10,11 @@ using maintenance_calibration_system.Application.MaintenanceActivity.Queries.Get
 using maintenance_calibration_system.Application.MaintenanceActivity.Queries.GetCalibration;
 using maintenance_calibration_system.Application.MaintenanceActivity.Queries.GetMaintenance;
 using maintenance_calibration_system.Application.MaintenanceActivity.Command.CreateCalibration;
+using maintenance_calibration_system.Domain.Datos_Historicos;
 using GrpcService1.Mappers;
 using maintenance_calibration_system.Contacts;
 using maintenance_calibration_system.GrpcProtos;
+using maintenance_calibration_system.Application.Abstract;
 using MediatR;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
@@ -40,14 +42,15 @@ namespace GrpcService1.Services
             _unitOfWork = unitOfWork;
         }
 
-        public override async Task<MaintenanceDTO> CreateMaintenance(CreateMaintenanceRequest request, ServerCallContext context)
+       /* public override async Task<MaintenanceDTO> CreateMaintenance(CreateMaintenanceRequest request, ServerCallContext context)
         {
+           
             var actuators = new List<maintenance_calibration_system.Domain.Datos_de_Configuracion.Actuador>();
 
             var command = new CreateMaintenanceCommand(
                 request.DateActivity.ToDateTime(),
-                request.TypeMaintenance,
                 request.NameTechnician,
+                request.TypeMaintenance,
                 actuators
             );
 
@@ -61,7 +64,7 @@ namespace GrpcService1.Services
                 _logger.LogError(ex, "Error al crear el mantenimiento");
                 throw new RpcException(new Status(StatusCode.Internal, "Error interno del servidor"));
             }
-        }
+        }*/
 
         public override Task<MaintenanceDTO> GetMaintenance(GetRequest request, ServerCallContext context) // Cambiado
         {
@@ -100,13 +103,13 @@ namespace GrpcService1.Services
             return Task.FromResult(maintenanceResponse); // Devuelve el objeto Maintenance
         }
 
-        public override Task<Empty> UpdateMaintenance(MaintenanceDTO request, ServerCallContext context) // Cambiado
+      /*  public override Task<Empty> UpdateMaintenance(MaintenanceDTO request, ServerCallContext context) // Cambiado
         {
             var command = new UpdateMaintenanceCommand( // Cambiado
                 new Guid(request.Id),
                 request.DateActivity.ToDateTime(), // Convertir Timestamp a DateTime
-                request.TypeMaintenance,
                 request.NameTechnician,
+                request.typeMaintenance,
                 new List<maintenance_calibration_system.Domain.Datos_de_Configuracion.Actuador>()
                 );
 
@@ -114,7 +117,7 @@ namespace GrpcService1.Services
 
             return Task.FromResult(new Empty());
         }
-
+      */
         /// <summary>Devuelve todas las entidades del tipo especificado.</summary>
         /// <returns>Una colección de todas las entidades.</returns>
        /* public override Task<Empty> AddOrModifyCalibratedSensors(ModifyCalibrationDTO request, ServerCallContext context) // Cambiado

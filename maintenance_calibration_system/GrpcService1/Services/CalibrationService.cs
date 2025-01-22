@@ -4,7 +4,7 @@ using Grpc.Core;
 using maintenance_calibration_system.Application.MaintenanceActivity.Command.CreateCalibration;
 using maintenance_calibration_system.Application.MaintenanceActivity.Command.DeleteCalibration;
 using maintenance_calibration_system.Application.MaintenanceActivity.Command.UpdateCalibration;
-using maintenance_calibration_system.Application.MaintenanceActivity.Command.ModifyCalibration;
+//using maintenance_calibration_system.Application.MaintenanceActivity.Command.ModifyCalibration;
 using maintenance_calibration_system.Application.MaintenanceActivity.Queries.GetAllCalibration;
 using maintenance_calibration_system.Application.MaintenanceActivity.Queries.GetCalibration;
 using maintenance_calibration_system.Contacts;
@@ -113,7 +113,7 @@ namespace GrpcService1.Services
 
         /// <summary>Devuelve todas las entidades del tipo especificado.</summary>
         /// <returns>Una colección de todas las entidades.</returns>
-        public override Task<Empty> AddOrModifyCalibratedSensors(ModifyCalibrationDTO request, ServerCallContext context) // Cambiado
+        /*public override Task<Empty> AddOrModifyCalibratedSensors(ModifyCalibrationDTO request, ServerCallContext context) // Cambiado
         {
 
             var command = new ModifyCalibrationCommand( // Cambiado
@@ -124,7 +124,7 @@ namespace GrpcService1.Services
             var result = _mediator.Send(command).Result;
 
             return Task.FromResult(new Empty());
-        }
+        }*/
 
 
 
