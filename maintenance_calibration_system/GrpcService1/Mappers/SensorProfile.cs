@@ -119,8 +119,8 @@ namespace GrpcService1.Mappers
                         Name = src.Magnitude.Name,
                         UnitofMagnitude = src.Magnitude.UnitofMagnitude
                     }
-                } : null))
-                .ForMember(dest => dest.Null, opt => opt.MapFrom(src => src == null ? NullValue.NullValue : (NullValue?)null));
+                } : null));
+           
 
 
             CreateMap<maintenance_calibration_system.GrpcProtos.NullableSensorDTO,

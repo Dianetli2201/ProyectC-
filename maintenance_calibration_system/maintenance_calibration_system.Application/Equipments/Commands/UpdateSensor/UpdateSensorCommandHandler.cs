@@ -9,11 +9,11 @@ namespace maintenance_calibration_system.Application.Equipments.Commands.UpdateS
 {
     public class UpdateSensorCommandHandler(
         IEquipmentRepository<Sensor> equipmentRepository,
-        IUnitOfWork unitOfWork, ILogger logger) : ICommandHandler<UpdateSensorCommand, bool>
+        IUnitOfWork unitOfWork) : ICommandHandler<UpdateSensorCommand, bool>
     {
         private readonly IEquipmentRepository<Sensor> _equipmentRepository = equipmentRepository;
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
-        private readonly ILogger _logger = logger;
+
 
 
 
@@ -24,7 +24,7 @@ namespace maintenance_calibration_system.Application.Equipments.Commands.UpdateS
 
             if (existingSensor == null)
             {
-                _logger.LogWarning("Sensor with ID {SensorId} not found.", request.Id);
+
                 return Task.FromResult(false); // Devuelve false si no se encuentra el sensor
             }
 
@@ -41,7 +41,7 @@ namespace maintenance_calibration_system.Application.Equipments.Commands.UpdateS
             _equipmentRepository.Update(updatedSensor);
             _unitOfWork.SaveChanges();
 
-            _logger.LogInformation("Sensor with ID {SensorId} updated successfully.", request.Id);
+         
             return Task.FromResult(true); // Devuelve true si la actualización fue exitosa
         }
     }

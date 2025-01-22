@@ -10,11 +10,11 @@ namespace maintenance_calibration_system.Application.Plannings.Commands.UpdatePl
 {
     public class UpdatePlanningCommandHandler(
         IPlanningRepository planningRepository,
-        IUnitOfWork unitOfWork, ILogger logger) : ICommandHandler<UpdatePlanningCommand, bool>
+        IUnitOfWork unitOfWork) : ICommandHandler<UpdatePlanningCommand, bool>
     {
         private readonly IPlanningRepository _planningRepository = planningRepository;
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
-        private readonly ILogger _logger = logger;
+
 
         public Task<bool> Handle(UpdatePlanningCommand request, CancellationToken cancellationToken)
         {
@@ -23,7 +23,6 @@ namespace maintenance_calibration_system.Application.Plannings.Commands.UpdatePl
 
             if (existingPlanning == null)
             {
-                _logger.LogWarning("Planning with ID {PlanningId} not found.", request.Id);
                 return Task.FromResult(false); // Devuelve false si no se encuentra el sensor
             }
 
@@ -39,7 +38,6 @@ namespace maintenance_calibration_system.Application.Plannings.Commands.UpdatePl
             _planningRepository.Update(updatedPlanning);
             _unitOfWork.SaveChanges();
 
-            _logger.LogInformation("Planning with ID {PlanningId} updated successfully.", request.Id);
             return Task.FromResult(true); // Devuelve true si la actualización fue exitosa
         }
     }

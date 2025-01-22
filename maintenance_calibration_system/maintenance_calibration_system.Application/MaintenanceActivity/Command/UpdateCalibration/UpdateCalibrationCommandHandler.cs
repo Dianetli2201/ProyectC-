@@ -7,11 +7,11 @@ namespace maintenance_calibration_system.Application.MaintenanceActivity.Command
 {
     public class UpdateCalibrationCommandHandler(
        IMaintenanceActivityRepository<Calibration> calibrationRepository,
-        IUnitOfWork unitOfWork, ILogger logger) : ICommandHandler<UpdateCalibrationCommand, bool>
+        IUnitOfWork unitOfWork) : ICommandHandler<UpdateCalibrationCommand, bool>
     {
         private readonly IMaintenanceActivityRepository<Calibration> _calibrationRepository = (IMaintenanceActivityRepository<Calibration>)calibrationRepository; // Repositorio para manejar calibraciones
         private readonly IUnitOfWork _unitOfWork = unitOfWork; // Unidad de trabajo para manejar transacciones
-        private readonly ILogger _logger = logger;
+
 
         public Task<bool> Handle(UpdateCalibrationCommand request, CancellationToken cancellationToken)
         {
@@ -20,7 +20,6 @@ namespace maintenance_calibration_system.Application.MaintenanceActivity.Command
 
             if (existingCalibration == null)
             {
-                _logger.LogWarning("Calibration with ID {CalibrationId} not found.", request.id);
                 return Task.FromResult(false); // Retorna false si la calibración no existe
             }
 
@@ -36,7 +35,6 @@ namespace maintenance_calibration_system.Application.MaintenanceActivity.Command
             _calibrationRepository.Update(updatedCalibration);
             _unitOfWork.SaveChanges();
 
-            _logger.LogInformation("Calibration with ID {CalibrationId} updated successfully.", request.id);
             return Task.FromResult(true); // Devuelve true si la actualización fue exitosa
         }
     }
