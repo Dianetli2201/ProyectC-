@@ -16,6 +16,10 @@ namespace GrpcService1.Mappers
             CreateMap<Timestamp, DateTime>()
                 .ConvertUsing(ts => ts.ToDateTime());
 
+            // Configuración para mapear TypeMaintenance a string
+            CreateMap<TypeMaintenance, string>()
+                .ConvertUsing(enumValue => enumValue.ToString());
+
             CreateMap<Maintenance, MaintenanceDTO>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToString())) // Convertir Guid a string
                                                                                           //       .ForMember(dest => dest.DateActivity, opt => opt.MapFrom(src => src.DateActivity.ToTimestamp()))

@@ -3,6 +3,7 @@ using maintenance_calibration_system.Contacts;
 using maintenance_calibration_system.Domain.Datos_Historicos;// Asegúrate de que este espacio de nombres sea correcto
 using maintenance_calibration_system.Application.Equipments.Commands.UpdateActuador;
 using maintenance_calibration_system.Application.MaintenanceActivity.Command.CreateMaintenance;
+using maintenance_calibration_system.Application.MaintenanceActivity.Command.CreateCalibration;
 
 namespace maintenance_calibration_system.Application.MaintenanceActivity.Command.UpdateMaintenance
 {
@@ -27,8 +28,8 @@ namespace maintenance_calibration_system.Application.MaintenanceActivity.Command
             var updatedMaintenance = new Maintenance(
                 existingMaintenance.Id, // Mantener el mismo ID
                 request.DateActivity,
-                request.NameTechnician,
-                request.TypeMaintenance);
+                request.TypeMaintenance,
+                request.NameTechnician);
 
 
             // Actualizar el mantenimiento en el repositorio
