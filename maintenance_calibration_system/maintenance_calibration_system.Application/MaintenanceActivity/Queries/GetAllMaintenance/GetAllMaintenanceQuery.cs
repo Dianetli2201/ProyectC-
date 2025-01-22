@@ -4,5 +4,5 @@ using System.Collections.Generic;
 
 namespace maintenance_calibration_system.Application.MaintenanceActivity.Queries.GetAllCalibration
 {
-    public record GetAllMaintenanceQuery : IRequest<List<Maintenance>>; // Solicitud para obtener todas las calibraciones
+    public record GetAllMaintenanceQuery : IRequest<List<Maintenance>>; // Solicitud para obtener todas los mantenimientos
 }
