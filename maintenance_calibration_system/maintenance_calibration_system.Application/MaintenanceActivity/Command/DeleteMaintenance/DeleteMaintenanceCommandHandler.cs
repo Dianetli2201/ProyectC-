@@ -1,48 +1,35 @@
 ﻿using maintenance_calibration_system.Application.Abstract;
 using maintenance_calibration_system.Application.MaintenanceActivity.Command.CreateMaintenance;
-using maintenance_calibration_system.Application.MaintenanceActivity.Command.DeleteMaintenance;
-using maintenance_calibration_system.Domain.Datos_Historicos;
 using maintenance_calibration_system.Contacts;
-using System;
-using System.Threading.Tasks;
+using maintenance_calibration_system.Domain.Datos_Historicos; // Asegúrate de que este espacio de nombres sea correcto
 
-namespace maintenance_calibration_system.Application.MaintenanceActivity.CommandHandlers
+
+namespace maintenance_calibration_system.Application.MaintenanceActivity.Command.DeleteMaintenance
 {
-    public class DeleteMaintenanceCommandHandler : ICommandHandler<DeleteMaintenanceCommand, bool>
+    public class DeleteMaintenanceCommandHandler(
+       IMaintenanceActivityRepository<Maintenance> maintenanceRepository,
+        IUnitOfWork unitOfWork) : ICommandHandler<DeleteMaintenanceCommand, bool>
     {
-        private readonly IMaintenanceActivityRepository _maintenanceRepository;
-        private readonly IMaintenanceActivityDbContext _maintenanceDbContext;
+        private readonly IMaintenanceActivityRepository<Maintenance> _maintenanceRepository = (IMaintenanceActivityRepository<Maintenance>)maintenanceRepository; // Repositorio para manejar calibraciones
+        private readonly IUnitOfWork _unitOfWork = unitOfWork; // Unidad de trabajo para manejar transacciones
 
-        public DeleteMaintenanceCommandHandler(IMaintenanceActivityRepository maintenanceRepository, IMaintenanceActivityDbContext maintenanceDbContext)
+        public Task<bool> Handle(DeleteMaintenanceCommand request, CancellationToken cancellationToken)
         {
-            _maintenanceRepository = maintenanceRepository;
-            _maintenanceDbContext = maintenanceDbContext;
-        }
+            bool result = true;
 
-        public async Task<bool> Handle(DeleteMaintenanceCommand request, CancellationToken cancellationToken)
-        {
             try
             {
-                // Buscar la actividad de mantenimiento por ID
-                var maintenance = await _maintenanceRepository.GetByIdAsync(request.Id, cancellationToken);
-
-                if (maintenance == null)
-                {
-                    return false; // No se encontró la actividad de mantenimiento
-                }
-
-                // Eliminar la actividad de mantenimiento
-                _maintenanceRepository.Remove(maintenance);
-                await _maintenanceDbContext.SaveChangesAsync(cancellationToken);
-
-                return true; // Actividad de mantenimiento eliminada correctamente
+                _maintenanceRepository.Delete(request.Id); // Eliminar la calibración por ID
+                _unitOfWork.SaveChanges(); // Guardar cambios en la unidad de trabajo
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // Manejar la excepción según sea necesario
-                Console.WriteLine($"Error al eliminar la actividad de mantenimiento: {ex.Message}");
-                return false;
+                // Manejo de excepciones (opcional)
+                result = false; // Si ocurre un error, se establece result a false
+                // Aquí puedes registrar el error o manejarlo según sea necesario
             }
+
+            return Task.FromResult(result); // Retornar el resultado de la operación
         }
     }
 }
