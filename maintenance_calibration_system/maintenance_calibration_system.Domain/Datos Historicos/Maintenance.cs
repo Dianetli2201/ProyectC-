@@ -35,5 +35,12 @@ namespace maintenance_calibration_system.Domain.Datos_Historicos
             TypeMaintenance = typeMaintenance;
             MaintenanceActuador = new List<Actuador>();
         }
+
+        public Maintenance(Guid id, DateTime dateActivity, TypeMaintenance typeMaintenance, string nameTechnician, List<Actuador> maintenanceActuador)
+           : base(id, dateActivity, nameTechnician)
+        {
+            TypeMaintenance = typeMaintenance;
+            MaintenanceActuador = maintenanceActuador;
+        }
     }
 }

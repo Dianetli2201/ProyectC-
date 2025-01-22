@@ -4,7 +4,7 @@ using Grpc.Core;
 using maintenance_calibration_system.Application.MaintenanceActivity.Command.CreateMaintenance;
 using maintenance_calibration_system.Application.MaintenanceActivity.Command.DeleteMaintenance;
 using maintenance_calibration_system.Application.MaintenanceActivity.Command.UpdateMaintenance;
-//using maintenance_calibration_system.Application.MaintenanceActivity.Command.ModifyMaintenance;
+using maintenance_calibration_system.Application.MaintenanceActivity.Command.ModifyMaintenance;
 using maintenance_calibration_system.Application.MaintenanceActivity.Queries.GetAllMaintenance;
 using maintenance_calibration_system.Application.MaintenanceActivity.Queries.GetAllCalibration;
 using maintenance_calibration_system.Application.MaintenanceActivity.Queries.GetCalibration;
@@ -42,7 +42,7 @@ namespace GrpcService1.Services
             _unitOfWork = unitOfWork;
         }
 
-       /* public override async Task<MaintenanceDTO> CreateMaintenance(CreateMaintenanceRequest request, ServerCallContext context)
+        public override async Task<MaintenanceDTO> CreateMaintenance(CreateMaintenanceRequest request, ServerCallContext context)
         {
            
             var actuators = new List<maintenance_calibration_system.Domain.Datos_de_Configuracion.Actuador>();
@@ -50,7 +50,7 @@ namespace GrpcService1.Services
             var command = new CreateMaintenanceCommand(
                 request.DateActivity.ToDateTime(),
                 request.NameTechnician,
-                request.TypeMaintenance,
+               (maintenance_calibration_system.Domain.Types.TypeMaintenance)request.TypeMaintenance,
                 actuators
             );
 
@@ -64,7 +64,7 @@ namespace GrpcService1.Services
                 _logger.LogError(ex, "Error al crear el mantenimiento");
                 throw new RpcException(new Status(StatusCode.Internal, "Error interno del servidor"));
             }
-        }*/
+        }
 
         public override Task<MaintenanceDTO> GetMaintenance(GetRequest request, ServerCallContext context) // Cambiado
         {
@@ -74,12 +74,7 @@ namespace GrpcService1.Services
             if (result == null)
             {
                 _logger.LogWarning("Mantenimiento no encontrado para ID: {MaintenanceId}", request.Id); // Log de advertencia
-                //return Task.FromResult<NullableMaintenanceDTO>(null);
-                if (result == null)
-                {
-                    _logger.LogWarning("Mantenimiento no encontrado para ID: {MaintenanceId}", request.Id);
-                    //    return Task.FromResult(new MaintenanceDTO { Null = Google.Protobuf.WellKnownTypes.NullValue.NullValue });
-                }
+                return Task.FromResult<MaintenanceDTO>(null);
             }
             else
             {

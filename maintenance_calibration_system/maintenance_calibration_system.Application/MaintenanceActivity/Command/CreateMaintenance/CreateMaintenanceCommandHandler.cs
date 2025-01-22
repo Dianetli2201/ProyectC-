@@ -25,9 +25,6 @@ namespace maintenance_calibration_system.Application.MaintenanceActivity.Command
                 request.typeMaintenance,
                 request.NameTechnician);
 
-            // Asumiendo que necesitas agregar Actuadores con Mantenimienti al Maintenance
-
-
             _maintenanceRepository.Add(result);
             _unitOfWork.SaveChanges();
 
