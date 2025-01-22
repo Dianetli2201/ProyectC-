@@ -49,7 +49,10 @@ public abstract class RepositoryBase<T>(ApplicationContext context) : IRepositor
     /// <summary>Busca una entidad por su identificador.</summary>
     public virtual T? GetById(Guid id)
     {
-        return _context.Set<T>().Find(id);
+        var entity = _context.Set<T>().Find(id);
+        if (entity == null)
+            return null;
+        return entity;
     }
 
     /// <summary>Devuelve todas las entidades del tipo especificado.</summary>

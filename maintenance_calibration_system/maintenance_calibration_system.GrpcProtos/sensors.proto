@@ -33,7 +33,7 @@ message Sensors{
 
 message NullableSensorDTO{
 	oneof kind{
-		google.protobuf.NullValue null = 1;
+		google.protobuf.Empty null = 1;
 		SensorDTO sensor = 2;
 	}
 }

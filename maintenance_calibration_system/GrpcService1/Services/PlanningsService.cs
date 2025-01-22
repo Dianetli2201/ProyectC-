@@ -47,7 +47,7 @@ namespace GrpcService1.Services
             if (result == null)
             {
                 _logger.LogWarning("Planiación no encontrada para ID: {PlanningId}", request.Id); // Log de advertencia
-                return Task.FromResult<NullablePlanningDTO>(null);
+                return Task.FromResult(new NullablePlanningDTO { Null = new Google.Protobuf.WellKnownTypes.Empty() });
             }
             else
             {

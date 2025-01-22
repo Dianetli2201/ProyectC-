@@ -32,7 +32,7 @@ message Plannings {
 
 message NullablePlanningDTO {
     oneof kind {
-        google.protobuf.NullValue null = 1;
+        google.protobuf.Empty null = 1;
         PlanningDTO planning = 2;
     }
 }

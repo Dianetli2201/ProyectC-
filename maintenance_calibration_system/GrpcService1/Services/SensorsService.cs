@@ -52,10 +52,11 @@ namespace GrpcService1.Services
                 if (result == null)
                 {
                     _logger.LogWarning("Sensor with ID {SensorId} not found.", request.Id);
-                    return Task.FromResult<NullableSensorDTO>(null); // Return an empty DTO or handle as required
+                  return Task.FromResult(new NullableSensorDTO { Null = new Google.Protobuf.WellKnownTypes.Empty() });
+
                 }
 
-                else
+            else
                 {
                     _logger.LogInformation("Actuador encontrado para ID: {SensorId}", request.Id); // Log de información
                 }

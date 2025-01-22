@@ -120,7 +120,6 @@ namespace GrpcService1.Mappers
                         UnitofMagnitude = src.Magnitude.UnitofMagnitude
                     }
                 } : null));
-           
 
 
             CreateMap<maintenance_calibration_system.GrpcProtos.NullableSensorDTO,

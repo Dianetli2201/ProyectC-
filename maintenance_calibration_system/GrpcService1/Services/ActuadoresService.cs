@@ -52,7 +52,7 @@ namespace GrpcService1.Services
             if (result == null)
             {
                 _logger.LogWarning("Actuador no encontrado para ID: {ActuadorId}", request.Id); // Log de advertencia
-                return Task.FromResult<NullableActuadorDTO>(null);
+                return Task.FromResult(new NullableActuadorDTO { Null = new Google.Protobuf.WellKnownTypes.Empty() });
             }
             else
             {
