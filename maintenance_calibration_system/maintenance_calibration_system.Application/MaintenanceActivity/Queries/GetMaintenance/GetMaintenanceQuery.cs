@@ -4,5 +4,5 @@ using MediatR;
 
 namespace maintenance_calibration_system.Application.MaintenanceActivity.Queries.GetCalibration
 {
-    public record GetMaintenanceByIdQuery(Guid Id) : IRequest<Maintenance>; // Solicitud para obtener una calibración por ID
+    public record GetMaintenanceByIdQuery(Guid Id) : IRequest<Maintenance>; // Solicitud para obtener un mantenimiento por ID
 }

@@ -1,73 +1,41 @@
 ﻿using maintenance_calibration_system.Application.Abstract;
-using maintenance_calibration_system.Application.MaintenanceActivity.Command.UpdateMaintenance;
-using maintenance_calibration_system.Domain.Datos_Historicos;
-using maintenance_calibration_system.Domain.Datos_de_Configuracion;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using maintenance_calibration_system.Contacts;
+using maintenance_calibration_system.Domain.Datos_Historicos;// Asegúrate de que este espacio de nombres sea correcto
+using maintenance_calibration_system.Application.Equipments.Commands.UpdateActuador;
+using maintenance_calibration_system.Application.MaintenanceActivity.Command.CreateMaintenance;
 
-namespace maintenance_calibration_system.Application.MaintenanceActivity.CommandHandlers
+namespace maintenance_calibration_system.Application.MaintenanceActivity.Command.UpdateMaintenance
 {
-    public class UpdateMaintenanceCommandHandler : ICommandHandler<UpdateMaintenanceCommand, Maintenance>
+    public class UpdateMaintenanceCommandHandler(
+       IMaintenanceActivityRepository<Maintenance> maintenanceRepository,
+        IUnitOfWork unitOfWork) : ICommandHandler<UpdateMaintenanceCommand,bool>
     {
-        private readonly IMaintenanceActivityRepository _maintenanceRepository;
-        private readonly IMaintenanceActivityDbContext _maintenanceDbContext;
+        private readonly IMaintenanceActivityRepository<Maintenance> _maintenanceRepository = (IMaintenanceActivityRepository<Maintenance>)maintenanceRepository; // Repositorio para manejar mantenimientos
+        private readonly IUnitOfWork _unitOfWork = unitOfWork; // Unidad de trabajo para manejar transacciones
 
-        public UpdateMaintenanceCommandHandler(IMaintenanceActivityRepository maintenanceRepository, IMaintenanceActivityDbContext maintenanceDbContext)
+        public Task<bool> Handle(UpdateMaintenanceCommand request, CancellationToken cancellationToken)
         {
-            _maintenanceRepository = maintenanceRepository;
-            _maintenanceDbContext = maintenanceDbContext;
-        }
+            // Buscar el mantenimiento existente
+            var existingMaintenance = _maintenanceRepository.GetById(request.id);
 
-        public async Task<Maintenance> Handle(UpdateMaintenanceCommand request, CancellationToken cancellationToken)
-        {
-            try
+            if (existingMaintenance == null)
             {
-                // Buscar la actividad de mantenimiento por ID
-                var maintenance = await _maintenanceRepository.GetByIdAsync(request.Id, cancellationToken);
-
-                if (maintenance == null)
-                {
-                    throw new InvalidOperationException("No se encontró la actividad de mantenimiento");
-                }
-
-                // Actualizar los campos que se han proporcionado
-                if (request.DateActivity.HasValue)
-                {
-                    maintenance.DateActivity = request.DateActivity.Value;
-                }
-
-                if (!string.IsNullOrEmpty(request.NameTechnician))
-                {
-                    maintenance.NameTechnician = request.NameTechnician;
-                }
-
-                if (request.TypeMaintenance.HasValue)
-                {
-                    maintenance.TypeMaintenance = request.TypeMaintenance.Value;
-                }
-
-                if (request.MaintenanceActuators != null)
-                {
-                    maintenance.MaintenanceActuador.Clear();
-                    foreach (var actuador in request.MaintenanceActuators)
-                    {
-                        maintenance.MaintenanceActuador.Add(actuador);
-                    }
-                }
-
-                // Guardar los cambios en la base de datos
-                await _maintenanceDbContext.SaveChangesAsync(cancellationToken);
-
-                return maintenance;
+                return Task.FromResult(false); // Retorna false si el mantenimiento no existe
             }
-            catch (Exception ex)
-            {
-                // Manejar la excepción según sea necesario
-                Console.WriteLine($"Error al actualizar la actividad de mantenimiento: {ex.Message}");
-                throw;
-            }
+
+            // Crear un nuevo objeto Maintenance con los valores actualizados usando el constructor
+            var updatedMaintenance = new Maintenance(
+                existingMaintenance.Id, // Mantener el mismo ID
+                request.DateActivity,
+                request.NameTechnician,
+                request.TypeMaintenance);
+
+
+            // Actualizar el mantenimiento en el repositorio
+            _maintenanceRepository.Update(updatedMaintenance);
+            _unitOfWork.SaveChanges();
+
+            return Task.FromResult(true); // Devuelve true si la actualización fue exitosa
         }
     }
 }
